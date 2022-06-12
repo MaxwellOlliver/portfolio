@@ -11,6 +11,38 @@ type ProjectItemProps = {
   onChangeFocusPriority: (id: string) => void;
 };
 
+type Project = {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  gitUrl: string;
+};
+
+const projects: Project[] = [
+  {
+    id: 'project-1',
+    title: 'Project 1',
+    description: '',
+    imageUrl: '',
+    gitUrl: '',
+  },
+  {
+    id: 'project-2',
+    title: 'Project 1',
+    description: '',
+    imageUrl: '',
+    gitUrl: '',
+  },
+  {
+    id: 'project-3',
+    title: 'Project 1',
+    description: '',
+    imageUrl: '',
+    gitUrl: '',
+  },
+];
+
 function ProjectItem({
   id,
   onChangeFocusPriority,
@@ -59,9 +91,12 @@ export default function Projects({ isActive }: ProjectsProps): JSX.Element {
   const [isDown, setIsDown] = useState(false);
   const [startX, setStartX] = useState<number>(0);
   const [scrollLeft, setSScrollLeft] = useState<number>(0);
-  const [focusPriority, setFocusPriority] = useState<string | null>(null);
+  const [focusPriority, setFocusPriority] = useState<string>(projects[0].id);
 
   const carousel = useRef<HTMLDivElement>(null);
+
+  const getProjectIndexById = (id: string) =>
+    projects.map((p) => p.id).indexOf(id);
 
   const handleExecuteFocusPriority = () => {
     if (focusPriority) {
@@ -70,8 +105,8 @@ export default function Projects({ isActive }: ProjectsProps): JSX.Element {
       console.log(focusElement.getBoundingClientRect().left);
 
       const slider = carousel.current;
-      const x = slider.offsetLeft;
-      const elementX = focusElement.getBoundingClientRect().left - x;
+      const x = slider.getBoundingClientRect().left;
+      const elementX = focusElement.getBoundingClientRect().left - x - 25;
 
       slider.scrollTo({
         left: elementX + slider.scrollLeft,
@@ -120,6 +155,17 @@ export default function Projects({ isActive }: ProjectsProps): JSX.Element {
       })}
       key="projects-slide"
     >
+      <div className="projects__carousel-progress">
+        <div
+          className="carousel-progress__bar"
+          style={{
+            width: `${
+              ((getProjectIndexById(focusPriority as string) + 1) * 100) /
+              projects.length
+            }%`,
+          }}
+        ></div>
+      </div>
       <div className="projects__content">
         {/* <header className="content__navbar">
           <img src={Logo} alt="logo" className="navbar__logo" />
@@ -131,25 +177,22 @@ export default function Projects({ isActive }: ProjectsProps): JSX.Element {
         </section>
         <div className="content__projects-carousel">
           <div
-            className="projects-carousel__carousel-wrapper"
+            className={classNames('projects-carousel__carousel-wrapper', {
+              '--is-grabbing': isDown,
+            })}
             ref={carousel}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseLeave}
             onMouseMove={handleMouseMove}
           >
-            <ProjectItem
-              onChangeFocusPriority={handleChangeFocusPriority}
-              id="item-1"
-            />
-            <ProjectItem
-              onChangeFocusPriority={handleChangeFocusPriority}
-              id="item-2"
-            />
-            <ProjectItem
-              onChangeFocusPriority={handleChangeFocusPriority}
-              id="item-3"
-            />
+            {projects.map((project) => (
+              <ProjectItem
+                onChangeFocusPriority={handleChangeFocusPriority}
+                id={project.id}
+                key={project.id}
+              />
+            ))}
           </div>
         </div>
         <footer className="content__footer">

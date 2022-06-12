@@ -335,6 +335,21 @@ export const ProjectsContainer = styled.div`
   color: #333;
   z-index: 0;
 
+  .projects__carousel-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+
+    .carousel-progress__bar {
+      background-color: #333;
+      width: 0%;
+      height: 100%;
+      transition: width 0.3s ease-in-out;
+    }
+  }
+
   .projects__content {
     width: 100%;
     height: 100%;
@@ -398,6 +413,7 @@ export const ProjectsContainer = styled.div`
         position: relative;
         display: flex;
         overflow: hidden;
+        cursor: pointer;
 
         &.--is-grabbing {
           cursor: grabbing;

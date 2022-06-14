@@ -1,15 +1,17 @@
 import { ProjectsContainer } from './styles';
-import Logo from '../../assets/moondev-v2.svg';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../utils/classNames';
+import JsLogo from '../../assets/js.svg';
+import TsLogo from '../../assets/ts.svg';
+import HtmlLogo from '../../assets/html.svg';
+import CssLogo from '../../assets/css.svg';
+import VueLogo from '../../assets/vue.svg';
+import ReactLogo from '../../assets/react.svg';
+import { GitHub } from 'react-feather';
 
 type ProjectsProps = { isActive: boolean };
 
-type ProjectItemProps = {
-  show?: string;
-  id: string;
-  onChangeFocusPriority: (id: string) => void;
-};
+type Languages = 'javascript' | 'typescript' | 'vue' | 'react' | 'html' | 'css';
 
 type Project = {
   id: string;
@@ -17,35 +19,58 @@ type Project = {
   description: string;
   imageUrl: string;
   gitUrl: string;
+  languages: Languages[];
+};
+
+type ProjectItemProps = {
+  show?: string;
+  id: string;
+  onChangeFocusPriority: (id: string) => void;
+  data: Project;
+};
+
+const logoByLanguage: { [k in Languages]: string } = {
+  javascript: JsLogo,
+  typescript: TsLogo,
+  html: HtmlLogo,
+  css: CssLogo,
+  vue: VueLogo,
+  react: ReactLogo,
 };
 
 const projects: Project[] = [
   {
     id: 'project-1',
-    title: 'Project 1',
-    description: '',
-    imageUrl: '',
-    gitUrl: '',
+    title: 'Riot Client UI clone',
+    description:
+      'Clone de interface da plataforma para controle de acessos aos jogos desenvolvidos pela Riot Games.',
+    imageUrl: 'https://i.ibb.co/1XkQss6/localhost-3002.png',
+    gitUrl: 'https://github.com/MaxwellOlliver/uiclone-riot-client',
+    languages: ['javascript', 'react', 'html', 'css'],
   },
   {
     id: 'project-2',
-    title: 'Project 1',
-    description: '',
-    imageUrl: '',
-    gitUrl: '',
+    title: 'Portfólio',
+    description:
+      'Projeto voltado à mostrar minhas habilidades como desenvolvedor frontend e falar um pouco sobre mim.',
+    imageUrl: 'https://i.ibb.co/ZSrFdPf/localhost-3000-1.png',
+    gitUrl: 'https://github.com/MaxwellOlliver/portfolio',
+    languages: ['typescript', 'react', 'html', 'css'],
   },
   {
     id: 'project-3',
-    title: 'Project 1',
-    description: '',
-    imageUrl: '',
-    gitUrl: '',
+    title: 'Spotify Client',
+    description: 'Recriação da interface consumindo a api pública do spotify.',
+    imageUrl: 'https://i.ibb.co/6gN6Ws4/localhost-3001.png',
+    gitUrl: 'https://github.com/MaxwellOlliver/spotify-client',
+    languages: ['typescript', 'react', 'html', 'css'],
   },
 ];
 
 function ProjectItem({
   id,
   onChangeFocusPriority,
+  data,
 }: ProjectItemProps): JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -74,14 +99,31 @@ function ProjectItem({
 
   return (
     <div className="carousel-wrapper__item" id={id} ref={containerRef}>
-      <span>project name</span>
-      <div className="item__image"></div>
+      <div className="item__image">
+        <img src={data.imageUrl} alt={data.title} />
+      </div>
       <div className="item__info">
-        <h1>Project Name</h1>
-        <p>
-          Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-          dolor sit amet{' '}
-        </p>
+        <ul className="info__languages">
+          {data.languages.map((language, index) => (
+            <li
+              className="languages__icon"
+              style={{ animationDelay: `${0.5 + index * 0.2}s` }}
+              key={index}
+            >
+              <img
+                src={logoByLanguage[language]}
+                alt={language}
+                title={language}
+              />
+            </li>
+          ))}
+        </ul>
+        <h1>{data.title}</h1>
+        <p>{data.description}</p>
+        <a href={data.gitUrl} target="_blank" rel="noreferrer nooponer">
+          <GitHub />
+          ver no GitHub
+        </a>
       </div>
     </div>
   );
@@ -90,30 +132,38 @@ function ProjectItem({
 export default function Projects({ isActive }: ProjectsProps): JSX.Element {
   const [isDown, setIsDown] = useState(false);
   const [startX, setStartX] = useState<number>(0);
-  const [scrollLeft, setSScrollLeft] = useState<number>(0);
+  const [scrollLeft, setScrollLeft] = useState<number>(0);
   const [focusPriority, setFocusPriority] = useState<string>(projects[0].id);
+  const cacheIsActive = useRef<boolean>(false);
 
   const carousel = useRef<HTMLDivElement>(null);
 
   const getProjectIndexById = (id: string) =>
     projects.map((p) => p.id).indexOf(id);
 
-  const handleExecuteFocusPriority = () => {
-    if (focusPriority) {
-      const focusElement = document.getElementById(focusPriority);
+  const handleExecuteFocusPriority = (_focusPriority?: string) => {
+    const focusPriorityData = _focusPriority || focusPriority;
+    if (focusPriorityData) {
+      const focusElement = document.getElementById(focusPriorityData);
       if (!focusElement || !carousel.current) return;
-      console.log(focusElement.getBoundingClientRect().left);
 
       const slider = carousel.current;
       const x = slider.getBoundingClientRect().left;
-      const elementX = focusElement.getBoundingClientRect().left - x - 25;
+      const elementX = focusElement.getBoundingClientRect().left - x;
 
       slider.scrollTo({
-        left: elementX + slider.scrollLeft,
+        left: slider.scrollLeft + elementX,
         behavior: 'smooth',
       });
     }
   };
+
+  useEffect(() => {
+    if (!isActive) {
+      setFocusPriority(projects[0].id);
+      handleExecuteFocusPriority(projects[0].id);
+    }
+  }, [isActive]);
 
   const handleMouseDown = (e: MouseEvent) => {
     if (!carousel.current) return;
@@ -122,7 +172,7 @@ export default function Projects({ isActive }: ProjectsProps): JSX.Element {
 
     setIsDown(true);
     setStartX(e.pageX - slider.offsetLeft);
-    setSScrollLeft(slider.scrollLeft);
+    setScrollLeft(slider.scrollLeft);
   };
 
   const handleMouseLeave = () => {
@@ -140,7 +190,7 @@ export default function Projects({ isActive }: ProjectsProps): JSX.Element {
     const slider = carousel.current;
     e.preventDefault();
     const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 0.8;
+    const walk = x - startX;
     slider.scrollLeft = scrollLeft - walk;
   };
 
@@ -155,25 +205,10 @@ export default function Projects({ isActive }: ProjectsProps): JSX.Element {
       })}
       key="projects-slide"
     >
-      <div className="projects__carousel-progress">
-        <div
-          className="carousel-progress__bar"
-          style={{
-            width: `${
-              ((getProjectIndexById(focusPriority as string) + 1) * 100) /
-              projects.length
-            }%`,
-          }}
-        ></div>
-      </div>
       <div className="projects__content">
-        {/* <header className="content__navbar">
-          <img src={Logo} alt="logo" className="navbar__logo" />
-        </header> */}
         <section className="content__text-content">
           <h2 className="text">maxwell.macedo</h2>
           <h1 className="text-content__title">Meus projetos</h1>
-          {/* <p className="text-content__subtitle">Lorem ipsum dolor sit amet</p> */}
         </section>
         <div className="content__projects-carousel">
           <div
@@ -191,14 +226,31 @@ export default function Projects({ isActive }: ProjectsProps): JSX.Element {
                 onChangeFocusPriority={handleChangeFocusPriority}
                 id={project.id}
                 key={project.id}
+                data={project}
               />
             ))}
           </div>
+          <div className="projects-carousel__progress">
+            <svg width="80" height="80" viewBox="0 0 120 120">
+              <circle
+                cx="60"
+                cy="60"
+                r="54"
+                fill="none"
+                stroke="#333"
+                strokeWidth="2px"
+                pathLength="100"
+                strokeDashoffset={
+                  100 -
+                  ((getProjectIndexById(focusPriority as string) + 1) * 100) /
+                    projects.length
+                }
+                strokeDasharray="100"
+              />
+            </svg>
+            <span>{getProjectIndexById(focusPriority as string) + 1}</span>
+          </div>
         </div>
-        <footer className="content__footer">
-          {/* <button className="footer__button --filled">ver mais</button>
-      <button className="footer__button">entrar em contato</button> */}
-        </footer>
       </div>
     </ProjectsContainer>
   );

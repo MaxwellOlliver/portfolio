@@ -68,7 +68,6 @@ export const Container = styled.div`
   min-height: 100vh;
 
   .home__wheel-progression {
-    width: 100%;
     position: fixed;
     top: 0;
     right: 0;
@@ -213,6 +212,42 @@ export const LandingContainer = styled.div`
   position: relative;
   overflow: hidden;
   z-index: 0;
+
+  .landing__side-info {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1;
+    padding: 2rem;
+
+    .side-info__github-link {
+      width: fit-content;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      svg {
+        cursor: pointer;
+        margin-right: 5px;
+      }
+    }
+
+    .side-info__author-credits {
+      font-size: 0.85rem;
+
+      a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 600;
+      }
+    }
+  }
 
   .landing__content {
     width: 100%;
@@ -405,11 +440,12 @@ export const ProjectsContainer = styled.div`
       justify-content: center;
       align-items: center;
       padding: 2rem 0;
+      position: relative;
 
       .projects-carousel__carousel-wrapper {
         width: 100%;
         height: 100%;
-        max-width: 80%;
+        max-width: 100%;
         position: relative;
         display: flex;
         overflow: hidden;
@@ -423,33 +459,28 @@ export const ProjectsContainer = styled.div`
           min-width: 100%;
           height: 100%;
           display: flex;
-          padding-left: 25px;
           top: 0;
           left: 0;
           position: relative;
-          transition: transform 0.3s;
 
           user-select: none;
           background-color: #fff;
           overflow: hidden;
 
-          &:hover {
-            transform: scale(0.98);
-          }
-
-          span {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            transform: rotate(-90deg);
-            transform-origin: 0% 0%;
-            color: #888888;
-          }
-
           .item__image {
             width: 50%;
+            max-width: 50%;
             height: 100%;
-            background-color: #d9d9d9;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+
+            img {
+              width: 100%;
+
+              border-radius: 5px;
+              -webkit-user-drag: none;
+            }
           }
 
           .item__info {
@@ -461,18 +492,82 @@ export const ProjectsContainer = styled.div`
             align-items: flex-start;
             text-align: left;
             padding: 2rem;
+            transition: transform 0.3s;
+
+            .info__languages {
+              width: 100%;
+              display: flex;
+              list-style: none;
+
+              li {
+                width: fit-content;
+                margin-right: 7px;
+
+                &:last-child {
+                  margin-right: 0px;
+                }
+
+                img {
+                  width: 35px;
+                }
+              }
+            }
 
             h1 {
-              font-size: 3rem;
+              font-size: 2.5rem;
               margin-bottom: 2rem;
             }
 
             p {
-              font-size: 24px;
+              font-size: 22px;
               color: #888888;
               font-weight: lighter;
+              margin-bottom: 2rem;
+            }
+
+            a {
+              color: #333;
+              display: flex;
+              align-items: center;
+              text-decoration: none;
+
+              svg {
+                margin-right: 5px;
+              }
             }
           }
+
+          &:hover {
+            .item__image,
+            .item__info {
+              transform: scale(0.98) !important;
+            }
+          }
+        }
+      }
+
+      .projects-carousel__progress {
+        position: absolute;
+        bottom: -80px;
+        right: 0;
+        width: 80px;
+        height: 80px;
+
+        svg {
+          transform: rotate(-90deg);
+
+          circle {
+            transition: all 0.3s;
+          }
+        }
+
+        span {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 2rem;
+          font-weight: lighter;
         }
       }
     }
@@ -496,11 +591,21 @@ export const ProjectsContainer = styled.div`
         .projects-carousel__carousel-wrapper {
           .carousel-wrapper__item {
             .item__image {
-              transform: translateX(-20%);
-              opacity: 0;
-              animation: ${animations.slideRight} 0.5s 0.5s ease-in-out forwards;
+              img {
+                transform: translateX(-20%);
+                opacity: 0;
+                animation: ${animations.slideRight} 0.5s 0.5s ease-in-out
+                  forwards;
+              }
             }
             .item__info {
+              .info__languages {
+                li {
+                  transform: translateY(110%);
+                  opacity: 0;
+                  animation: ${animations.slideUp} 0.3s ease-in-out forwards;
+                }
+              }
               h1 {
                 transform: translateY(110%);
                 opacity: 0;
@@ -511,6 +616,12 @@ export const ProjectsContainer = styled.div`
                 transform: translateY(110%);
                 opacity: 0;
                 animation: ${animations.slideUp} 0.5s 1s ease-in-out forwards;
+              }
+
+              a {
+                transform: translateY(110%);
+                opacity: 0;
+                animation: ${animations.slideUp} 0.5s 1.3s ease-in-out forwards;
               }
             }
           }

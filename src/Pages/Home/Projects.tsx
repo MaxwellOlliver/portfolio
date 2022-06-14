@@ -41,15 +41,6 @@ const logoByLanguage: { [k in Languages]: string } = {
 const projects: Project[] = [
   {
     id: 'project-1',
-    title: 'Riot Client UI clone',
-    description:
-      'Clone de interface da plataforma para controle de acessos aos jogos desenvolvidos pela Riot Games.',
-    imageUrl: 'https://i.ibb.co/1XkQss6/localhost-3002.png',
-    gitUrl: 'https://github.com/MaxwellOlliver/uiclone-riot-client',
-    languages: ['javascript', 'react', 'html', 'css'],
-  },
-  {
-    id: 'project-2',
     title: 'Portfólio',
     description:
       'Projeto voltado à mostrar minhas habilidades como desenvolvedor frontend e falar um pouco sobre mim.',
@@ -58,12 +49,31 @@ const projects: Project[] = [
     languages: ['typescript', 'react', 'html', 'css'],
   },
   {
+    id: 'project-2',
+    title: 'Riot Client UI clone',
+    description:
+      'Clone de interface da plataforma para controle de acessos aos jogos desenvolvidos pela Riot Games.',
+    imageUrl: 'https://i.ibb.co/1XkQss6/localhost-3002.png',
+    gitUrl: 'https://github.com/MaxwellOlliver/uiclone-riot-client',
+    languages: ['javascript', 'react', 'html', 'css'],
+  },
+
+  {
     id: 'project-3',
     title: 'Spotify Client',
     description: 'Recriação da interface consumindo a api pública do spotify.',
     imageUrl: 'https://i.ibb.co/6gN6Ws4/localhost-3001.png',
     gitUrl: 'https://github.com/MaxwellOlliver/spotify-client',
     languages: ['typescript', 'react', 'html', 'css'],
+  },
+  {
+    id: 'project-4',
+    title: 'Virtual Keyboard',
+    description:
+      'Teclado virtual responsivo, inspirado no modelo de teclados mobile.',
+    imageUrl: 'https://i.ibb.co/sQqC89w/virtual-keyboard.png',
+    gitUrl: 'https://github.com/MaxwellOlliver/spotify-client',
+    languages: ['typescript', 'vue', 'html', 'css'],
   },
 ];
 

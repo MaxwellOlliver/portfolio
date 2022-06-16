@@ -43,6 +43,13 @@ function Home() {
     return slide === lastSlideFromStack;
   };
 
+  const goToPage = (page: Slide) => {
+    if (canAddOrRemoveFromStack && !isSlideVisible(page)) {
+      const _sliderPages = sliderPages;
+      setSlideStack(_sliderPages.slice(0, sliderPages.indexOf(page) + 1));
+    }
+  };
+
   return (
     <Container
       className="home"
@@ -58,6 +65,7 @@ function Home() {
             className={classNames({
               '--active': isSlideVisible('home'),
             })}
+            onClick={() => goToPage('home')}
           >
             <span>Início</span>
             <div></div>
@@ -66,6 +74,7 @@ function Home() {
             className={classNames({
               '--active': isSlideVisible('projects'),
             })}
+            onClick={() => goToPage('projects')}
           >
             <span>Projetos</span>
             <div></div>
@@ -74,6 +83,7 @@ function Home() {
             className={classNames({
               '--active': isSlideVisible('about-me'),
             })}
+            onClick={() => goToPage('about-me')}
           >
             <span>Sobre mim</span>
             <div></div>

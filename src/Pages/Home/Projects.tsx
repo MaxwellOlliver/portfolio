@@ -7,7 +7,8 @@ import HtmlLogo from '../../assets/html.svg';
 import CssLogo from '../../assets/css.svg';
 import VueLogo from '../../assets/vue.svg';
 import ReactLogo from '../../assets/react.svg';
-import { GitHub } from 'react-feather';
+import { GitHub, Linkedin } from 'react-feather';
+import Drag from '../../assets/drag.gif';
 
 type ProjectsProps = { isActive: boolean };
 
@@ -19,11 +20,11 @@ type Project = {
   description: string;
   imageUrl: string;
   gitUrl: string;
+  linkedinPostUrl?: string;
   languages: Languages[];
 };
 
 type ProjectItemProps = {
-  show?: string;
   id: string;
   onChangeFocusPriority: (id: string) => void;
   data: Project;
@@ -55,17 +56,18 @@ const projects: Project[] = [
       'Clone de interface da plataforma para controle de acessos aos jogos desenvolvidos pela Riot Games.',
     imageUrl: 'https://i.ibb.co/1XkQss6/localhost-3002.png',
     gitUrl: 'https://github.com/MaxwellOlliver/uiclone-riot-client',
+    linkedinPostUrl:
+      'https://www.linkedin.com/feed/update/urn:li:activity:6720548876941615104/',
     languages: ['javascript', 'react', 'html', 'css'],
   },
-
-  {
-    id: 'project-3',
-    title: 'Spotify Client',
-    description: 'Recriação da interface consumindo a api pública do spotify.',
-    imageUrl: 'https://i.ibb.co/6gN6Ws4/localhost-3001.png',
-    gitUrl: 'https://github.com/MaxwellOlliver/spotify-client',
-    languages: ['typescript', 'react', 'html', 'css'],
-  },
+  // {
+  //   id: 'project-3',
+  //   title: 'Spotify Client',
+  //   description: 'Recriação da interface consumindo a api pública do spotify.',
+  //   imageUrl: 'https://i.ibb.co/6gN6Ws4/localhost-3001.png',
+  //   gitUrl: 'https://github.com/MaxwellOlliver/spotify-client',
+  //   languages: ['typescript', 'react', 'html', 'css'],
+  // },
   {
     id: 'project-4',
     title: 'Virtual Keyboard',
@@ -73,6 +75,8 @@ const projects: Project[] = [
       'Teclado virtual responsivo, inspirado no modelo de teclados mobile.',
     imageUrl: 'https://i.ibb.co/sQqC89w/virtual-keyboard.png',
     gitUrl: 'https://github.com/MaxwellOlliver/spotify-client',
+    linkedinPostUrl:
+      'https://www.linkedin.com/feed/update/urn:li:activity:6942948352267280384/',
     languages: ['typescript', 'vue', 'html', 'css'],
   },
 ];
@@ -130,10 +134,22 @@ function ProjectItem({
         </ul>
         <h1>{data.title}</h1>
         <p>{data.description}</p>
-        <a href={data.gitUrl} target="_blank" rel="noreferrer nooponer">
-          <GitHub />
-          ver no GitHub
-        </a>
+        <div className="info__links">
+          <a href={data.gitUrl} target="_blank" rel="noreferrer nooponer">
+            <GitHub />
+            ver no GitHub
+          </a>
+          {data.linkedinPostUrl && (
+            <a
+              href={data.linkedinPostUrl}
+              target="_blank"
+              rel="noreferrer nooponer"
+            >
+              <Linkedin />
+              ver no LinkedIn
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -240,8 +256,14 @@ export default function Projects({ isActive }: ProjectsProps): JSX.Element {
               />
             ))}
           </div>
-          <div className="projects-carousel__progress">
-            <svg width="80" height="80" viewBox="0 0 120 120">
+        </div>
+        <div className="content__carousel-progess">
+          <div className="carousel-progess__info-drag">
+            <img src={Drag} alt="arrasta pro lado" />
+            <span>arrasta pro lado</span>
+          </div>
+          <div className="carousel-progess__slider-number">
+            <svg width="60" height="60" viewBox="0 0 120 120">
               <circle
                 cx="60"
                 cy="60"

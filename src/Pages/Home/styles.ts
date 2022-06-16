@@ -88,6 +88,7 @@ export const Container = styled.div`
         align-items: center;
         justify-content: flex-end;
         text-align: right;
+        cursor: pointer;
 
         span {
           margin-right: 10px;
@@ -95,6 +96,8 @@ export const Container = styled.div`
           font-weight: lighter;
           font-size: 1rem;
           text-transform: lowercase;
+          transition: opacity 0.3s;
+          color: #ffffff44;
         }
 
         div {
@@ -104,7 +107,14 @@ export const Container = styled.div`
           background-color: #333333cc;
         }
 
+        &:hover {
+          span {
+            opacity: 1;
+          }
+        }
+
         &.--active {
+          cursor: default;
           div {
             animation: ${animations.categoryMarkerAppear} 0.3s ease-in-out
               forwards;
@@ -113,6 +123,7 @@ export const Container = styled.div`
           }
 
           span {
+            color: #fff;
             animation: ${animations.categoryAppear} 0.3s 0.3s ease-in-out
               forwards;
           }
@@ -122,14 +133,16 @@ export const Container = styled.div`
 
     &.--black {
       .wheel-progression__list {
-        color: #333;
-
         li {
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: flex-end;
           text-align: right;
+
+          span {
+            color: #333;
+          }
 
           div {
             background-color: #33333350;
@@ -494,6 +507,13 @@ export const ProjectsContainer = styled.div`
             padding: 2rem;
             transition: transform 0.3s;
 
+            .info__links {
+              display: flex;
+              a {
+                margin-right: 2rem;
+              }
+            }
+
             .info__languages {
               width: 100%;
               display: flex;
@@ -545,13 +565,28 @@ export const ProjectsContainer = styled.div`
           }
         }
       }
+    }
+    .content__carousel-progess {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
 
-      .projects-carousel__progress {
-        position: absolute;
-        bottom: -80px;
-        right: 0;
-        width: 80px;
-        height: 80px;
+      .carousel-progess__info-drag {
+        display: flex;
+        align-items: center;
+        margin-right: 1rem;
+        img {
+          width: 25px;
+          object-fit: contain;
+          margin-right: 10px;
+        }
+      }
+
+      .carousel-progess__slider-number {
+        position: relative;
+        width: 60px;
+        height: 60px;
 
         svg {
           transform: rotate(-90deg);
@@ -566,7 +601,7 @@ export const ProjectsContainer = styled.div`
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          font-size: 2rem;
+          font-size: 1.5rem;
           font-weight: lighter;
         }
       }

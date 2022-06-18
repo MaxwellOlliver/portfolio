@@ -10,6 +10,10 @@ import ReactLogo from '../../assets/react.svg';
 import { GitHub, Linkedin } from 'react-feather';
 import Drag from '../../assets/drag.gif';
 
+import PortfolioImg from '../../assets/portfolio.png';
+import VirtualKeyboardImg from '../../assets/virtual-keyboard.png';
+import UiCloneImg from '../../assets/ui-clone.png';
+
 type ProjectsProps = { isActive: boolean };
 
 type Languages = 'javascript' | 'typescript' | 'vue' | 'react' | 'html' | 'css';
@@ -45,7 +49,7 @@ const projects: Project[] = [
     title: 'Portfólio',
     description:
       'Projeto voltado à mostrar minhas habilidades como desenvolvedor frontend e falar um pouco sobre mim.',
-    imageUrl: 'https://i.ibb.co/ZSrFdPf/localhost-3000-1.png',
+    imageUrl: PortfolioImg,
     gitUrl: 'https://github.com/MaxwellOlliver/portfolio',
     languages: ['typescript', 'react', 'html', 'css'],
   },
@@ -54,7 +58,7 @@ const projects: Project[] = [
     title: 'Riot Client UI clone',
     description:
       'Clone de interface da plataforma para controle de acessos aos jogos desenvolvidos pela Riot Games.',
-    imageUrl: 'https://i.ibb.co/1XkQss6/localhost-3002.png',
+    imageUrl: UiCloneImg,
     gitUrl: 'https://github.com/MaxwellOlliver/uiclone-riot-client',
     linkedinPostUrl:
       'https://www.linkedin.com/feed/update/urn:li:activity:6720548876941615104/',
@@ -73,7 +77,7 @@ const projects: Project[] = [
     title: 'Virtual Keyboard',
     description:
       'Teclado virtual responsivo, inspirado no modelo de teclados mobile.',
-    imageUrl: 'https://i.ibb.co/sQqC89w/virtual-keyboard.png',
+    imageUrl: VirtualKeyboardImg,
     gitUrl: 'https://github.com/MaxwellOlliver/spotify-client',
     linkedinPostUrl:
       'https://www.linkedin.com/feed/update/urn:li:activity:6942948352267280384/',
@@ -229,12 +233,11 @@ export default function Projects({ isActive }: ProjectsProps): JSX.Element {
       className={classNames('slide__projects', {
         '--animate': isActive,
       })}
-      key="projects-slide"
     >
       <div className="projects__content">
-        <section className="content__text-content">
-          <h2 className="text">maxwell.macedo</h2>
-          <h1 className="text-content__title">Meus projetos</h1>
+        <section className="content__header">
+          <p className="header__author-name">maxwell.macedo</p>
+          <h1 className="header__title">Meus projetos</h1>
         </section>
         <div className="content__projects-carousel">
           <div

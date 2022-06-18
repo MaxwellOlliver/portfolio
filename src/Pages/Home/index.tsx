@@ -2,7 +2,7 @@ import { Container } from './styles';
 
 import { classNames } from '../../utils/classNames';
 import { useState } from 'react';
-import { Lock } from 'react-feather';
+import { GitHub, Linkedin, Lock, Mail } from 'react-feather';
 
 import Landing from './Landing';
 import AboutMe from './AboutMe';
@@ -10,7 +10,7 @@ import Projects from './Projects';
 
 type Slide = 'home' | 'projects' | 'about-me';
 
-const sliderPages: Slide[] = ['home', 'projects', 'about-me'];
+const sliderPages: Slide[] = ['home', 'about-me', 'projects'];
 
 function Home() {
   const [slideStack, setSlideStack] = useState<Slide[]>(['home']);
@@ -52,45 +52,80 @@ function Home() {
 
   return (
     <Container
-      className="home"
+      className="app-wrapper"
       onWheel={(e) => (e.deltaY > 0 ? nextSlide() : previousSlide())}
     >
       <div
-        className={classNames('home__wheel-progression', {
+        className={classNames('app-wrapper__header', {
           '--black': !isSlideVisible('home'),
         })}
       >
-        <ul className="wheel-progression__list">
-          <li
-            className={classNames({
-              '--active': isSlideVisible('home'),
-            })}
-            onClick={() => goToPage('home')}
+        <div className="header__contact-me">
+          <a
+            className="contact-me__link"
+            href="https://github.com/MaxwellOlliver"
+            target="_blank"
+            rel="noreferrer nooponer"
+            aria-label="Github"
           >
-            <span>Início</span>
-            <div></div>
-          </li>
-          <li
-            className={classNames({
-              '--active': isSlideVisible('projects'),
-            })}
-            onClick={() => goToPage('projects')}
+            <GitHub />
+          </a>
+          <a
+            className="contact-me__link"
+            href="https://www.linkedin.com/in/maxwell-macedo/"
+            target="_blank"
+            rel="noreferrer nooponer"
+            aria-label="Linkedin"
           >
-            <span>Projetos</span>
-            <div></div>
-          </li>
-          <li
-            className={classNames({
-              '--active': isSlideVisible('about-me'),
-            })}
-            onClick={() => goToPage('about-me')}
+            <Linkedin />
+          </a>
+          <a
+            className="contact-me__link"
+            href="mailto:maxwell.macedo@moondev.com.br"
+            target="_blank"
+            rel="noreferrer nooponer"
+            aria-label="Email"
           >
-            <span>Sobre mim</span>
-            <div></div>
-          </li>
-        </ul>
+            <Mail />
+          </a>
+        </div>
+        <div
+          className={classNames('header__wheel-progression', {
+            '--black': !isSlideVisible('home'),
+          })}
+        >
+          <ul className="wheel-progression__list">
+            <li
+              className={classNames({
+                '--active': isSlideVisible('home'),
+              })}
+              onClick={() => goToPage('home')}
+            >
+              <span>Início</span>
+              <div></div>
+            </li>
+            <li
+              className={classNames({
+                '--active': isSlideVisible('about-me'),
+              })}
+              onClick={() => goToPage('about-me')}
+            >
+              <span>Sobre mim</span>
+              <div></div>
+            </li>
+            <li
+              className={classNames({
+                '--active': isSlideVisible('projects'),
+              })}
+              onClick={() => goToPage('projects')}
+            >
+              <span>Projetos</span>
+              <div></div>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div className="home__slider-wrapper">
+      <div className="app-wrapper__slider-wrapper">
         <div
           className={classNames('slider-wrapper__slide', {
             '--in-stack': slideStack.includes('home'),
@@ -100,26 +135,38 @@ function Home() {
         </div>
         <div
           className={classNames('slider-wrapper__slide', {
-            '--in-stack': slideStack.includes('projects'),
-          })}
-        >
-          <Projects isActive={isSlideVisible('projects')} />
-        </div>
-        <div
-          className={classNames('slider-wrapper__slide', {
             '--in-stack': slideStack.includes('about-me'),
           })}
         >
           <AboutMe />
         </div>
         <div
-          className={classNames('slider-wrapper__mouse', {
-            '--black': !isSlideVisible('home'),
+          className={classNames('slider-wrapper__slide', {
+            '--in-stack': slideStack.includes('projects'),
           })}
         >
-          <div className="mouse__wheel" />
+          <Projects isActive={isSlideVisible('projects')} />
         </div>
         {/* <Lock size={18} /> */}
+      </div>
+      <div
+        className={classNames('app-wrapper__footer', {
+          '--black': !isSlideVisible('home'),
+        })}
+      >
+        <span className="footer__author-credits">
+          Feito com &#9825; por{' '}
+          <a
+            href="https://www.linkedin.com/in/maxwell-macedo/"
+            target="_blank"
+            rel="noreferrer nooponer"
+          >
+            Maxwell Macedo
+          </a>
+        </span>
+        <div className="footer__mouse">
+          <div className="mouse__wheel" />
+        </div>
       </div>
     </Container>
   );

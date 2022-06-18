@@ -10,7 +10,7 @@ import * as THREE from 'three';
 import { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -23,7 +23,7 @@ type GLTFResult = GLTF & {
 
 export default function Moon({ ...props }: JSX.IntrinsicElements['group']) {
   const group = useRef<THREE.Group>(null);
-  const { nodes, materials } = useGLTF('/moon.gltf') as GLTFResult;
+  const { nodes, materials, ...rest } = useGLTF('/moon.gltf') as GLTFResult;
 
   useFrame(() => {
     if (group.current) {

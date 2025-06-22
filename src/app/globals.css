@@ -1,3 +1,4 @@
+@import url("https://unpkg.com/normalize.css@8.0.1/normalize.css");
 @import "tailwindcss";
 
 :root {

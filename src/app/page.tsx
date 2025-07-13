@@ -1,6 +1,19 @@
+"use client";
+
 import Image from "next/image";
+import useBlobity from "blobity/lib/react/useBlobity";
+import { useEffect } from "react";
+import { initialBlobityOptions } from "@/config/blobity";
 
 export default function Home() {
+  const blobityInstance = useBlobity(initialBlobityOptions);
+
+  useEffect(() => {
+    if (blobityInstance.current) {
+      window.blobity = blobityInstance.current;
+    }
+  }, [blobityInstance]);
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">

@@ -19,15 +19,20 @@ export default function HomeSection() {
     },
   ];
   return (
-    <div className="relative w-full">
+    <section className="relative w-full">
       <div className="absolute inset-0 select-none overflow-hidden h-full">
         <div
           className={cn(
-            "h-[75px] w-[850px] rounded-full bg-gradient-to-r from-[#2E996C]/25 to-[#0F3324]/25 blur-[130px] supports-firefox:from-[#2E996C]/[0.07] supports-firefox:to-[#0F3324]/[0.07] supports-firefox:h-[200px] absolute top-[10%] left-[90%] -translate-y-1/2 -translate-x-1/2 rotate-45 origin-left z-[1] max-md:top-[5%] pointer-events-none"
+            "h-[75px] w-[850px] rounded-full",
+            "bg-gradient-to-r from-[#0F3324]/25 via-[#2E996C]/60 to-[#0F3324]/25",
+            "supports-firefox:from-[#2E996C]/[0.07] supports-firefox:to-[#0F3324]/[0.07] supports-firefox:h-[200px]",
+            "absolute top-[10%] left-[95%] blur-[130px] -translate-y-1/2 -translate-x-1/2 rotate-180 origin-left",
+            "z-[1] pointer-events-none",
+            "max-md:top-[5%]"
           )}
         ></div>
       </div>
-      <section className="layout pt-36 pb-20 flex items-center min-h-[calc(100dvh-10rem)] relative w-full">
+      <div className="layout pt-36 pb-20 flex items-center min-h-[calc(100dvh-10rem)] relative w-full">
         <div className="flex flex-col max-w-[30rem] z-10">
           <div className="flex items-center gap-4 mb-4">
             {links.map((link) => (
@@ -47,7 +52,7 @@ export default function HomeSection() {
           <h1 className="font-bold text-txt text-7xl">{t("title")}</h1>
           <p className="mt-4 text-lg text-txt-secondary">{t("description")}</p>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

@@ -1,6 +1,14 @@
 {
+  "navbar": {
+    "home": "Início",
+    "about": "Sobre mim",
+    "projects": "Projetos",
+    "contact": "Contato",
+    "resume": "Currículo",
+    "more": "Mais"
+  },
   "home": {
     "title": "Eu sou o Maxwell",
-    "description": "Sou um engenheiro de software com paixão por construir aplicações web."
+    "description": "Full-Stack Software Engineer criando APIs escaláveis e UIs pixel-perfect com foco no usuário e no desempenho."
   }
 }

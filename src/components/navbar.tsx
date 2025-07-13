@@ -1,29 +1,31 @@
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function Navbar() {
+  const t = useTranslations("navbar");
   const items = [
     {
-      label: "Home",
+      label: t("home"),
       href: "/",
     },
     {
-      label: "About me",
+      label: t("about"),
       href: "/about",
     },
     {
-      label: "Projects",
+      label: t("projects"),
       href: "/projects",
     },
   ];
 
   const moreOptions = [
     {
-      label: "Contact",
+      label: t("contact"),
       href: "/contact",
     },
     {
-      label: "Resume",
+      label: t("resume"),
       href: "/resume",
     },
   ];
@@ -32,7 +34,11 @@ export default function Navbar() {
     <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 bg-background-secondary/50 px-2 py-1 rounded-md">
       <div className="flex items-center gap-4">
         {items.map((item) => (
-          <Link href={item.href} key={item.label} className=" px-4 rounded-md">
+          <Link
+            href={item.href}
+            key={item.label}
+            className="px-4 rounded-md text-nowrap"
+          >
             {item.label}
           </Link>
         ))}
@@ -41,7 +47,7 @@ export default function Navbar() {
           className="p-2 flex items-center gap-2 rounded-md text-neutral-500"
           data-no-blobity
         >
-          More <ChevronDown className="w-4 h-4" />
+          {t("more")} <ChevronDown className="w-4 h-4" />
         </button>
       </div>
     </nav>

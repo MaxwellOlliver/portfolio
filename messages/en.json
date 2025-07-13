@@ -1,6 +1,14 @@
 {
+  "navbar": {
+    "home": "Home",
+    "about": "About me",
+    "projects": "Projects",
+    "contact": "Contact",
+    "resume": "Resume",
+    "more": "More"
+  },
   "home": {
     "title": "I'm Maxwell",
-    "description": "I'm a software engineer with a passion for building web applications."
+    "description": "Full-Stack Engineer with deep expertise in React, React Native, Node.js and TypeScript. I solve complex problems by architecting scalable APIs and pixel-perfect UIs, always keeping users and performance front of mind"
   }
 }

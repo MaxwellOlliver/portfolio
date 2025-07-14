@@ -19,14 +19,25 @@ export default function HomeSection() {
     },
   ];
   return (
-    <section className="relative w-full">
+    <section className="relative w-full min-h-dvh">
       <div className="absolute inset-0 select-none overflow-hidden h-full">
         <div
           className={cn(
             "h-[75px] w-[850px] rounded-full",
-            "bg-gradient-to-r from-[#0F3324]/25 via-[#2E996C]/60 to-[#0F3324]/25",
+            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/60 to-[#0F3324]/40",
             "supports-firefox:from-[#2E996C]/[0.07] supports-firefox:to-[#0F3324]/[0.07] supports-firefox:h-[200px]",
             "absolute top-[10%] left-[95%] blur-[130px] -translate-y-1/2 -translate-x-1/2 rotate-180 origin-left",
+            "z-[1] pointer-events-none",
+            "max-md:top-[5%]"
+          )}
+        ></div>
+
+        <div
+          className={cn(
+            "h-[75px] w-[850px] rounded-full",
+            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/60 to-[#0F3324]/40",
+            "supports-firefox:from-[#2E996C]/[0.07] supports-firefox:to-[#0F3324]/[0.07] supports-firefox:h-[200px]",
+            "absolute top-[90%] left-[95%] blur-[130px] -translate-y-1/2 -translate-x-1/2 rotate-180 origin-left",
             "z-[1] pointer-events-none",
             "max-md:top-[5%]"
           )}

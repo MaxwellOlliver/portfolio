@@ -31,7 +31,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 bg-background-secondary/40 px-2 py-1 rounded-md">
+    <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 bg-background-secondary/60 px-2 py-1 rounded-md">
       <div className="flex items-center gap-4">
         {items.map((item) => (
           <Link

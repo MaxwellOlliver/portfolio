@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useTranslations } from "next-intl";
+import HomeAside from "../HomeAside";
 
 export default function HomeSection() {
   const t = useTranslations("home");
@@ -19,14 +20,14 @@ export default function HomeSection() {
     },
   ];
   return (
-    <section className="relative w-full min-h-dvh">
+    <section className="relative w-full min-h-dvh overflow-hidden">
       <div className="absolute inset-0 select-none overflow-hidden h-full">
         <div
           className={cn(
             "h-[75px] w-[850px] rounded-full",
-            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/60 to-[#0F3324]/40",
+            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/20 to-[#0F3324]/40",
             "supports-firefox:from-[#2E996C]/[0.07] supports-firefox:to-[#0F3324]/[0.07] supports-firefox:h-[200px]",
-            "absolute top-[10%] left-[95%] blur-[130px] -translate-y-1/2 -translate-x-1/2 rotate-180 origin-left",
+            "absolute top-[20%] left-[95%] blur-[130px] -translate-y-1/2  rotate-180 origin-left",
             "z-[1] pointer-events-none",
             "max-md:top-[5%]"
           )}
@@ -34,10 +35,10 @@ export default function HomeSection() {
 
         <div
           className={cn(
-            "h-[75px] w-[850px] rounded-full",
-            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/60 to-[#0F3324]/40",
+            "h-[160px] w-[850px] rounded-full",
+            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/10 to-[#0F3324]/40",
             "supports-firefox:from-[#2E996C]/[0.07] supports-firefox:to-[#0F3324]/[0.07] supports-firefox:h-[200px]",
-            "absolute top-[90%] left-[95%] blur-[130px] -translate-y-1/2 -translate-x-1/2 rotate-180 origin-left",
+            "absolute top-[80%] left-[65%] blur-[130px] -translate-y-1/2 -translate-x-1/2 rotate-180 origin-left",
             "z-[1] pointer-events-none",
             "max-md:top-[5%]"
           )}
@@ -64,6 +65,7 @@ export default function HomeSection() {
           <p className="mt-4 text-lg text-txt-secondary">{t("description")}</p>
         </div>
       </div>
+      <HomeAside />
     </section>
   );
 }

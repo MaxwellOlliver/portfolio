@@ -20,7 +20,7 @@ export default function HomeSection() {
     },
   ];
   return (
-    <section className="relative w-full min-h-dvh overflow-hidden">
+    <section className="relative w-full min-h-dvh overflow-hidden" id="home">
       <div className="absolute inset-0 select-none overflow-hidden h-full">
         <div
           className={cn(
@@ -64,12 +64,15 @@ export default function HomeSection() {
           <h1 className="font-bold text-txt text-7xl">{t("title")}</h1>
           <p className="mt-4 text-lg text-txt-secondary">{t("description")}</p>
           <button
-            className="flex items-center gap-2 mt-4 p-4 rounded-md border-1 border-txt-secondary/20 w-fit"
+            className={cn(
+              "flex items-center gap-2 mt-4 p-4 rounded-xl border-1 border-txt-secondary/20 w-fit",
+              "bg-gradient-to-bl from-transparent via-white/5 to-transparent"
+            )}
             data-blobity="true"
             data-blobity-magnetic="false"
             data-blobity-offset-y="0"
             data-blobity-offset-x="0"
-            data-blobity-radius="6"
+            data-blobity-radius="12"
             style={{
               maskImage:
                 "linear-gradient(225deg, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 120%), linear-gradient(45deg, rgb(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%)",

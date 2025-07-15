@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/navbar";
 
 const HomeSection = dynamic(() => import("@/components/sections/Home"));
+const AboutMeSection = dynamic(() => import("@/components/sections/AboutMe"));
 
 export default function Home() {
   const blobityInstance = useBlobity(initialBlobityOptions);
@@ -20,6 +21,7 @@ export default function Home() {
     <div className="w-full min-h-dvh font-[family-name:var(--font-geist-sans)] relative">
       <Navbar />
       <HomeSection />
+      <AboutMeSection />
     </div>
   );
 }

@@ -59,10 +59,18 @@ export default function HomeAside() {
             key={index}
             className={cn(
               "rounded-md group text-center cursor-pointer [transform-style:preserve-3d]",
-              "flex items-center justify-center ring-1 ring-neutral-800/70 text-sm perspective-distant"
+              "flex items-center justify-center ring-1 ring-neutral-800/90 text-sm perspective-distant"
             )}
           >
-            <div className="grayscale-100  group-hover:grayscale-0 flex rounded-md group items-center transition-all duration-300 group-hover:border-1 border-neutral-800/70 justify-center w-full h-full group-hover:[transform:translateX(-15px)_translateY(-15px)] ">
+            <div
+              className={cn(
+                "grayscale-100 group-hover:grayscale-0",
+                "flex rounded-md items-center justify-center w-full h-full",
+                "transition-all duration-300",
+                "border-1 border-transparent group-hover:border-neutral-800/90",
+                "group-hover:[transform:translateX(-15px)_translateY(-15px)]"
+              )}
+            >
               <Item
                 className={cn(
                   "size-14 transition-all duration-300 opacity-20 group-hover:opacity-100 "

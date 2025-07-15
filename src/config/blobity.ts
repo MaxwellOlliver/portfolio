@@ -1,4 +1,6 @@
-export const initialBlobityOptions = {
+import { Options } from "blobity/lib/Blobity";
+
+export const initialBlobityOptions: Partial<Options> = {
   licenseKey: "opensource",
   focusableElementsOffsetX: 5,
   focusableElementsOffsetY: 5,

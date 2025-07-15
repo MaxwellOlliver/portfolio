@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useTranslations } from "next-intl";
 import HomeAside from "../HomeAside";
@@ -25,7 +25,7 @@ export default function HomeSection() {
         <div
           className={cn(
             "h-[75px] w-[850px] rounded-full",
-            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/20 to-[#0F3324]/40",
+            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/40 to-[#0F3324]/40",
             "supports-firefox:from-[#2E996C]/[0.07] supports-firefox:to-[#0F3324]/[0.07] supports-firefox:h-[200px]",
             "absolute top-[20%] left-[95%] blur-[130px] -translate-y-1/2  rotate-180 origin-left",
             "z-[1] pointer-events-none",
@@ -36,7 +36,7 @@ export default function HomeSection() {
         <div
           className={cn(
             "h-[160px] w-[850px] rounded-full",
-            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/10 to-[#0F3324]/40",
+            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/20 to-[#0F3324]/40",
             "supports-firefox:from-[#2E996C]/[0.07] supports-firefox:to-[#0F3324]/[0.07] supports-firefox:h-[200px]",
             "absolute top-[80%] left-[65%] blur-[130px] -translate-y-1/2 -translate-x-1/2 rotate-180 origin-left",
             "z-[1] pointer-events-none",
@@ -63,6 +63,22 @@ export default function HomeSection() {
           </div>
           <h1 className="font-bold text-txt text-7xl">{t("title")}</h1>
           <p className="mt-4 text-lg text-txt-secondary">{t("description")}</p>
+          <button
+            className="flex items-center gap-2 mt-4 p-4 rounded-md border-1 border-txt-secondary/20 w-fit"
+            data-blobity="true"
+            data-blobity-magnetic="false"
+            data-blobity-offset-y="0"
+            data-blobity-offset-x="0"
+            data-blobity-radius="6"
+            style={{
+              maskImage:
+                "linear-gradient(225deg, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 120%), linear-gradient(45deg, rgb(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%)",
+              maskComposite: "intersect",
+            }}
+          >
+            <ArrowDown className="w-5 h-5" />
+            <span>More about me</span>
+          </button>
         </div>
       </div>
       <HomeAside />

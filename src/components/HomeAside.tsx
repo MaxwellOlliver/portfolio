@@ -30,22 +30,29 @@ export default function HomeAside() {
     NodeLogo,
   ];
   return (
-    <>
+    <div
+      className="absolute inset-0 overflow-hidden"
+      style={{
+        maskImage:
+          "linear-gradient(to bottom, rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 90%)",
+        maskComposite: "intersect",
+      }}
+    >
       <div
-        className="absolute top-0 left-0 w-full h-full"
+        className="absolute top-0 left-0 max-w-screen w-full h-full"
         style={{
           maskImage:
             "linear-gradient(to bottom, rgb(0, 0, 0) 30%, rgba(0, 0, 0, 0) 60%)",
           maskComposite: "intersect",
         }}
       >
-        <GridSvg className="w-full h-full opacity-[65%]" />
+        <GridSvg className="w-full h-full text-neutral-800/30" />
       </div>
       <div
         className={cn(
-          "absolute top-[45%] left-1/2 w-[1500px] h-[600px]",
+          "absolute top-[45%] left-1/2 min-w-[1500px] h-[600px]",
           "rounded-md p-4 grid grid-cols-6 gap-4 [transform-style:preserve-3d] [transform:rotateX(45deg)_rotateZ(45deg)] will-change-transform",
-          "perspective-[1000px]"
+          "perspective-[1000px] max-w-screen w-full"
         )}
         style={{
           aspectRatio: "984 / 802",
@@ -81,18 +88,18 @@ export default function HomeAside() {
         ))}
       </div>
       {/* <div
-        className={cn(
-          "absolute top-[35%] left-1/2 w-[800px] h-full",
-          "rounded-md p-4 perspective-distant grid grid-cols-3 gap-4 transform-3d "
-        )}
-        style={{
-          transform: "rotateX(45deg) rotateZ(45deg)",
-        }}
-      >
-        {Array.from({ length: 9 }).map((_, index) => (
-          <div key={index} className=" bg-neutral-900/20 rounded-md"></div>
-        ))}
-      </div> */}
-    </>
+          className={cn(
+            "absolute top-[35%] left-1/2 w-[800px] h-full",
+            "rounded-md p-4 perspective-distant grid grid-cols-3 gap-4 transform-3d "
+          )}
+          style={{
+            transform: "rotateX(45deg) rotateZ(45deg)",
+          }}
+        >
+          {Array.from({ length: 9 }).map((_, index) => (
+            <div key={index} className=" bg-neutral-900/20 rounded-md"></div>
+          ))}
+        </div> */}
+    </div>
   );
 }

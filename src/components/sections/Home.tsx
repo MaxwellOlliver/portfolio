@@ -20,8 +20,8 @@ export default function HomeSection() {
     },
   ];
   return (
-    <section className="relative w-full min-h-dvh overflow-hidden" id="home">
-      <div className="absolute inset-0 select-none overflow-hidden h-full">
+    <section className="relative w-full min-h-dvh overflow-visible" id="home">
+      <div className="absolute inset-0 select-none h-full">
         <div
           className={cn(
             "h-[75px] w-[850px] rounded-full",

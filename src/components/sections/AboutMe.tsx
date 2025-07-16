@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Gamepad, Gamepad2, Heart, Music } from "lucide-react";
+import { Gamepad2, Heart, Music } from "lucide-react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -14,17 +14,35 @@ export default function AboutMeSection() {
     () => {
       const el = container.current! as HTMLElement;
       const panels = el.querySelectorAll(".panel");
-      const totalScroll = el.scrollWidth - window.innerWidth;
+      const lastPanel = panels[panels.length - 1] as HTMLElement;
+
       gsap.to(el, {
-        x: -totalScroll,
+        x: () => {
+          // Calculate distance to show the last panel completely
+          const lastPanelEnd =
+            lastPanel.offsetLeft +
+            lastPanel.offsetWidth +
+            el.getBoundingClientRect().left +
+            100;
+          return -(lastPanelEnd - window.innerWidth);
+        },
         ease: "none",
         scrollTrigger: {
           trigger: el,
-          start: "top top", // when top of container hits top of viewport
-          end: () => `+=${totalScroll}`, // scroll distance = total horizontal overflow
-          scrub: true, // smooth scrubbing, ties animation to scroll
-          pin: true, // pins the container in place
-          markers: true, // enable to see start/end in dev
+          start: "top top",
+          end: () => {
+            // Scroll distance should match the animation distance
+            const lastPanelEnd = lastPanel.offsetLeft + lastPanel.offsetWidth;
+            return "+=" + (lastPanelEnd - window.innerWidth) + "px";
+          },
+          scrub: true,
+          pin: true,
+          markers: true,
+          anticipatePin: 1,
+          refreshPriority: -1,
+          onUpdate: (self) => {
+            console.log(self.progress);
+          },
         },
       });
     },
@@ -37,13 +55,13 @@ export default function AboutMeSection() {
       id="about-me"
     >
       <div
-        className="layout pt-36 pb-20 flex gap-64 min-h-[calc(100dvh-10rem)] relative w-full"
+        className="layout pt-36 pb-20 flex gap-64 h-screen w-full relative"
         ref={container}
       >
-        <div className="panel flex flex-col max-w-[30rem] w-full z-10 flex-shrink-0">
+        <div className="panel flex flex-col min-w-[32rem] max-w-[64rem] z-10">
           <h2 className="font-bold text-txt text-4xl mb-4">About Me</h2>
           <p className="text-txt-secondary">
-            Hello! I'm <span className="text-primary">Maxwell</span>, a
+            Hello! I&apos;m <span className="text-primary">Maxwell</span>, a
             passionate software developer with a love for creating innovative
             solutions.
             <br />
@@ -57,9 +75,9 @@ export default function AboutMeSection() {
             .
             <br />
             <br />
-            When I'm not coding, you can find me exploring new tech trends,
-            playing video games or listening/playing to good music. Let's build
-            something amazing together!
+            When I&apos;m not coding, you can find me exploring new tech trends,
+            playing video games or listening/playing to good music. Let&apos;s
+            build something amazing together!
           </p>
           <div className="flex items-center gap-4 mt-6">
             <Gamepad2 />
@@ -70,15 +88,17 @@ export default function AboutMeSection() {
         <div className="panel flex item-center justify-center flex-shrink-0">
           PHOTO
         </div>
-        <div className="panel flex flex-col max-w-[30rem] z-10 flex-shrink-0">
+        <div className="panel flex flex-col z-10 flex-shrink-0">
           <h2 className="font-bold text-txt text-4xl mb-4">Experience</h2>
           <div className="flex gap-14">
-            <div>exp 1</div>
-            <div>exp 1</div>
-            <div>exp 1</div>
-            <div>exp 1</div>
-            <div>exp 1</div>
-            <div>exp 1</div>
+            {Array.from({ length: 10 }).map((_, index) => (
+              <div
+                className="aspect-square bg-red-500 min-w-[20rem]"
+                key={index}
+              >
+                exp {index + 1}
+              </div>
+            ))}
           </div>
         </div>
       </div>

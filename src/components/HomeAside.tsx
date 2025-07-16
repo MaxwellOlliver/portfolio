@@ -28,6 +28,13 @@ export default function HomeAside() {
     TypescriptLogo,
     FlutterLogo,
     NodeLogo,
+    VueLogo,
+    FigmaLogo,
+    TailwindCSSLogo,
+    PrismaLogo,
+    TypescriptLogo,
+    FlutterLogo,
+    NodeLogo,
   ];
   return (
     <div
@@ -50,9 +57,9 @@ export default function HomeAside() {
       </div>
       <div
         className={cn(
-          "absolute top-[45%] left-1/2 min-w-[1500px] h-[600px]",
-          "rounded-md p-4 grid grid-cols-6 gap-4 [transform-style:preserve-3d] [transform:rotateX(45deg)_rotateZ(45deg)] will-change-transform",
-          "perspective-[1000px] max-w-screen w-full"
+          "absolute top-[35%] left-1/2 max-w-[800px] w-full",
+          "rounded-md p-4 grid grid-rows-4 grid-flow-col gap-4 [transform-style:preserve-3d] [transform:rotateX(45deg)_rotateZ(45deg)] will-change-transform",
+          "perspective-[1000px] w-full"
         )}
         style={{
           aspectRatio: "984 / 802",
@@ -66,7 +73,7 @@ export default function HomeAside() {
             key={index}
             className={cn(
               "rounded-md group text-center cursor-pointer [transform-style:preserve-3d]",
-              "flex items-center justify-center ring-1 ring-neutral-800/90 text-sm perspective-distant"
+              "flex items-center justify-center w-52 ring-1 ring-neutral-800/90 text-sm perspective-distant"
             )}
           >
             <div

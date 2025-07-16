@@ -17,6 +17,8 @@ export default function Home() {
     }
   }, [blobityInstance]);
 
+  if (typeof window === "undefined") return null;
+
   return (
     <div className="w-full min-h-dvh font-[family-name:var(--font-geist-sans)] relative">
       <Navbar />

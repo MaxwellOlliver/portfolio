@@ -2,6 +2,11 @@ import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useTranslations } from "next-intl";
 import HomeAside from "../HomeAside";
+import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/SplitText";
+import gsap from "gsap";
+
+gsap.registerPlugin(useGSAP, SplitText);
 
 export default function HomeSection() {
   const t = useTranslations("home");
@@ -19,6 +24,48 @@ export default function HomeSection() {
       icon: Mail,
     },
   ];
+
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      delay: 0,
+    });
+
+    const links = gsap.utils.toArray(".social-link");
+    tl.from(links, {
+      opacity: 0,
+      y: 20,
+      ease: "power2.inOut",
+      stagger: 0.1,
+    });
+    const title = document.querySelector("#title");
+
+    const split = new SplitText(title, {
+      type: "words",
+    });
+    tl.from(split.words, {
+      opacity: 0,
+      y: 20,
+      ease: "power2.inOut",
+      stagger: 0.05,
+    });
+
+    const description = document.querySelector("#description");
+    const split2 = new SplitText(description, {
+      type: "words",
+    });
+    tl.from(split2.words, {
+      opacity: 0,
+      y: 20,
+      ease: "power2.inOut",
+      stagger: 0.05,
+    });
+
+    const moreAboutMe = document.querySelector("#more-about-me");
+    tl.from(moreAboutMe, {
+      opacity: 0,
+      y: 20,
+    });
+  });
   return (
     <section className="relative w-full min-h-dvh overflow-visible" id="home">
       <div className="absolute inset-0 select-none h-full">
@@ -51,7 +98,7 @@ export default function HomeSection() {
               <a
                 href={link.href}
                 target="_blank"
-                className="size-8 flex items-center justify-center rounded-full"
+                className="social-link size-8 flex items-center justify-center rounded-full"
                 rel="noopener noreferrer"
                 key={link.href}
                 data-blobity="true"
@@ -61,9 +108,15 @@ export default function HomeSection() {
               </a>
             ))}
           </div>
-          <h1 className="font-bold text-txt text-7xl">{t("title")}</h1>
-          <p className="mt-4 text-lg text-txt-secondary">{t("description")}</p>
-          <button
+          <h1 className="font-bold text-txt text-7xl" id="title">
+            {t("title")}
+          </h1>
+          <p className="mt-4 text-lg text-txt-secondary" id="description">
+            {t("description")}
+          </p>
+          <a
+            id="more-about-me"
+            href="#about-me"
             className={cn(
               "flex items-center gap-2 mt-4 p-4 rounded-xl border-1 border-txt-secondary/20 w-fit",
               "bg-gradient-to-bl from-transparent via-white/5 to-transparent"
@@ -81,7 +134,7 @@ export default function HomeSection() {
           >
             <ArrowDown className="w-5 h-5" />
             <span>More about me</span>
-          </button>
+          </a>
         </div>
       </div>
       <HomeAside />

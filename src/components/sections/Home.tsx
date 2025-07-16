@@ -1,3 +1,4 @@
+"use client";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useTranslations } from "next-intl";

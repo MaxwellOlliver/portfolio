@@ -2,11 +2,9 @@
 import useBlobity from "blobity/lib/react/useBlobity";
 import { useEffect } from "react";
 import { initialBlobityOptions } from "@/config/blobity";
-import dynamic from "next/dynamic";
 import Navbar from "@/components/navbar";
-
-const HomeSection = dynamic(() => import("@/components/sections/Home"));
-const AboutMeSection = dynamic(() => import("@/components/sections/AboutMe"));
+import HomeSection from "@/components/sections/Home";
+import AboutMeSection from "@/components/sections/AboutMe";
 
 export default function Home() {
   const blobityInstance = useBlobity(initialBlobityOptions);

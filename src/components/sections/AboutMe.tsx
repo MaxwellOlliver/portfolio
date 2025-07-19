@@ -95,7 +95,7 @@ export default function AboutMeSection() {
     );
 
     // Estado inicial escondido
-    gsap.set(cards, { opacity: 0, x: 50 });
+    gsap.set(cards, { opacity: 0, x: 100 });
 
     // IntersectionObserver configurado para triggers horizontais
     const observer = new IntersectionObserver(
@@ -117,7 +117,7 @@ export default function AboutMeSection() {
         root: null, // viewport inteira
         rootMargin: "-20% 0px", // 20% pra esquerda e direita—
         // só anima quando card estiver mais que 20% dentro
-        threshold: 0, // dispara assim que passar do rootMargin
+        threshold: 0.5, // dispara assim que passar do rootMargin
       }
     );
 
@@ -221,7 +221,7 @@ export default function AboutMeSection() {
                   logo: VivinhoLogo,
                   role: "Full-Stack Developer",
                   company: "Telefónica",
-                  date: "2023 - Present",
+                  date: "Feb 2023 - Present",
                   description:
                     "I worked on the development of a new web application for the company's customers.",
                   points: [

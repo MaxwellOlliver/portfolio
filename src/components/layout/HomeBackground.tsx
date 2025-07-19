@@ -1,15 +1,15 @@
 import { cn } from "@/utils/cn";
-import ReactLogo from "./logos/ReactLogo";
-import NodeLogo from "./logos/NodeLogo";
-import VueLogo from "./logos/VueLogo";
-import FigmaLogo from "./logos/FigmaLogo";
-import TailwindCSSLogo from "./logos/TailwindCSSLogo";
-import PrismaLogo from "./logos/PrismaLogo";
-import TypescriptLogo from "./logos/TypescriptLogo";
-import FlutterLogo from "./logos/FlutterLogo";
+import ReactLogo from "../logos/ReactLogo";
+import NodeLogo from "../logos/NodeLogo";
+import VueLogo from "../logos/VueLogo";
+import FigmaLogo from "../logos/FigmaLogo";
+import TailwindCSSLogo from "../logos/TailwindCSSLogo";
+import PrismaLogo from "../logos/PrismaLogo";
+import TypescriptLogo from "../logos/TypescriptLogo";
+import FlutterLogo from "../logos/FlutterLogo";
 import GridSvg from "./GridSvg";
 
-export default function HomeAside() {
+export default function HomeBackground() {
   const data = [
     ReactLogo,
     NodeLogo,

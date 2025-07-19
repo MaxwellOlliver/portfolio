@@ -2,7 +2,7 @@
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useTranslations } from "next-intl";
-import HomeAside from "../HomeAside";
+import HomeBackground from "../layout/HomeBackground";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 import gsap from "gsap";
@@ -138,7 +138,7 @@ export default function HomeSection() {
           </a>
         </div>
       </div>
-      <HomeAside />
+      <HomeBackground />
     </section>
   );
 }

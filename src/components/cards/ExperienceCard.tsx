@@ -1,5 +1,7 @@
 import { cn } from "@/utils/cn";
+import gsap from "gsap";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 interface Experience {
   logo: string;
@@ -11,8 +13,31 @@ interface Experience {
 }
 
 export default function ExperienceCard({ data }: { data: Experience }) {
+  const card = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!card.current) return;
+
+    gsap.set(card.current, { scale: 0.8, x: 100, opacity: 0 });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          gsap.to(card.current, { scale: 1, x: 0, opacity: 1 });
+        }
+      });
+    });
+
+    observer.observe(card.current);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="exp-card max-w-[32rem] grid grid-cols-[1fr_auto] gap-8 animate">
+    <div
+      ref={card}
+      className="exp-card max-w-[32rem] min-w-[32rem] grid grid-cols-[1fr_auto] gap-8 animate"
+    >
       <div>
         <div
           className={cn(

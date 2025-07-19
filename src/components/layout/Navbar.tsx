@@ -39,6 +39,7 @@ export default function Navbar() {
     gsap.from(navbar, {
       opacity: 0,
       y: -50,
+      delay: 0.5,
     });
   });
 

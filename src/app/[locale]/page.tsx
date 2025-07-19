@@ -5,6 +5,8 @@ import { initialBlobityOptions } from "@/config/blobity";
 import Navbar from "@/components/layout/Navbar";
 import HomeSection from "@/components/sections/Home";
 import HorizontalScroll from "@/components/layout/HorizontalScroll";
+import AboutMeSection from "@/components/sections/AboutMe";
+import ExperienceSection from "@/components/sections/ExperienceSection";
 
 export default function Home() {
   const blobityInstance = useBlobity(initialBlobityOptions);
@@ -21,7 +23,10 @@ export default function Home() {
     <div className="w-full min-h-dvh font-[family-name:var(--font-geist-sans)] relative">
       <Navbar />
       <HomeSection />
-      <HorizontalScroll />
+      <HorizontalScroll>
+        <AboutMeSection />
+        <ExperienceSection />
+      </HorizontalScroll>
     </div>
   );
 }

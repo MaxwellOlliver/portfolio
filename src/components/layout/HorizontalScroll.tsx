@@ -4,38 +4,34 @@ import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrambleTextPlugin } from "gsap/all";
-import AboutMeSection from "../sections/AboutMe";
-import ExperienceSection from "../sections/ExperienceSection";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
 
-export default function HorizontalScroll() {
+interface HorizontalScrollProps {
+  children: React.ReactNode;
+}
+
+export default function HorizontalScroll({ children }: HorizontalScrollProps) {
   const container = useRef(null);
 
   useGSAP(
     () => {
       const el = container.current! as HTMLElement;
-      const panels = el.querySelectorAll(".panel");
-      const lastPanel = panels[panels.length - 1] as HTMLElement;
-      const tl = gsap.timeline();
+      const content = el.querySelector(".content")! as HTMLElement;
 
-      tl.to(el, {
+      gsap.to(el, {
         x: () => {
-          const lastPanelEnd =
-            lastPanel.offsetLeft +
-            lastPanel.offsetWidth +
-            el.getBoundingClientRect().left +
-            300;
-
-          return -(lastPanelEnd - window.innerWidth);
+          return -(
+            content.getBoundingClientRect().width -
+            window.innerWidth * 0.66
+          );
         },
         ease: "none",
         scrollTrigger: {
           trigger: el,
           start: "top top",
           end: () => {
-            const lastPanelEnd = lastPanel.offsetLeft + lastPanel.offsetWidth;
-            return "+=" + (lastPanelEnd - window.innerWidth) + "px";
+            return "+=" + content.getBoundingClientRect().width / 2 + "px";
           },
           scrub: true,
           pin: true,
@@ -56,9 +52,8 @@ export default function HorizontalScroll() {
         maskComposite: "intersect",
       }}
     >
-      <div className="layout flex h-screen w-full relative" ref={container}>
-        <AboutMeSection />
-        <ExperienceSection />
+      <div className="flex h-screen relative" ref={container}>
+        <div className="content flex w-fit">{children}</div>
       </div>
     </section>
   );

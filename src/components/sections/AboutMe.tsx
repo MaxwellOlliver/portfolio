@@ -55,66 +55,69 @@ export default function AboutMeSection() {
   ];
 
   return (
-    <section className="panel flex max-w-screen min-w-screen h-screen z-10 pt-36 pb-20">
-      <div className="flex gap-16 max-w-[70rem] w-full justify-between">
-        <div className="flex flex-col gap-4 max-w-[32rem] w-full">
-          <h2
-            ref={title}
-            className="font-bold text-txt text-4xl mb-8 scramble-text"
-          >
-            About Me
-          </h2>
-          <p className="">
-            Hello! I&apos;m <span className="text-primary">Maxwell</span>, a
-            passionate software developer with a love for creating innovative
-            solutions.
-            <br />
-            <br />
-            With a background in full-stack development, I enjoy working on both
-            the <span className="text-primary">front-end and back-end</span> of
-            applications. My expertise includes{" "}
-            <span className="text-primary">
-              React, Node.js, and various other technologies
-            </span>
-            .
-            <br />
-            <br />
-            When I&apos;m not coding, you can find me exploring new tech trends,
-            playing video games or listening/playing to good music. Let&apos;s
-            build something amazing together!
-          </p>
-          <p className="my-4">You&apos;ll see me using:</p>
-          <div className="flex items-center gap-4 mt-2">
-            {logos.map((logo, index) => (
-              <logo.Component
-                key={index}
-                className="w-6 h-6"
-                data-blobity-tooltip={logo.name}
-                aria-label={logo.name}
-              />
-            ))}
+    <div className="flex max-w-screen w-screen">
+      <section className="panel layout flex  z-10 pt-36 pb-20">
+        <div className="flex gap-16 max-w-[70rem] w-full justify-between">
+          <div className="flex flex-col max-w-[32rem] w-full">
+            <h2
+              ref={title}
+              className="font-bold text-txt text-4xl mb-8 scramble-text"
+            >
+              About Me
+            </h2>
+            <p className="">
+              Hello! I&apos;m <span className="text-primary">Maxwell</span>, a
+              passionate software developer with a love for creating innovative
+              solutions.
+              <br />
+              <br />
+              With a background in full-stack development, I enjoy working on
+              both the{" "}
+              <span className="text-primary">front-end and back-end</span> of
+              applications. My expertise includes{" "}
+              <span className="text-primary">
+                React, Node.js, and various other technologies
+              </span>
+              .
+              <br />
+              <br />
+              When I&apos;m not coding, you can find me exploring new tech
+              trends, playing video games or listening/playing to good music.
+              Let&apos;s build something amazing together!
+            </p>
+            <p className="my-4">You&apos;ll see me using:</p>
+            <div className="flex items-center gap-4 mt-2">
+              {logos.map((logo, index) => (
+                <logo.Component
+                  key={index}
+                  className="w-6 h-6"
+                  data-blobity-tooltip={logo.name}
+                  aria-label={logo.name}
+                />
+              ))}
+            </div>
+            <p className="mt-4">...and more!</p>
+            <div className="flex items-center gap-4 mt-6">
+              <Gamepad2 />
+              <Music />
+              <Heart />
+            </div>
           </div>
-          <p className="mt-4">...and more!</p>
-          <div className="flex items-center gap-4 mt-6">
-            <Gamepad2 />
-            <Music />
-            <Heart />
-          </div>
-        </div>
 
-        <div
-          className={cn(
-            "flex items-center gap-2 p-4 rounded-xl border-1 border-txt-secondary/20 w-fit",
-            "bg-gradient-to-bl from-transparent via-white/5 to-transparent aspect-square w-[20rem] h-[20rem]",
-            "rotate-12"
-          )}
-          style={{
-            maskImage:
-              "linear-gradient(225deg, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 120%), linear-gradient(45deg, rgb(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%)",
-            maskComposite: "intersect",
-          }}
-        ></div>
-      </div>
-    </section>
+          <div
+            className={cn(
+              "flex items-center gap-2 p-4 rounded-xl border-1 border-txt-secondary/20 w-fit",
+              "bg-gradient-to-bl from-transparent via-white/5 to-transparent aspect-square w-[20rem] h-[20rem]",
+              "rotate-12"
+            )}
+            style={{
+              maskImage:
+                "linear-gradient(225deg, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 120%), linear-gradient(45deg, rgb(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%)",
+              maskComposite: "intersect",
+            }}
+          ></div>
+        </div>
+      </section>
+    </div>
   );
 }

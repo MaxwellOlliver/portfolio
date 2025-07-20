@@ -1,11 +1,13 @@
 "use client";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
-import { cn } from "@/utils/cn";
-import { useTranslations } from "next-intl";
-import HomeBackground from "../layout/HomeBackground";
 import { useGSAP } from "@gsap/react";
-import { SplitText } from "gsap/SplitText";
 import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
+
+import { cn } from "@/utils/cn";
+
+import HomeBackground from "../layout/HomeBackground";
 
 gsap.registerPlugin(useGSAP, SplitText);
 

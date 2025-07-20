@@ -1,5 +1,6 @@
-import { cn } from "@/utils/cn";
 import * as React from "react";
+
+import { cn } from "@/utils/cn";
 interface NodeLogoProps {
   className?: string;
   defaultMode?: boolean;

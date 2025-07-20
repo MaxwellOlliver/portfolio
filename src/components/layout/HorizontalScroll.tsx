@@ -1,9 +1,9 @@
 "use client";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
 

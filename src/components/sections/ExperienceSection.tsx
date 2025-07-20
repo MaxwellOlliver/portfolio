@@ -1,12 +1,12 @@
 "use client";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useEffect, useRef } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/all";
-import ExperienceCard from "../cards/ExperienceCard";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 
 import VivinhoLogo from "../../../public/assets/vivinho.svg";
+import ExperienceCard from "../cards/ExperienceCard";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
 

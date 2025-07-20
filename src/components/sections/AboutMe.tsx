@@ -1,20 +1,22 @@
 "use client";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Gamepad2, Heart, Music } from "lucide-react";
-import { ScrambleTextPlugin } from "gsap/all";
-import FlutterLogo from "../logos/FlutterLogo";
-import ReactLogo from "../logos/ReactLogo";
-import NodeLogo from "../logos/NodeLogo";
-import VueLogo from "../logos/VueLogo";
-import FigmaLogo from "../logos/FigmaLogo";
-import TailwindCSSLogo from "../logos/TailwindCSSLogo";
-import PrismaLogo from "../logos/PrismaLogo";
-import TypescriptLogo from "../logos/TypescriptLogo";
-import NestLogo from "../logos/NestLogo";
-import { cn } from "@/utils/cn";
 import { useRef } from "react";
+
+import { cn } from "@/utils/cn";
+
+import FigmaLogo from "../logos/FigmaLogo";
+import FlutterLogo from "../logos/FlutterLogo";
+import NestLogo from "../logos/NestLogo";
+import NodeLogo from "../logos/NodeLogo";
+import PrismaLogo from "../logos/PrismaLogo";
+import ReactLogo from "../logos/ReactLogo";
+import TailwindCSSLogo from "../logos/TailwindCSSLogo";
+import TypescriptLogo from "../logos/TypescriptLogo";
+import VueLogo from "../logos/VueLogo";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
 

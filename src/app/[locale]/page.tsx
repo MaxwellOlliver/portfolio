@@ -1,12 +1,15 @@
 "use client";
 import useBlobity from "blobity/lib/react/useBlobity";
 import { useEffect } from "react";
-import { initialBlobityOptions } from "@/config/blobity";
-import Navbar from "@/components/layout/Navbar";
-import HomeSection from "@/components/sections/Home";
+
 import HorizontalScroll from "@/components/layout/HorizontalScroll";
+import Navbar from "@/components/layout/Navbar";
 import AboutMeSection from "@/components/sections/AboutMe";
 import ExperienceSection from "@/components/sections/ExperienceSection";
+import FooterSection from "@/components/sections/FooterSection";
+import HomeSection from "@/components/sections/Home";
+import ProjectsSection from "@/components/sections/ProjectsSection";
+import { initialBlobityOptions } from "@/config/blobity";
 
 export default function Home() {
   const blobityInstance = useBlobity(initialBlobityOptions);
@@ -25,6 +28,8 @@ export default function Home() {
         <AboutMeSection />
         <ExperienceSection />
       </HorizontalScroll>
+      <ProjectsSection />
+      <FooterSection />
     </div>
   );
 }

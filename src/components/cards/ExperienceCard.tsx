@@ -1,7 +1,8 @@
-import { cn } from "@/utils/cn";
 import gsap from "gsap";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+
+import { cn } from "@/utils/cn";
 
 interface Experience {
   logo: string;

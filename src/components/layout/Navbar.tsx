@@ -1,8 +1,9 @@
-import { Link } from "@/i18n/navigation";
-import { ChevronDown } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ChevronDown } from "lucide-react";
+import { useTranslations } from "next-intl";
+
+import { Link } from "@/i18n/navigation";
 
 gsap.registerPlugin(useGSAP);
 

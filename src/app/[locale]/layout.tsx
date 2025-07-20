@@ -1,9 +1,11 @@
+import "./globals.css";
+
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+
+import { routing } from "@/i18n/routing";
 
 const inter = Inter({
   variable: "--font-inter",

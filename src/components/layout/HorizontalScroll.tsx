@@ -33,7 +33,7 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
           end: () => {
             return "+=" + content.getBoundingClientRect().width / 2 + "px";
           },
-          scrub: true,
+          scrub: 0.5,
           pin: true,
           markers: false,
         },
@@ -52,7 +52,10 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
         maskComposite: "intersect",
       }}
     >
-      <div className="flex h-screen relative" ref={container}>
+      <div
+        className="flex h-screen relative will-change-transform"
+        ref={container}
+      >
         <div className="content flex w-fit">{children}</div>
       </div>
     </section>

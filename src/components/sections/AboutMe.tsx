@@ -55,7 +55,7 @@ export default function AboutMeSection() {
   ];
 
   return (
-    <div className="flex max-w-screen w-screen">
+    <div className="flex max-w-screen w-screen" id="about-me">
       <section className="panel layout flex  z-10 pt-36 pb-20">
         <div className="flex gap-16 max-w-[70rem] w-full justify-between">
           <div className="flex flex-col max-w-[32rem] w-full">

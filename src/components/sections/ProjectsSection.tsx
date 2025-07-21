@@ -34,15 +34,14 @@ export default function ProjectsSection() {
         </div>
         <div className="flex flex-col items-center justify-center max-w-[64rem] w-full gap-4">
           <ProjectCard
-            title="Project 1"
-            description="Description 1"
+            title="Moonly"
+            description="Moonly is a web app that shows a song's lyrics synchronized with the music."
             image="https://via.placeholder.com/150"
             link="https://www.google.com"
-            isFocused
           />
           <ProjectCard
-            title="Project 2"
-            description="Description 2"
+            title="InPro"
+            description="A platform where you can expose your gaming skills to get higher chances on getting noticed by professional teams."
             image="https://via.placeholder.com/150"
             link="https://www.google.com"
           />

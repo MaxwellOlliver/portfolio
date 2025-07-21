@@ -2,6 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useEffect, useRef, useState } from "react";
 
 import { Link } from "@/i18n/navigation";
 
@@ -9,6 +10,8 @@ gsap.registerPlugin(useGSAP);
 
 export default function Navbar() {
   const t = useTranslations("navbar");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const lastScrollY = useRef(0);
   const items = [
     {
       label: t("home"),
@@ -36,13 +39,44 @@ export default function Navbar() {
   ];
 
   useGSAP(() => {
-    const navbar = gsap.utils.toArray(".navbar");
-    gsap.from(navbar, {
+    gsap.from(".navbar", {
       opacity: 0,
-      y: -50,
+      scale: 0.9,
+      y: -100,
       delay: 0.5,
     });
   });
+
+  useEffect(() => {
+    function handleScroll() {
+      const navbar = document.querySelector(".navbar");
+      if (navbar) {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY.current) {
+          setIsScrolled(true);
+        } else {
+          setIsScrolled(false);
+        }
+
+        lastScrollY.current = currentScrollY;
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useGSAP(
+    () => {
+      gsap.to(".navbar", {
+        y: isScrolled ? -100 : 0,
+        scale: isScrolled ? 0.9 : 1,
+        duration: 0.3,
+        ease: "power2.inOut",
+      });
+    },
+    { dependencies: [isScrolled] }
+  );
 
   return (
     <nav className="navbar fixed top-8 left-1/2 -translate-x-1/2 z-50 bg-background-secondary/60 px-2 py-1 rounded-md">

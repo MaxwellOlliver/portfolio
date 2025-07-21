@@ -4,7 +4,7 @@ export default function FooterSection() {
       className="h-[40dvh] w-full border-t-2 border-neutral-800"
       style={{
         maskImage:
-          "linear-gradient(to right, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 100%)",
+          "linear-gradient(to right, rgba(0, 0, 0, 0) 5%, rgb(0, 0, 0) 50%, rgba(0, 0, 0, 0) 95%)",
         maskComposite: "intersect",
       }}
     >

@@ -5,7 +5,7 @@ export const initialBlobityOptions: Partial<Options> = {
   focusableElementsOffsetX: 5,
   focusableElementsOffsetY: 5,
   color: "#e4ded7",
-  dotColor: "#008170",
+  dotColor: "#da7727",
   invert: true,
   focusableElements:
     "[data-blobity], a:not([data-no-blobity]), h4:not([data-no-blobity]), li:not([data-no-blobity]), button:not([data-no-blobity]), [data-blobity-tooltip]",

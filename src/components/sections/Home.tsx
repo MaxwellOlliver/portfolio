@@ -75,8 +75,8 @@ export default function HomeSection() {
         <div
           className={cn(
             "h-[75px] w-[850px] rounded-full",
-            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/40 to-[#0F3324]/40",
-            "supports-firefox:from-[#2E996C]/[0.07] supports-firefox:to-[#0F3324]/[0.07] supports-firefox:h-[200px]",
+            "bg-gradient-to-r from-off-primary/40 via-primary/40 to-off-primary/40",
+            "supports-firefox:from-off-primary/[0.07] supports-firefox:to-off-primary/[0.07] supports-firefox:h-[200px]",
             "absolute top-[20%] left-[95%] blur-[130px] -translate-y-1/2  rotate-180 origin-left",
             "z-[1] pointer-events-none",
             "max-md:top-[5%]"
@@ -86,8 +86,8 @@ export default function HomeSection() {
         <div
           className={cn(
             "h-[160px] w-[850px] rounded-full",
-            "bg-gradient-to-r from-[#0F3324]/40 via-[#2E996C]/20 to-[#0F3324]/40",
-            "supports-firefox:from-[#2E996C]/[0.07] supports-firefox:to-[#0F3324]/[0.07] supports-firefox:h-[200px]",
+            "bg-gradient-to-r from-off-primary/20 via-primary/20 to-off-primary/20",
+            "supports-firefox:from-off-primary/[0.07] supports-firefox:to-off-primary/[0.07] supports-firefox:h-[200px]",
             "absolute top-[80%] left-[65%] blur-[130px] -translate-y-1/2 -translate-x-1/2 rotate-180 origin-left",
             "z-[1] pointer-events-none",
             "max-md:top-[5%]"

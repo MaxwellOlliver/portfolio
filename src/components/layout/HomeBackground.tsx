@@ -54,7 +54,7 @@ export default function HomeBackground() {
           maskComposite: "intersect",
         }}
       >
-        <GridSvg className="w-full h-full text-neutral-800/30" />
+        <GridSvg className="w-full h-full text-neutral-800/20" />
       </div>
       <div
         className={cn(

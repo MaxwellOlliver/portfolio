@@ -32,7 +32,7 @@ export default function ProjectCard({
       style={{ backgroundColor }}
     >
       <Image
-        src="/assets/moonly.jpg"
+        src={image}
         alt={title}
         width={1600}
         height={1600}

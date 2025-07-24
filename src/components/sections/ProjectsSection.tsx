@@ -6,6 +6,31 @@ import Glassify from "../cards/Glassify";
 import ProjectCard from "../cards/ProjectCard";
 
 export default function ProjectsSection() {
+  const projects = [
+    {
+      title: "Moonly",
+      description:
+        "Moonly is a web app that shows a song's lyrics synchronized with the music.",
+      image: "/assets/moonly.jpg",
+      link: "https://www.google.com",
+      backgroundColor: "var(--color-primary)",
+    },
+    {
+      title: "InPro",
+      description:
+        "A platform where you can expose your gaming skills to get higher chances on getting noticed by professional teams.",
+      image: "/assets/inpro.jpg",
+      link: "https://www.google.com",
+      backgroundColor: "#781188",
+    },
+    {
+      title: "Small Projects",
+      description: "A collection of small projects I've worked on.",
+      image: "/assets/others.jpg",
+      link: "https://www.google.com",
+      backgroundColor: "#010409",
+    },
+  ];
   return (
     <section
       className="relative w-full min-h-dvh overflow-visible pt-8 pb-36"
@@ -33,24 +58,16 @@ export default function ProjectsSection() {
           </p>
         </div>
         <div className="flex flex-col items-center justify-center max-w-[64rem] w-full gap-4">
-          <ProjectCard
-            title="Moonly"
-            description="Moonly is a web app that shows a song's lyrics synchronized with the music."
-            image="https://via.placeholder.com/150"
-            link="https://www.google.com"
-          />
-          <ProjectCard
-            title="InPro"
-            description="A platform where you can expose your gaming skills to get higher chances on getting noticed by professional teams."
-            image="https://via.placeholder.com/150"
-            link="https://www.google.com"
-          />
-          <ProjectCard
-            title="Project 3"
-            description="Description 3"
-            image="https://via.placeholder.com/150"
-            link="https://www.google.com"
-          />
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.title}
+              title={project.title}
+              description={project.description}
+              image={project.image}
+              link={project.link}
+              backgroundColor={project.backgroundColor}
+            />
+          ))}
         </div>
       </div>
     </section>

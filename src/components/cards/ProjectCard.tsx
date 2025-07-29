@@ -44,7 +44,7 @@ export default function ProjectCard({
       ease: "power2.out",
       scrollTrigger: {
         trigger: wrapperRef.current,
-        start: "top 90%",
+        start: "top 80%",
         end: "top 50%",
         scrub: true,
         markers: true,
@@ -55,7 +55,7 @@ export default function ProjectCard({
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: wrapperRef.current,
-        start: "top 20%", // starts pinning when card hits top
+        start: "top 10%", // starts pinning when card hits top
         end: "+=100%", // scroll distance while pinned
         scrub: true,
         pin: true,

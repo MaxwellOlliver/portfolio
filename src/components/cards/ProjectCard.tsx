@@ -2,12 +2,12 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { Github, Linkedin } from "lucide-react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Github, Globe } from "lucide-react";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { ComponentType, useRef } from "react";
 
 import { cn } from "@/utils/cn";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -15,119 +15,90 @@ interface ProjectCardProps {
   title: string;
   description: string;
   image: string;
-  link: string;
+  link?: string;
+  id: string;
   backgroundColor?: string;
+  tools: ComponentType<{ className?: string }>[];
 }
 
 export default function ProjectCard({
   title,
-  description,
   image,
-  link,
   backgroundColor = "var(--color-primary)",
+  id,
+  link,
+  description,
+  tools,
 }: ProjectCardProps) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const infoCardRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    if (!cardRef.current || !infoCardRef.current || !wrapperRef.current) return;
-
-    gsap.set(cardRef.current, { opacity: 0, y: 100 });
-    gsap.set(infoCardRef.current, { y: "100%" });
-
-    // Fade-in as the card scrolls in
-    gsap.to(cardRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: wrapperRef.current,
-        start: "top 80%",
-        end: "top 50%",
-        scrub: true,
-        markers: true,
-      },
-    });
-
-    // Pin only when the card reaches the top
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: wrapperRef.current,
-        start: "top 10%", // starts pinning when card hits top
-        end: "+=100%", // scroll distance while pinned
-        scrub: true,
-        pin: true,
-        markers: true,
-        pinSpacing: true,
-      },
-    });
-
-    tl.to(infoCardRef.current, {
-      y: 0,
-      duration: 0.8,
-      ease: "power2.out",
-    });
-  });
 
   return (
-    <div className="relative w-full" ref={wrapperRef}>
-      <div
-        className={cn(
-          "project-card flex flex-col items-center justify-center w-full h-full rounded-lg border-1 border-txt-secondary/20",
-          "p-4 relative group overflow-hidden aspect-square max-h-[calc(100dvh-14rem)]"
-        )}
-        style={{ backgroundColor }}
-        ref={cardRef}
-      >
-        <Image
-          src={image}
-          alt={title}
-          width={1600}
-          height={1600}
-          className="w-full h-full object-contain rounded-lg aspect-square"
-        />
+    <div
+      className={cn(
+        "project-card flex flex-col items-center justify-center w-full h-full",
+        "relative group overflow-hidden rounded-md"
+      )}
+      // style={{
+      //   backgroundColor,
+      //   backgroundImage: `url(${image})`,
+      //   backgroundSize: "contain",
+      //   backgroundPosition: "center",
+      //   backgroundRepeat: "no-repeat",
+      // }}
+      ref={cardRef}
+      id={id}
+    >
+      <div className="w-full h-full grid grid-cols-[auto_1fr]">
         <div
-          className={cn(
-            "flex flex-col  absolute bottom-0 left-0 w-full",
-            "bg-white p-12 text-neutral-900 "
-          )}
-          ref={infoCardRef}
+          className="w-64 aspect-square flex items-center justify-center rounded-md"
+          style={{ backgroundColor }}
         >
-          <h3
-            className="text-2xl font-bold mb-4"
-            style={{ color: backgroundColor }}
-          >
-            {title}
-          </h3>
-          <p className="text-sm text-neutral-500 font-xl">{description}</p>
-          <a
-            href={link}
-            target=" _blank"
-            rel="noopener noreferrer"
-            className="text-sm underline w-fit mt-2 mb-4"
-            data-blobity-magnetic="false"
-            style={{ color: backgroundColor }}
-          >
-            See it live
-          </a>
-          <div className="flex items-center gap-2 mt-auto">
-            <div
-              className="p-1"
-              data-blobity="true"
-              data-blobity-magnetic="false"
-            >
-              <Github className="size-6 text-neutral-500" />
-            </div>
-            <div
-              className="p-1"
-              data-blobity="true"
-              data-blobity-magnetic="false"
-            >
-              <Linkedin className="size-6 text-neutral-500" />
-            </div>
+          <Image
+            src={image}
+            alt={title}
+            width={1600}
+            height={1600}
+            className="w-full h-full object-contain aspect-square rounded-md max-w-52 pointer-events-none select-none "
+          />
+        </div>
+        <div
+          className="flex flex-col pl-8 flex-1 h-full justify-between py-12 -ml-2"
+          style={{
+            background: `linear-gradient(to right, ${backgroundColor}20 0%, var(--background) 40%)`,
+          }}
+        >
+          <div className="flex flex-col gap-2">
+            <h3 className="text-2xl font-normal">{title}</h3>
+            <p className=" text-txt-secondary max-w-[32rem]">{description}</p>
           </div>
+
+          <footer className="flex items-center gap-2 justify-between">
+            <div className="flex items-center gap-4">
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 w-fit"
+              >
+                <Github className="w-4 text-primary" />
+                <span className="text-sm">GitHub</span>
+              </a>
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 w-fit"
+              >
+                <Globe className="w-4 text-primary" />
+                <span className="text-sm">Website</span>
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              {tools.map((Tool) => (
+                <Tool key={Tool.name} className="w-4 h-4" />
+              ))}
+            </div>
+          </footer>
         </div>
       </div>
     </div>

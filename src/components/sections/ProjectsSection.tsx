@@ -53,29 +53,32 @@ export default function ProjectsSection() {
   ];
 
   useGSAP(() => {
-    gsap.set(
-      projects.map((project) => `#${project.id}`),
-      {
-        opacity: 0,
-        y: 20,
-      }
-    );
+    const items = gsap.utils.toArray<HTMLElement>(".project-card");
 
-    gsap.to(
-      projects.map((project) => `#${project.id}`),
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.2,
-        duration: 0.5,
-        ease: "power2.inOut",
-        scrollTrigger: {
-          trigger: ".project-list",
-          start: "top bottom",
-          end: "top center",
-        },
-      }
-    );
+    items.forEach((el) => {
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 20, scale: 0.9 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "center 95%",
+            end: "center 80%",
+            scrub: 0.8,
+            snap: {
+              snapTo: [0, 1],
+              duration: { min: 0.12, max: 0.28 },
+              ease: "power1.out",
+            },
+            invalidateOnRefresh: true,
+          },
+        }
+      );
+    });
   });
 
   return (

@@ -17,13 +17,14 @@ import TypescriptLogo from "../logos/TypescriptLogo";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function ProjectsSection() {
-  const projects = [
+  const projects: React.ComponentProps<typeof ProjectCard>[] = [
     {
       title: "Moonly",
       description:
         "Moonly is a web app that shows a song's lyrics synchronized with the music.",
       image: "/assets/moonly.jpg",
-      link: "https://www.google.com",
+      githubLink: "https://github.com/MaxwellOlliver/moonly",
+      websiteLink: "https://maxwellolliver.github.io/moonly/",
       backgroundColor: "#da7727",
       id: "moonly",
       tools: [ReactLogo, TypescriptLogo],
@@ -33,7 +34,8 @@ export default function ProjectsSection() {
       description:
         "A platform where you can expose your gaming skills to get higher chances on getting noticed by professional teams.",
       image: "/assets/inpro.jpg",
-      link: "https://www.google.com",
+      githubLink: "https://www.google.com",
+      websiteLink: "https://www.google.com",
       backgroundColor: "#781188",
       id: "inpro",
       tools: [ReactLogo, TypescriptLogo, NestLogo, PrismaLogo],
@@ -42,8 +44,9 @@ export default function ProjectsSection() {
       title: "Small Projects",
       description: "A collection of small projects I've worked on.",
       image: "/assets/others.jpg",
-      link: "https://www.google.com",
-      backgroundColor: "#010409",
+      githubLink: "https://www.google.com",
+      websiteLink: "https://www.google.com",
+      backgroundColor: "#4300A1",
       id: "others",
       tools: [ReactLogo, TypescriptLogo, NestLogo, PrismaLogo],
     },

@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Github, Globe } from "lucide-react";
 import Image from "next/image";
 import { ComponentType, useRef } from "react";
+import { useMediaQuery } from "usehooks-ts";
 
 import { cn } from "@/utils/cn";
 
@@ -15,7 +16,8 @@ interface ProjectCardProps {
   title: string;
   description: string;
   image: string;
-  link?: string;
+  githubLink?: string;
+  websiteLink?: string;
   id: string;
   backgroundColor?: string;
   tools: ComponentType<{ className?: string }>[];
@@ -26,17 +28,21 @@ export default function ProjectCard({
   image,
   backgroundColor = "var(--color-primary)",
   id,
-  link,
+  githubLink,
+  websiteLink,
   description,
   tools,
 }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const isMd = useMediaQuery("(max-width: 768px)");
+
+  console.log(isMd);
 
   return (
     <div
       className={cn(
-        "project-card flex flex-col items-center justify-center w-full h-full",
-        "relative group overflow-hidden rounded-md"
+        "project-card flex flex-col items-center justify-center w-full h-full max-md:mb-8",
+        "relative group overflow-hidden"
       )}
       // style={{
       //   backgroundColor,
@@ -48,9 +54,9 @@ export default function ProjectCard({
       ref={cardRef}
       id={id}
     >
-      <div className="w-full h-full grid grid-cols-[auto_1fr]">
+      <div className="w-full h-full grid grid-cols-1 md:grid-cols-[auto_1fr]">
         <div
-          className="w-64 aspect-square flex items-center justify-center rounded-md"
+          className="w-full md:w-64 p-4 md:aspect-square flex items-center justify-center rounded-md max-md:mx-auto max-md:-mb-4 max-md:z-10"
           style={{ backgroundColor }}
         >
           <Image
@@ -62,9 +68,11 @@ export default function ProjectCard({
           />
         </div>
         <div
-          className="flex flex-col pl-8 flex-1 h-full justify-between py-12 -ml-2"
+          className="flex flex-col px-8 flex-1 gap-4 h-full justify-between py-12 max-md:-mt-1 md:-ml-1 max-md:rounded-md"
           style={{
-            background: `linear-gradient(to right, ${backgroundColor}20 0%, var(--background) 40%)`,
+            background: `linear-gradient(to ${
+              isMd ? "bottom" : "right"
+            }, ${backgroundColor}${isMd ? 40 : 20} 0%, var(--background) 40%)`,
           }}
         >
           <div className="flex flex-col gap-2">
@@ -75,19 +83,23 @@ export default function ProjectCard({
           <footer className="flex items-center gap-2 justify-between">
             <div className="flex items-center gap-4">
               <a
-                href={link}
+                href={githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 w-fit"
+                data-blobity="true"
+                data-blobity-magnetic="false"
               >
                 <Github className="w-4 text-primary" />
                 <span className="text-sm">GitHub</span>
               </a>
               <a
-                href={link}
+                href={websiteLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 w-fit"
+                data-blobity="true"
+                data-blobity-magnetic="false"
               >
                 <Globe className="w-4 text-primary" />
                 <span className="text-sm">Website</span>

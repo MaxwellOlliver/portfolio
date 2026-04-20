@@ -48,3 +48,30 @@ body {
   margin-right: auto;
   width: 91.666667%;
 }
+
+@keyframes orbit-spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes orbit-counter-spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: -360deg;
+  }
+}
+
+@keyframes orbit-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/utils/cn";
 
 import HomeBackground from "../layout/HomeBackground";
+import OrbitingTech from "../layout/OrbitingTech";
 
 gsap.registerPlugin(useGSAP, SplitText);
 
@@ -95,6 +96,7 @@ export default function HomeSection() {
         ></div>
       </div>
       <div className="layout pt-36 pb-20 flex items-center min-h-[calc(100dvh-10rem)] relative w-full">
+        <OrbitingTech />
         <div className="flex flex-col max-w-[30rem] z-10">
           <div className="flex items-center gap-4 mb-4">
             {links.map((link) => (
@@ -121,22 +123,23 @@ export default function HomeSection() {
             id="more-about-me"
             href="#about-me"
             className={cn(
-              "flex items-center gap-2 mt-4 p-4 rounded-xl border-1 border-txt-secondary/20 w-fit",
-              "bg-gradient-to-bl from-transparent via-white/5 to-transparent"
+              "relative flex items-center gap-2 mt-4 p-4 rounded-xl w-fit overflow-hidden",
+              "border border-white/10 bg-white/3 backdrop-blur-md",
+              "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
+              "transition-all duration-300 hover:bg-white/6 hover:border-white/15",
             )}
             data-blobity="true"
             data-blobity-magnetic="false"
             data-blobity-offset-y="0"
             data-blobity-offset-x="0"
             data-blobity-radius="12"
-            style={{
-              maskImage:
-                "linear-gradient(225deg, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 120%), linear-gradient(45deg, rgb(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%)",
-              maskComposite: "intersect",
-            }}
           >
-            <ArrowDown className="w-5 h-5" />
-            <span>More about me</span>
+            <span
+              className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-br from-white/4 via-transparent to-transparent"
+              aria-hidden="true"
+            />
+            <ArrowDown className="w-5 h-5 relative" />
+            <span className="relative">More about me</span>
           </a>
         </div>
       </div>

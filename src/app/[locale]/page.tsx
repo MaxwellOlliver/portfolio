@@ -9,6 +9,7 @@ import ExperienceSection from "@/components/sections/ExperienceSection";
 import FooterSection from "@/components/sections/FooterSection";
 import HomeSection from "@/components/sections/Home";
 import ProjectsSection from "@/components/sections/ProjectsSection";
+import TechCarousel from "@/components/sections/TechCarousel";
 import { initialBlobityOptions } from "@/config/blobity";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
     <div className="w-full min-h-dvh font-[family-name:var(--font-geist-sans)] relative">
       <Navbar />
       <HomeSection />
+      {/*<TechCarousel />*/}
       <HorizontalScroll>
         <AboutMeSection />
         <ExperienceSection />

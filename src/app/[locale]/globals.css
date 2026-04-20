@@ -1,11 +1,16 @@
 @import "tailwindcss";
 
+@custom-variant tall (@media (min-height: 634px));
+@custom-variant taller (@media (min-height: 716px));
+
 :root {
-  --background: #ffffff;
+  --background: #ebebeb;
   --background-secondary: #f5f5f5;
-  --foreground: #171717;
-  --primary: #da7727;
-  --off-primary: #964401;
+  --foreground: #2e2e2e;
+  --primary: #242424;
+  --off-primary: #292929;
+  --foreground-muted: #646464;
+  --border: #d1d1d1;
 }
 
 @theme inline {
@@ -15,38 +20,46 @@
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
 
-  --color-txt: var(--txt);
-  --color-txt-secondary: var(--txt-secondary);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-border: var(--border);
 
   --color-primary: var(--primary);
   --color-off-primary: var(--off-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #070707;
-    --background-secondary: #1f1f1f;
-    --foreground: #ededed;
-
-    --txt: #ededed;
-    --txt-secondary: #a1a1a1;
+@layer components {
+  body,
+  html {
+    @apply border-border bg-background text-foreground selection:text-background selection:bg-foreground;
   }
-}
 
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  * {
+    @apply border-border;
+  }
 }
 
 .layout {
   max-width: 68rem;
   margin-left: auto;
   margin-right: auto;
-  width: 91.666667%;
+  width: 90%;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 70s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
 }
 
 @keyframes orbit-spin {

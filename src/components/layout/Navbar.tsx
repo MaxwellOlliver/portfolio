@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 import { Link } from "@/i18n/navigation";
+import { cn } from "@/utils/cn";
 
 gsap.registerPlugin(useGSAP);
 
@@ -75,12 +76,22 @@ export default function Navbar() {
         ease: "power2.inOut",
       });
     },
-    { dependencies: [isScrolled] }
+    { dependencies: [isScrolled] },
   );
 
   return (
-    <nav className="navbar fixed top-8 left-1/2 -translate-x-1/2 z-50 bg-background-secondary/60 px-2 py-1 rounded-md">
-      <div className="flex items-center gap-4">
+    <nav
+      className={cn(
+        "navbar fixed top-8 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-xl overflow-hidden",
+        "border border-white/10 bg-white/3 backdrop-blur-md",
+        "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
+      )}
+    >
+      <span
+        className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-br from-white/4 via-transparent to-transparent"
+        aria-hidden="true"
+      />
+      <div className="relative flex items-center gap-4">
         {items.map((item) => (
           <Link
             href={item.href}

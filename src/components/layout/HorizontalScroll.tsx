@@ -44,7 +44,7 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
 
   return (
     <section
-      className="relative w-full min-h-dvh overflow-hidden"
+      className="relative w-full min-h-[max(100dvh,700px)] overflow-hidden"
       id="horizontal-scroll"
       style={{
         maskImage:
@@ -53,7 +53,7 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
       }}
     >
       <div
-        className="flex h-screen relative will-change-transform"
+        className="flex h-[max(100dvh,700px)] relative will-change-transform"
         ref={container}
       >
         <div className="content flex w-fit">{children}</div>

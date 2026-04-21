@@ -42,25 +42,25 @@ export default function HomeBackground() {
       className="absolute inset-0 overflow-hidden"
       style={{
         maskImage:
-          "linear-gradient(to bottom, rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 90%)",
+          "linear-gradient(to bottom, rgb(150, 150, 150) 80%, rgba(0, 0, 0, 0) 90%)",
         maskComposite: "intersect",
       }}
     >
-      <div
+      {/* <div
         className="absolute top-0 left-0 max-w-screen w-full h-full"
         style={{
           maskImage:
-            "linear-gradient(to bottom, rgb(0, 0, 0) 30%, rgba(0, 0, 0, 0) 60%)",
+            "linear-gradient(to bottom, rgb(150, 150, 150) 30%, rgba(0, 0, 0, 0) 60%)",
           maskComposite: "intersect",
         }}
       >
-        <GridSvg className="w-full h-full text-neutral-800/20" />
-      </div>
+        <GridSvg className="w-full h-full text-neutral-800/5" />
+      </div> */}
       <div
         className={cn(
           "absolute top-[35%] left-1/2 max-w-[800px] w-full",
           "rounded-md p-4 grid grid-rows-4 grid-flow-col gap-4 [transform-style:preserve-3d] [transform:rotateX(45deg)_rotateZ(45deg)] will-change-transform",
-          "perspective-[1000px] w-full"
+          "perspective-[1000px] w-full",
         )}
         style={{
           aspectRatio: "984 / 802",
@@ -74,7 +74,7 @@ export default function HomeBackground() {
             key={index}
             className={cn(
               "rounded-md group text-center cursor-pointer [transform-style:preserve-3d]",
-              "flex items-center justify-center w-52 ring-1 ring-neutral-800/90 text-sm perspective-distant"
+              "flex items-center justify-center w-52 ring-1 ring-foreground/20 text-sm perspective-distant",
             )}
           >
             <div
@@ -82,13 +82,13 @@ export default function HomeBackground() {
                 "grayscale-100 group-hover:grayscale-0",
                 "flex rounded-md items-center justify-center w-full h-full",
                 "transition-all duration-300",
-                "border-1 border-transparent group-hover:border-neutral-800/90",
-                "group-hover:[transform:translateX(-15px)_translateY(-15px)]"
+                "border-1 border-transparent group-hover:border-foreground/20",
+                // "group-hover:[transform:translateX(-15px)_translateY(-15px)]",
               )}
             >
               <Item
                 className={cn(
-                  "size-14 transition-all duration-300 opacity-20 group-hover:opacity-100 "
+                  "size-14 transition-all duration-300 opacity-20 group-hover:opacity-100 ",
                 )}
               />
             </div>

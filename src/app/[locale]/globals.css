@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-@custom-variant tall (@media (min-height: 634px));
-@custom-variant taller (@media (min-height: 716px));
+@custom-variant tall (@media (min-width: 768px) and (min-height: 634px));
+@custom-variant taller (@media (min-width: 768px) and (min-height: 716px));
 
 :root {
   --background: #ebebeb;

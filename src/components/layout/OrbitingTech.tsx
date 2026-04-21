@@ -55,14 +55,20 @@ const rings: Ring[] = [
   },
 ];
 
-const orbitAnimation = (duration: number, reverse?: boolean): CSSProperties => ({
+const orbitAnimation = (
+  duration: number,
+  reverse?: boolean,
+): CSSProperties => ({
   animationName: reverse ? "orbit-counter-spin" : "orbit-spin",
   animationDuration: `${duration}s`,
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
 });
 
-const counterAnimation = (duration: number, reverse?: boolean): CSSProperties => ({
+const counterAnimation = (
+  duration: number,
+  reverse?: boolean,
+): CSSProperties => ({
   animationName: reverse ? "orbit-spin" : "orbit-counter-spin",
   animationDuration: `${duration}s`,
   animationTimingFunction: "linear",
@@ -82,7 +88,7 @@ export default function OrbitingTech() {
           "radial-gradient(circle at center, rgb(0,0,0) 40%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0) 95%)",
       }}
     >
-      <div className="relative scale-50 sm:scale-75 md:scale-90 lg:scale-100">
+      <div className="relative scale-90 md:scale-90 lg:scale-100">
         {rings.map(({ radius, duration, reverse, size, logos }, ringIdx) => (
           <div
             key={ringIdx}
@@ -93,7 +99,7 @@ export default function OrbitingTech() {
               ...orbitAnimation(duration, reverse),
             }}
           >
-            <div className="absolute inset-0 rounded-full border border-white/[0.04]" />
+            <div className="absolute inset-0 rounded-full border border-foreground/5" />
             {logos.map((Logo, i) => {
               const angle = (360 / logos.length) * i;
               return (

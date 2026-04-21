@@ -3,96 +3,93 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
+import { useTranslations } from "next-intl";
+import { ComponentType, useRef } from "react";
 
 import { cn } from "@/utils/cn";
 
 import VivinhoLogo from "../../../public/assets/vivinho.svg";
 import ExperienceCard, { ExperienceData } from "../cards/ExperienceCard";
 import DockerLogo from "../logos/DockerLogo";
-import JavaLogo from "../logos/JavaLogo";
 import NestLogo from "../logos/NestLogo";
 import NextLogo from "../logos/NextLogo";
 import NodeLogo from "../logos/NodeLogo";
-import PrismaLogo from "../logos/PrismaLogo";
 import ReactLogo from "../logos/ReactLogo";
-import SpringBootLogo from "../logos/SpringBootLogo";
 import TypescriptLogo from "../logos/TypescriptLogo";
-import VueLogo from "../logos/VueLogo";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
 
 const chars =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-const experiences: ExperienceData[] = [
+type ExperienceConfig = {
+  key: string;
+  logo: ExperienceData["logo"];
+  startDate: string;
+  endDate: string | "present";
+  tech: ComponentType<{ className?: string }>[];
+  current?: boolean;
+};
+
+const experienceConfig: ExperienceConfig[] = [
   {
+    key: "dotcodeSenior",
     logo: VivinhoLogo,
-    role: "Full-Stack Developer",
-    company: "Telefónica",
-    location: "Remote",
-    startDate: "2023-02",
+    startDate: "2025-10",
     endDate: "present",
-    description:
-      "Leading motion-rich interface work for a customer-facing platform, bridging design and engineering.",
-    points: [
-      "Shipped a redesigned dashboard that cut task-completion time by 34%.",
-      "Built a shared motion system in GSAP + React used across 12 teams.",
-      "Migrated legacy services to a modular NestJS stack with zero downtime.",
-    ],
-    tech: [ReactLogo, NextLogo, TypescriptLogo, NestLogo, PrismaLogo, DockerLogo],
+    tech: [ReactLogo, NextLogo, TypescriptLogo, DockerLogo],
     current: true,
   },
   {
+    key: "vivo",
     logo: VivinhoLogo,
-    role: "Backend Developer",
-    company: "Previous Co.",
-    location: "São Paulo",
-    startDate: "2021-06",
-    endDate: "2023-01",
-    description:
-      "Designed event-driven pipelines powering a fintech risk platform with millions of daily events.",
-    points: [
-      "Authored a Kafka → Postgres ingestion layer handling 4M events/day.",
-      "Introduced contract tests across 9 services, halving integration incidents.",
-    ],
-    tech: [JavaLogo, SpringBootLogo, DockerLogo, NodeLogo],
+    startDate: "2025-02",
+    endDate: "2025-09",
+    tech: [ReactLogo, NextLogo, TypescriptLogo, NodeLogo, NestLogo, DockerLogo],
   },
   {
+    key: "dotcodeFrontend",
     logo: VivinhoLogo,
-    role: "Frontend Developer",
-    company: "Earlier Co.",
-    location: "Remote",
-    startDate: "2020-01",
-    endDate: "2021-05",
-    description:
-      "Built customer-facing Vue apps with a strong emphasis on accessibility and performance budgets.",
-    points: [
-      "Rebuilt the checkout flow — Lighthouse mobile score 62 → 94.",
-      "Introduced a shared design-token pipeline between Figma and Vue.",
-    ],
-    tech: [VueLogo, TypescriptLogo, NodeLogo],
+    startDate: "2023-06",
+    endDate: "2025-01",
+    tech: [ReactLogo, TypescriptLogo, DockerLogo],
   },
   {
+    key: "gbAgritech",
     logo: VivinhoLogo,
-    role: "Junior Developer",
-    company: "First Gig",
-    location: "Remote",
-    startDate: "2018-08",
-    endDate: "2019-12",
-    description:
-      "First professional role — shipped internal tools and learned the craft alongside senior engineers.",
-    points: [
-      "Built an internal tool used by 40+ analysts daily.",
-      "Paired on the migration from Angular to React.",
-    ],
-    tech: [ReactLogo, NodeLogo, NextLogo],
+    startDate: "2022-06",
+    endDate: "2023-05",
+    tech: [NextLogo, ReactLogo, TypescriptLogo],
+  },
+  {
+    key: "vyaDigital",
+    logo: VivinhoLogo,
+    startDate: "2021-01",
+    endDate: "2022-10",
+    tech: [ReactLogo, TypescriptLogo, NodeLogo],
   },
 ];
 
 export default function ExperienceSection() {
+  const t = useTranslations("experience");
   const section = useRef<HTMLElement>(null);
   const title = useRef<HTMLHeadingElement>(null);
+  const titleText = t("title");
+
+  const experiences: ExperienceData[] = experienceConfig.map((exp, i, arr) => ({
+    logo: exp.logo,
+    role: t(`items.${exp.key}.role`),
+    company: t(`items.${exp.key}.company`),
+    location: t(`items.${exp.key}.location`),
+    startDate: exp.startDate,
+    endDate: exp.endDate,
+    description: t(`items.${exp.key}.description`),
+    points: t.raw(`items.${exp.key}.points`) as string[],
+    tech: exp.tech,
+    current: exp.current,
+    showYear:
+      i === 0 || exp.startDate.split("-")[0] !== arr[i - 1].startDate.split("-")[0],
+  }));
 
   useGSAP(
     () => {
@@ -111,7 +108,7 @@ export default function ExperienceSection() {
       gsap.set(years, { clipPath: "inset(0 100% 0 0)" });
       gsap.set(spines, isDesktop ? { scaleX: 0 } : { scaleY: 0 });
 
-      const io = new IntersectionObserver(
+      const sectionIo = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
@@ -120,7 +117,7 @@ export default function ExperienceSection() {
 
             tl.to(title.current, {
               duration: 0.9,
-              scrambleText: { chars, text: "Experience" },
+              scrambleText: { chars, text: titleText },
             });
 
             tl.to(
@@ -144,27 +141,53 @@ export default function ExperienceSection() {
               "-=0.6",
             );
 
-            tl.to(
-              cards,
-              {
-                opacity: 1,
-                y: 0,
-                stagger: 0.12,
-                duration: 0.7,
-                ease: "power2.out",
-              },
-              "-=0.5",
-            );
-
-            io.disconnect();
+            sectionIo.disconnect();
           });
         },
         { threshold: 0.15 },
       );
 
-      io.observe(section.current);
+      sectionIo.observe(section.current);
 
-      return () => io.disconnect();
+      const cardTriggers: ScrollTrigger[] = [];
+
+      const frame = requestAnimationFrame(() => {
+        const horizontalTween = isDesktop
+          ? (gsap.getById("horizontalScroll") as gsap.core.Tween | undefined)
+          : undefined;
+
+        cards.forEach((card) => {
+          const tween = gsap.fromTo(
+            card,
+            { opacity: 0, y: 24 },
+            {
+              opacity: 1,
+              y: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                containerAnimation: horizontalTween,
+                start: isDesktop ? "left 95%" : "top 95%",
+                end: isDesktop ? "left 85%" : "top 85%",
+                scrub: 0.2,
+                snap: {
+                  snapTo: [0, 1],
+                  duration: { min: 0.12, max: 0.28 },
+                  ease: "power1.out",
+                },
+                invalidateOnRefresh: true,
+              },
+            },
+          );
+          if (tween.scrollTrigger) cardTriggers.push(tween.scrollTrigger);
+        });
+      });
+
+      return () => {
+        cancelAnimationFrame(frame);
+        sectionIo.disconnect();
+        cardTriggers.forEach((t) => t.kill());
+      };
     },
     { scope: section },
   );
@@ -184,10 +207,12 @@ export default function ExperienceSection() {
             ref={title}
             className="font-bold text-txt text-4xl scramble-text w-fit"
           >
-            Experience
+            {titleText}
           </h2>
           <span className="font-mono text-xs text-foreground-muted/60 uppercase tracking-[0.2em]">
-            {String(experiences.length).padStart(2, "0")} roles
+            {t("rolesLabel", {
+              count: String(experiences.length).padStart(2, "0"),
+            })}
           </span>
         </div>
 

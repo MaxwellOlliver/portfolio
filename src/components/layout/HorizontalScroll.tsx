@@ -28,10 +28,11 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
           x: () => {
             return -(
               content.getBoundingClientRect().width -
-              window.innerWidth * 0.66
+              window.innerWidth * 0.95
             );
           },
           ease: "none",
+          id: "horizontalScroll",
           scrollTrigger: {
             trigger: el,
             start: "top top",
@@ -53,8 +54,8 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
       className={cn(
         "relative w-full",
         "md:min-h-[max(100dvh,700px)] md:overflow-hidden",
-        "md:[mask-image:linear-gradient(to_right,rgb(0,0,0)_90%,rgba(0,0,0,0)_100%)]",
-        "md:[mask-composite:intersect]",
+        "md:mask-[linear-gradient(to_right,rgb(0,0,0)_90%,rgba(0,0,0,0)_100%)]",
+        "md:mask-intersect",
       )}
       id="horizontal-scroll"
     >

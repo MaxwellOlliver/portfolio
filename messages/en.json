@@ -8,16 +8,78 @@
     "more": "More"
   },
   "home": {
-    "eyebrow": "Full-Stack Engineer",
+    "eyebrow": "Senior Full-Stack Engineer",
     "status": "Available for work",
     "title": "I'm Maxwell",
-    "description": "Full-Stack Engineer with deep expertise in React, React Native, Node.js and TypeScript. I solve complex problems by architecting scalable APIs and pixel-perfect UIs, always keeping users and performance front of mind",
+    "description": "Senior Full-Stack Engineer with 5+ years building scalable web and mobile applications in React, Next.js, React Native, and Node.js. I drive architectural decisions, improve system performance, and ship high-impact solutions.",
     "moreAboutMe": "More about me"
+  },
+  "experience": {
+    "title": "Experience",
+    "rolesLabel": "{count} roles",
+    "current": "Current",
+    "stack": "Stack",
+    "endPresent": "Present",
+    "duration": {
+      "monthsOnly": "{months}mo",
+      "yearsOnly": "{years}y",
+      "yearsAndMonths": "{years}y {months}m"
+    },
+    "items": {
+      "dotcodeSenior": {
+        "role": "Senior Full-Stack Developer",
+        "company": "dotcode",
+        "location": "São Paulo, Brazil",
+        "description": "Leading frontend architecture and scaling the team's delivery capability through reusable foundations.",
+        "points": [
+          "Acting as the frontend technical reference — guiding best practices, architectural decisions, and mentoring other developers.",
+          "Built a React component and template library with CI/CD, cutting new-project setup from ~8h to 30min and improving maintainability."
+        ]
+      },
+      "vivo": {
+        "role": "Senior Full-Stack Developer",
+        "company": "Vivo",
+        "location": "São Paulo, Brazil",
+        "description": "Delivered platform engineering for support teams at one of Brazil's largest telcos.",
+        "points": [
+          "Built an internal low-code platform letting support teams author ServiceNow incident automations, automating 20–50% of incidents in managed queues.",
+          "Fixed a login issue blocking ~15% of users from new devices by enforcing single-device access with real-time session invalidation on login and session validation at app startup."
+        ]
+      },
+      "dotcodeFrontend": {
+        "role": "Mid-Level Frontend Developer",
+        "company": "dotcode",
+        "location": "São Paulo, Brazil",
+        "description": "Owned frontend performance, tooling, and build pipeline for a customer-facing product.",
+        "points": [
+          "Reduced frontend build time by ~70% (from ~30 to ~8 minutes) by migrating from Webpack to Vite and eliminating unused dependencies and dead code.",
+          "Cut app load time from ~2.5s to ~800ms by implementing code splitting and optimizing imports for more efficient tree shaking, shrinking the bundle."
+        ]
+      },
+      "gbAgritech": {
+        "role": "Mid-Level Frontend Developer",
+        "company": "GB Agritech",
+        "location": "São Paulo, Brazil",
+        "description": "Drove frontend architecture on an agribusiness ERP.",
+        "points": [
+          "Proposed and led the frontend migration of an ERP from Next.js to Vite — SSR added little value for a client-centric app — improving maintainability and cutting build time by ~30%."
+        ]
+      },
+      "vyaDigital": {
+        "role": "Junior Full-Stack Developer",
+        "company": "vya.digital",
+        "location": "São Paulo, Brazil",
+        "description": "First full-stack role — shipping across the stack on consumer-facing apps.",
+        "points": [
+          "Eliminated performance degradation in a chat app by implementing message-list virtualization, keeping performance consistent regardless of message volume."
+        ]
+      }
+    }
   },
   "footer": {
     "eyebrow": "Get in touch",
     "headline": "Let's build something <emphasis>worth shipping.</emphasis>",
-    "description": "I'm open to full-stack roles, freelance projects, and the occasional excuse to over-engineer a side project.",
+    "description": "Open to senior full-stack roles, architecture consulting, and projects that deserve real attention to performance and detail.",
     "status": "Available for work",
     "dropALine": "Drop a line",
     "sitemap": "Sitemap",
@@ -35,13 +97,13 @@
     "title": "About Me",
     "intro": {
       "eyebrow": "Hi, I'm Maxwell",
-      "headline": "A full-stack developer who cares about <emphasis>craft, motion, and the little details</emphasis> that make software feel alive.",
-      "description": "I move between front-end and back-end — building interfaces that feel good to use and APIs that stay out of the way."
+      "headline": "Senior full-stack developer with <emphasis>5+ years driving architecture, performance, and high-impact delivery</emphasis> across web and mobile products.",
+      "description": "I move from front-end to back-end — React, Next.js, React Native, and Node.js — building interfaces that flow and APIs that scale."
     },
     "current": {
       "label": "Currently",
-      "headline": "Building motion-driven web experiences with React, Next, and GSAP.",
-      "description": "Exploring AI-assisted tooling and the boundary between design and engineering."
+      "headline": "Acting as frontend tech lead at dotcode, guiding architecture and best practices.",
+      "description": "Building a React component and template library with CI/CD that cut new-project setup from ~8h to 30min."
     },
     "stack": {
       "frontend": "Frontend",

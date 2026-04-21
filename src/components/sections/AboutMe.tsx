@@ -82,7 +82,10 @@ function Chip({ name, Logo }: TechItem) {
 function StackCategory({ title, items }: { title: string; items: TechItem[] }) {
   return (
     <div
-      className={cn(glassCard, "about-card p-5 flex flex-col gap-4 md:min-w-72")}
+      className={cn(
+        glassCard,
+        "about-card p-5 flex flex-col gap-4 md:min-w-72",
+      )}
     >
       <span
         className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/4 via-transparent to-transparent"
@@ -177,9 +180,8 @@ export default function AboutMeSection() {
         >
           <div
             className={cn(
-              glassCard,
               "about-card p-6 flex flex-col gap-4 justify-center md:min-w-72",
-              "taller:col-span-2 taller:p-8",
+              "taller:col-span-2 ",
             )}
           >
             <span

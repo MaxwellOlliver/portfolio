@@ -4,7 +4,6 @@ import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
-import { Link } from "@/i18n/navigation";
 import { cn } from "@/utils/cn";
 
 gsap.registerPlugin(useGSAP);
@@ -16,22 +15,22 @@ export default function Navbar() {
   const items = [
     {
       label: t("home"),
-      href: "/",
+      href: "#home",
     },
     {
       label: t("about"),
-      href: "/about",
+      href: "#about-me",
     },
     {
       label: t("projects"),
-      href: "/projects",
+      href: "#projects",
     },
   ];
 
   const moreOptions = [
     {
       label: t("contact"),
-      href: "/contact",
+      href: "#contact",
     },
     {
       label: t("resume"),
@@ -93,13 +92,13 @@ export default function Navbar() {
       />
       <div className="relative flex items-center gap-4">
         {items.map((item) => (
-          <Link
+          <a
             href={item.href}
             key={item.label}
             className="px-4 rounded-md text-nowrap"
           >
             {item.label}
-          </Link>
+          </a>
         ))}
         <div className="w-[1px] h-4 bg-neutral-600"></div>
         <button

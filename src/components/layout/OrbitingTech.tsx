@@ -78,7 +78,7 @@ const counterAnimation = (
 export default function OrbitingTech() {
   return (
     <div
-      className="absolute inset-0 flex items-center justify-center pointer-events-none motion-reduce:hidden opacity-0"
+      className="absolute overflow-hidden inset-0 flex items-center justify-center pointer-events-none motion-reduce:hidden opacity-0"
       aria-hidden="true"
       style={{
         animation: "orbit-fade-in 1.4s ease-out 0.4s forwards",

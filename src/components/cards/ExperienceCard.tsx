@@ -1,6 +1,7 @@
 "use client";
 
 import Image, { StaticImageData } from "next/image";
+import { useTranslations } from "next-intl";
 import { ComponentType } from "react";
 
 import { cn } from "@/utils/cn";
@@ -18,6 +19,7 @@ export interface ExperienceData {
   points: string[];
   tech: ComponentType<{ className?: string }>[];
   current?: boolean;
+  showYear?: boolean;
 }
 
 const MONTHS = [
@@ -44,7 +46,7 @@ function fullYear(iso: string) {
   return iso.split("-")[0];
 }
 
-function computeDuration(startISO: string, endISO: string | "present") {
+function computeDurationParts(startISO: string, endISO: string | "present") {
   const [sy, sm] = startISO.split("-").map(Number);
   const end =
     endISO === "present"
@@ -57,9 +59,7 @@ function computeDuration(startISO: string, endISO: string | "present") {
     (end.getFullYear() - sy) * 12 + (end.getMonth() - (sm - 1));
   const years = Math.floor(totalMonths / 12);
   const months = totalMonths % 12;
-  if (years === 0) return `${months}mo`;
-  if (months === 0) return `${years}y`;
-  return `${years}y ${months}m`;
+  return { years, months };
 }
 
 const glassCard = cn(
@@ -73,6 +73,7 @@ const primaryCard = cn(
 );
 
 export default function ExperienceCard({ data }: { data: ExperienceData }) {
+  const t = useTranslations("experience");
   const {
     logo,
     role,
@@ -84,13 +85,20 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
     points,
     tech,
     current,
+    showYear = true,
   } = data;
 
   const year = fullYear(startDate);
   const range = `${formatMonthYear(startDate)} — ${
-    endDate === "present" ? "Present" : formatMonthYear(endDate)
+    endDate === "present" ? t("endPresent") : formatMonthYear(endDate)
   }`;
-  const duration = computeDuration(startDate, endDate);
+  const { years, months } = computeDurationParts(startDate, endDate);
+  const duration =
+    years === 0
+      ? t("duration.monthsOnly", { months })
+      : months === 0
+        ? t("duration.yearsOnly", { years })
+        : t("duration.yearsAndMonths", { years, months });
 
   return (
     <article
@@ -112,7 +120,9 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
             "exp-node z-10 shrink-0 block",
             "max-md:absolute max-md:-left-6 max-md:top-1/2 max-md:-translate-y-1/2",
             "md:relative",
+            !showYear && "opacity-0",
           )}
+          aria-hidden={!showYear}
         >
           <span
             className={cn(
@@ -124,7 +134,13 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
             <span className="absolute inset-0 size-2.5 rounded-full bg-primary animate-ping opacity-60" />
           )}
         </span>
-        <span className="exp-year font-mono text-5xl md:text-6xl text-foreground-muted/70 leading-none select-none tracking-tight tabular-nums">
+        <span
+          className={cn(
+            "exp-year font-mono text-5xl md:text-6xl text-foreground-muted/70 leading-none select-none tracking-tight tabular-nums",
+            !showYear && "opacity-0",
+          )}
+          aria-hidden={!showYear}
+        >
           {year}
         </span>
         {current && (
@@ -133,7 +149,7 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
               <span className="absolute inset-0 rounded-full bg-primary/60 animate-ping" />
               <span className="relative rounded-full w-1.5 h-1.5 bg-primary" />
             </span>
-            Current
+            {t("current")}
           </span>
         )}
       </header>
@@ -258,7 +274,7 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
                 current ? "text-background/50" : "text-foreground-muted/70",
               )}
             >
-              Stack
+              {t("stack")}
             </span>
             <div className="flex items-center gap-2.5">
               {tech.map((Tool, i) => (

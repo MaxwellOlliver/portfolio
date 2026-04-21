@@ -8,16 +8,78 @@
     "more": "Mais"
   },
   "home": {
-    "eyebrow": "Full-Stack Engineer",
+    "eyebrow": "Desenvolvedor Full-Stack Sênior",
     "status": "Disponível para projetos",
     "title": "Eu sou o Maxwell",
-    "description": "Full-Stack Software Engineer criando APIs escaláveis e UIs pixel-perfect com foco no usuário e no desempenho.",
+    "description": "Desenvolvedor Full-Stack Sênior com mais de 5 anos construindo aplicações web e mobile escaláveis em React, Next.js, React Native e Node.js. Conduzo decisões arquiteturais, melhoro performance de sistemas e entrego soluções de alto impacto.",
     "moreAboutMe": "Mais sobre mim"
+  },
+  "experience": {
+    "title": "Experiência",
+    "rolesLabel": "{count} cargos",
+    "current": "Atual",
+    "stack": "Stack",
+    "endPresent": "Presente",
+    "duration": {
+      "monthsOnly": "{months}m",
+      "yearsOnly": "{years}a",
+      "yearsAndMonths": "{years}a {months}m"
+    },
+    "items": {
+      "dotcodeSenior": {
+        "role": "Desenvolvedor Full-Stack Sênior",
+        "company": "dotcode",
+        "location": "São Paulo, Brasil",
+        "description": "Conduzindo a arquitetura de frontend e escalando a capacidade de entrega do time com fundações reutilizáveis.",
+        "points": [
+          "Atuei como referência técnica de frontend, orientando boas práticas, decisões de arquitetura e apoiando outros desenvolvedores.",
+          "Criei uma biblioteca de componentes e templates em React com CI/CD, reduzindo o setup de novos projetos de ~8h para 30min e melhorando a manutenibilidade."
+        ]
+      },
+      "vivo": {
+        "role": "Desenvolvedor Full-Stack Sênior",
+        "company": "Vivo",
+        "location": "São Paulo, Brasil",
+        "description": "Entregando engenharia de plataforma para equipes de suporte em uma das maiores telecoms do Brasil.",
+        "points": [
+          "Desenvolvi uma plataforma interna low-code que permite às equipes de suporte criarem automações para tratamento de incidentes no ServiceNow, automatizando de 20% a 50% dos incidentes em filas gerenciadas.",
+          "Corrigi um problema de login que afetava ~15% dos usuários, impedindo acesso em novos dispositivos devido a sessões ativas, ao aplicar a regra de negócio de acesso por dispositivo único, com invalidação em tempo real das sessões existentes no login e validação de sessão na inicialização da aplicação."
+        ]
+      },
+      "dotcodeFrontend": {
+        "role": "Desenvolvedor Frontend Pleno",
+        "company": "dotcode",
+        "location": "São Paulo, Brasil",
+        "description": "Responsável por performance, tooling e pipeline de build do frontend de um produto voltado ao cliente.",
+        "points": [
+          "Reduzi o tempo de build do frontend em ~70% (de ~30 para ~8 minutos) ao migrar de Webpack para Vite e eliminar dependências não utilizadas e código morto.",
+          "Melhorei o tempo de carregamento da aplicação de ~2,5s para ~800ms ao implementar code splitting e otimizar imports para permitir um tree shaking mais eficiente, reduzindo o tamanho do bundle."
+        ]
+      },
+      "gbAgritech": {
+        "role": "Desenvolvedor Frontend Pleno",
+        "company": "GB Agritech",
+        "location": "São Paulo, Brasil",
+        "description": "Conduzi a arquitetura frontend de um ERP agroindustrial.",
+        "points": [
+          "Propus e liderei a migração do frontend de um ERP de Next.js para Vite, já que SSR agregava pouco valor para uma aplicação centrada no cliente, melhorando a manutenibilidade e reduzindo o tempo de build em ~30%."
+        ]
+      },
+      "vyaDigital": {
+        "role": "Desenvolvedor Full-Stack Júnior",
+        "company": "vya.digital",
+        "location": "São Paulo, Brasil",
+        "description": "Primeiro papel full-stack, contribuindo em toda a stack em aplicações para o consumidor.",
+        "points": [
+          "Eliminei a degradação de performance da aplicação de chat ao implementar virtualização da lista de mensagens, garantindo desempenho consistente independentemente do volume de mensagens."
+        ]
+      }
+    }
   },
   "footer": {
     "eyebrow": "Vamos conversar",
     "headline": "Vamos construir algo <emphasis>que valha a pena entregar.</emphasis>",
-    "description": "Estou aberto a vagas full-stack, projetos freelance e à desculpa ocasional de fazer overengineering em um side project.",
+    "description": "Aberto a desafios sênior de full-stack, consultoria em arquitetura e projetos que mereçam atenção a performance e aos detalhes.",
     "status": "Disponível para projetos",
     "dropALine": "Mande um oi",
     "sitemap": "Mapa do site",
@@ -35,13 +97,13 @@
     "title": "Sobre Mim",
     "intro": {
       "eyebrow": "Olá, sou o Maxwell",
-      "headline": "Um desenvolvedor full-stack que se importa com <emphasis>craft, movimento e os pequenos detalhes</emphasis> que fazem o software ganhar vida.",
-      "description": "Transito entre front-end e back-end — construindo interfaces agradáveis de usar e APIs que não atrapalham."
+      "headline": "Desenvolvedor full-stack sênior com <emphasis>mais de 5 anos conduzindo arquitetura, performance e entregas de alto impacto</emphasis> em produtos web e mobile.",
+      "description": "Transito do front ao back — React, Next.js, React Native e Node.js — construindo interfaces que fluem e APIs que escalam."
     },
     "current": {
       "label": "No momento",
-      "headline": "Criando experiências web com movimento usando React, Next e GSAP.",
-      "description": "Explorando ferramentas com IA e a fronteira entre design e engenharia."
+      "headline": "Atuando como referência técnica de frontend na dotcode, orientando arquitetura e boas práticas.",
+      "description": "Construindo uma biblioteca de componentes e templates em React com CI/CD que reduziu o setup de novos projetos de ~8h para 30min."
     },
     "stack": {
       "frontend": "Frontend",

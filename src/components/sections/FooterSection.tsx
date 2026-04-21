@@ -1,6 +1,7 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight, Github, Linkedin, Mail, MoveUp } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -8,7 +9,9 @@ import { useRef } from "react";
 
 import { cn } from "@/utils/cn";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
+
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const glassCard = cn(
   "relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 backdrop-blur-md",
@@ -47,6 +50,7 @@ const siteLinks = [
 export default function FooterSection() {
   const t = useTranslations("footer");
   const root = useRef<HTMLElement>(null);
+  const title = useRef<HTMLHeadingElement>(null);
 
   useGSAP(
     () => {
@@ -62,6 +66,44 @@ export default function FooterSection() {
           start: "top 85%",
         },
       });
+
+      if (!title.current) return;
+
+      const parts: HTMLElement[] = [];
+      Array.from(title.current.childNodes).forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent) {
+          const span = document.createElement("span");
+          span.textContent = node.textContent;
+          node.replaceWith(span);
+          parts.push(span);
+        } else if (node instanceof HTMLElement) {
+          parts.push(node);
+        }
+      });
+
+      const originals = parts.map((p) => p.textContent ?? "");
+      parts.forEach((p) => {
+        gsap.set(p, { scrambleText: { chars, text: "Xr0wQp2k8MndF7" } });
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top 85%",
+        },
+      });
+
+      parts.forEach((p, i) => {
+        tl.to(
+          p,
+          {
+            duration: 0.9,
+            ease: "power2.out",
+            scrambleText: { chars, text: originals[i] },
+          },
+          i * 0.15,
+        );
+      });
     },
     { scope: root },
   );
@@ -76,14 +118,17 @@ export default function FooterSection() {
         maskComposite: "intersect",
       }}
     >
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-neutral-700 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />
 
       <div className="layout flex flex-col gap-10">
         <div className="footer-reveal flex flex-col gap-3">
           <span className="text-xs uppercase tracking-[0.2em] text-foreground-muted">
             {t("eyebrow")}
           </span>
-          <h2 className="text-4xl md:text-6xl font-bold leading-tight max-w-3xl">
+          <h2
+            ref={title}
+            className="text-4xl md:text-6xl font-bold leading-tight max-w-3xl"
+          >
             {t.rich("headline", {
               emphasis: (chunks) => (
                 <span className="text-primary">{chunks}</span>
@@ -143,7 +188,7 @@ export default function FooterSection() {
             </h3>
             <ul className="relative flex flex-col gap-2 text-sm">
               {siteLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.href} data-no-blobity>
                   <a
                     href={link.href}
                     className="inline-flex items-center gap-1.5 hover:text-primary transition-colors"
@@ -173,7 +218,7 @@ export default function FooterSection() {
             </h3>
             <ul className="relative flex flex-col gap-2 text-sm">
               {socials.map((social) => (
-                <li key={social.href}>
+                <li key={social.href} data-no-blobity>
                   <a
                     href={social.href}
                     target="_blank"

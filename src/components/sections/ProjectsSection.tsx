@@ -2,21 +2,26 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { PanelsTopLeft } from "lucide-react";
+import { useRef } from "react";
 
 import { cn } from "@/utils/cn";
 
-import Glassify from "../cards/Glassify";
 import ProjectCard from "../cards/ProjectCard";
 import NestLogo from "../logos/NestLogo";
 import PrismaLogo from "../logos/PrismaLogo";
 import ReactLogo from "../logos/ReactLogo";
 import TypescriptLogo from "../logos/TypescriptLogo";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
+
+const chars =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 export default function ProjectsSection() {
+  const title = useRef<HTMLHeadingElement>(null);
+
   const projects: React.ComponentProps<typeof ProjectCard>[] = [
     {
       title: "Moonly",
@@ -53,6 +58,19 @@ export default function ProjectsSection() {
   ];
 
   useGSAP(() => {
+    gsap.set(title.current, {
+      scrambleText: { chars, text: "Pk3nsaK9as" },
+    });
+
+    gsap.to(title.current, {
+      duration: 1,
+      scrambleText: { chars, text: "Projects" },
+      scrollTrigger: {
+        trigger: title.current,
+        start: "top 90%",
+      },
+    });
+
     const items = gsap.utils.toArray<HTMLElement>(".project-card");
 
     items.forEach((el) => {
@@ -76,7 +94,7 @@ export default function ProjectsSection() {
             },
             invalidateOnRefresh: true,
           },
-        }
+        },
       );
     });
   });
@@ -93,23 +111,34 @@ export default function ProjectsSection() {
           "supports-firefox:from-off-primary/[0.07] supports-firefox:to-off-primary/[0.07] supports-firefox:h-[200px]",
           "absolute -top-0 left-1/2 blur-[100px] translate-x-1/2  rotate-180 origin-left",
           "z-[1] pointer-events-none",
-          "max-md:top-[5%]"
+          "max-md:top-[5%]",
         )}
       ></div>
-      <div className="layout flex flex-col items-center justify-center">
-        <div className="flex flex-col items-center justify-center gap-4 mb-24 max-w-[40rem] px-12">
-          <Glassify>
-            <PanelsTopLeft className="w-6 h-6 text-primary" />
-          </Glassify>
-          <h2 className="text-4xl font-bold">Projects</h2>
-          <p className="text-txt-secondary text-center">
-            I&apos;ve worked on a variety of projects, from small personal
-            projects to large-scale enterprise applications.
-          </p>
+      <div className="layout flex flex-col">
+        <div className="flex items-baseline gap-4 mb-6">
+          <h2
+            ref={title}
+            className="font-bold text-txt text-4xl scramble-text w-fit"
+          >
+            Projects
+          </h2>
+          <span className="font-mono text-xs text-foreground-muted/60 uppercase tracking-[0.2em]">
+            {String(projects.length).padStart(2, "0")} projects
+          </span>
         </div>
-        <div className="project-list flex flex-col w-full gap-4 max-w-4xl">
-          {projects.map((project) => (
-            <ProjectCard {...project} key={project.title} />
+        <p className="text-foreground-muted max-w-[40rem] mb-12 text-sm leading-relaxed">
+          A mix of personal experiments and production work — case studies
+          span motion-driven interfaces, full-stack platforms, and smaller
+          one-offs I ship between bigger things.
+        </p>
+        <div className="project-list flex flex-col w-full gap-4">
+          {projects.map((project, i) => (
+            <ProjectCard
+              {...project}
+              index={i}
+              total={projects.length}
+              key={project.title}
+            />
           ))}
         </div>
       </div>

@@ -8,7 +8,51 @@
     "more": "Mais"
   },
   "home": {
+    "eyebrow": "Full-Stack Engineer",
+    "status": "Disponível para projetos",
     "title": "Eu sou o Maxwell",
-    "description": "Full-Stack Software Engineer criando APIs escaláveis e UIs pixel-perfect com foco no usuário e no desempenho."
+    "description": "Full-Stack Software Engineer criando APIs escaláveis e UIs pixel-perfect com foco no usuário e no desempenho.",
+    "moreAboutMe": "Mais sobre mim"
+  },
+  "footer": {
+    "eyebrow": "Vamos conversar",
+    "headline": "Vamos construir algo <emphasis>que valha a pena entregar.</emphasis>",
+    "description": "Estou aberto a vagas full-stack, projetos freelance e à desculpa ocasional de fazer overengineering em um side project.",
+    "status": "Disponível para projetos",
+    "dropALine": "Mande um oi",
+    "sitemap": "Mapa do site",
+    "elsewhere": "Em outros lugares",
+    "links": {
+      "home": "Início",
+      "about": "Sobre",
+      "projects": "Projetos"
+    },
+    "backToTop": "Voltar ao topo",
+    "copyright": "© {year} Maxwell Macedo",
+    "craftedWith": "Feito com Next.js, Tailwind e muito GSAP."
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "intro": {
+      "eyebrow": "Olá, sou o Maxwell",
+      "headline": "Um desenvolvedor full-stack que se importa com <emphasis>craft, movimento e os pequenos detalhes</emphasis> que fazem o software ganhar vida.",
+      "description": "Transito entre front-end e back-end — construindo interfaces agradáveis de usar e APIs que não atrapalham."
+    },
+    "current": {
+      "label": "No momento",
+      "headline": "Criando experiências web com movimento usando React, Next e GSAP.",
+      "description": "Explorando ferramentas com IA e a fronteira entre design e engenharia."
+    },
+    "stack": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tooling": "Ferramentas & IA"
+    },
+    "offTheClock": {
+      "label": "Fora do expediente",
+      "games": "Video games",
+      "music": "Música",
+      "coffee": "Um bom café"
+    }
   }
 }

@@ -8,7 +8,51 @@
     "more": "More"
   },
   "home": {
+    "eyebrow": "Full-Stack Engineer",
+    "status": "Available for work",
     "title": "I'm Maxwell",
-    "description": "Full-Stack Engineer with deep expertise in React, React Native, Node.js and TypeScript. I solve complex problems by architecting scalable APIs and pixel-perfect UIs, always keeping users and performance front of mind"
+    "description": "Full-Stack Engineer with deep expertise in React, React Native, Node.js and TypeScript. I solve complex problems by architecting scalable APIs and pixel-perfect UIs, always keeping users and performance front of mind",
+    "moreAboutMe": "More about me"
+  },
+  "footer": {
+    "eyebrow": "Get in touch",
+    "headline": "Let's build something <emphasis>worth shipping.</emphasis>",
+    "description": "I'm open to full-stack roles, freelance projects, and the occasional excuse to over-engineer a side project.",
+    "status": "Available for work",
+    "dropALine": "Drop a line",
+    "sitemap": "Sitemap",
+    "elsewhere": "Elsewhere",
+    "links": {
+      "home": "Home",
+      "about": "About",
+      "projects": "Projects"
+    },
+    "backToTop": "Back to top",
+    "copyright": "© {year} Maxwell Macedo",
+    "craftedWith": "Crafted with Next.js, Tailwind, and a lot of GSAP."
+  },
+  "about": {
+    "title": "About Me",
+    "intro": {
+      "eyebrow": "Hi, I'm Maxwell",
+      "headline": "A full-stack developer who cares about <emphasis>craft, motion, and the little details</emphasis> that make software feel alive.",
+      "description": "I move between front-end and back-end — building interfaces that feel good to use and APIs that stay out of the way."
+    },
+    "current": {
+      "label": "Currently",
+      "headline": "Building motion-driven web experiences with React, Next, and GSAP.",
+      "description": "Exploring AI-assisted tooling and the boundary between design and engineering."
+    },
+    "stack": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tooling": "Tooling & AI"
+    },
+    "offTheClock": {
+      "label": "Off the clock",
+      "games": "Video games",
+      "music": "Music",
+      "coffee": "Good coffee"
+    }
   }
 }

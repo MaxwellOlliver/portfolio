@@ -22,7 +22,7 @@ export default function Home() {
   }, [blobityInstance]);
 
   return (
-    <div className="w-full min-h-dvh font-[family-name:var(--font-geist-sans)] relative">
+    <div className="w-full min-h-dvh font-(family-name:--font-geist-sans) relative">
       <Navbar />
       <HomeSection />
       {/*<TechCarousel />*/}

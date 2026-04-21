@@ -19,8 +19,7 @@ import TypescriptLogo from "../logos/TypescriptLogo";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
 
-const chars =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 type ExperienceConfig = {
   key: string;
@@ -88,7 +87,8 @@ export default function ExperienceSection() {
     tech: exp.tech,
     current: exp.current,
     showYear:
-      i === 0 || exp.startDate.split("-")[0] !== arr[i - 1].startDate.split("-")[0],
+      i === 0 ||
+      exp.startDate.split("-")[0] !== arr[i - 1].startDate.split("-")[0],
   }));
 
   useGSAP(
@@ -216,13 +216,7 @@ export default function ExperienceSection() {
           </span>
         </div>
 
-        <div
-          className={cn(
-            "relative",
-            "max-md:pl-10",
-            "md:flex-1",
-          )}
-        >
+        <div className={cn("relative", "max-md:pl-10", "md:flex-1")}>
           <div
             className={cn(
               "exp-spine hidden md:block absolute pointer-events-none",

@@ -1,7 +1,7 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
+import { ScrambleTextPlugin } from "gsap/all";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -10,7 +10,10 @@ import { cn } from "@/utils/cn";
 import HomeBackground from "../layout/HomeBackground";
 import OrbitingTech from "../layout/OrbitingTech";
 
-gsap.registerPlugin(useGSAP, SplitText);
+gsap.registerPlugin(useGSAP, ScrambleTextPlugin);
+
+const chars =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 export default function HomeSection() {
   const t = useTranslations("home");
@@ -40,50 +43,90 @@ export default function HomeSection() {
       ease: "power2.inOut",
     });
 
-    const links = gsap.utils.toArray(".social-link");
-    tl.from(links, {
+    const titleEl = document.querySelector<HTMLElement>("#title");
+    if (titleEl) {
+      const finalText = titleEl.textContent ?? "";
+      const lockedHeight = titleEl.offsetHeight;
+      const lockedWidth = titleEl.offsetWidth;
+
+      titleEl.style.height = `${lockedHeight}px`;
+      titleEl.style.width = `${lockedWidth}px`;
+      titleEl.style.overflow = "hidden";
+
+      const words = finalText.split(" ");
+      titleEl.textContent = "";
+      const wordSpans: HTMLSpanElement[] = [];
+      words.forEach((word, i) => {
+        const span = document.createElement("span");
+        span.textContent = Array.from(word)
+          .map(() => chars[Math.floor(Math.random() * chars.length)])
+          .join("");
+        titleEl.appendChild(span);
+        wordSpans.push(span);
+        if (i < words.length - 1) {
+          titleEl.appendChild(document.createTextNode(" "));
+        }
+      });
+
+      wordSpans.forEach((span, i) => {
+        tl.to(
+          span,
+          {
+            duration: 0.8,
+            ease: "power2.out",
+            scrambleText: { chars, text: words[i] },
+            ...(i === wordSpans.length - 1
+              ? {
+                  onComplete: () => {
+                    titleEl.style.height = "";
+                    titleEl.style.width = "";
+                    titleEl.style.overflow = "";
+                  },
+                }
+              : {}),
+          },
+          "<",
+        );
+      });
+    }
+
+    tl.from(
+      "#description",
+      {
+        opacity: 0,
+        y: 20,
+        ease: "power2.inOut",
+      },
+      "<",
+    );
+
+    tl.from(
+      "#eyebrow",
+      {
+        opacity: 0,
+        y: -20,
+        ease: "power2.inOut",
+      },
+      ">",
+    );
+
+    const socialLinks = gsap.utils.toArray(".social-link");
+    tl.from(socialLinks, {
       opacity: 0,
       y: 20,
       ease: "power2.inOut",
       stagger: 0.1,
     });
 
-    tl.from("#eyebrow", {
-      opacity: 0,
-      y: 20,
-      ease: "power2.inOut",
-    });
-
-    const title = document.querySelector("#title");
-
-    const split = new SplitText(title, {
-      type: "words",
-    });
-    tl.from(split.words, {
-      opacity: 0,
-      y: 20,
-      ease: "power2.inOut",
-      stagger: 0.05,
-    });
-
-    const description = document.querySelector("#description");
-    const split2 = new SplitText(description, {
-      type: "words",
-    });
-    tl.from(split2.words, {
-      opacity: 0,
-      y: 20,
-      ease: "power2.inOut",
-      stagger: 0.05,
-    });
-
-    const moreAboutMe = document.querySelector("#more-about-me");
-    tl.from(moreAboutMe, {
-      opacity: 0,
-      y: 20,
-      ease: "power2.inOut",
-      stagger: 0.05,
-    });
+    tl.from(
+      "#more-about-me",
+      {
+        opacity: 0,
+        y: 20,
+        ease: "power2.inOut",
+      },
+      "<",
+    );
   });
 
   return (

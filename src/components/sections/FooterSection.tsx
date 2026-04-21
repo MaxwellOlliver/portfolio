@@ -69,8 +69,11 @@ export default function FooterSection() {
 
       if (!title.current) return;
 
+      const titleEl = title.current;
+      const lockedHeight = titleEl.offsetHeight;
+
       const parts: HTMLElement[] = [];
-      Array.from(title.current.childNodes).forEach((node) => {
+      Array.from(titleEl.childNodes).forEach((node) => {
         if (node.nodeType === Node.TEXT_NODE && node.textContent) {
           const span = document.createElement("span");
           span.textContent = node.textContent;
@@ -82,14 +85,29 @@ export default function FooterSection() {
       });
 
       const originals = parts.map((p) => p.textContent ?? "");
-      parts.forEach((p) => {
-        gsap.set(p, { scrambleText: { chars, text: "Xr0wQp2k8MndF7" } });
+      const scrambleWithSpaces = (text: string) =>
+        Array.from(text)
+          .map((c) =>
+            c === " " ? " " : chars[Math.floor(Math.random() * chars.length)],
+          )
+          .join("");
+
+      parts.forEach((p, i) => {
+        p.textContent = scrambleWithSpaces(originals[i]);
       });
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: root.current,
           start: "top 85%",
+          onEnter: () => {
+            titleEl.style.height = `${lockedHeight}px`;
+            titleEl.style.overflow = "hidden";
+          },
+        },
+        onComplete: () => {
+          titleEl.style.height = "";
+          titleEl.style.overflow = "";
         },
       });
 
@@ -99,7 +117,11 @@ export default function FooterSection() {
           {
             duration: 0.9,
             ease: "power2.out",
-            scrambleText: { chars, text: originals[i] },
+            scrambleText: {
+              chars,
+              text: originals[i],
+              delimiter: " ",
+            },
           },
           i * 0.15,
         );
@@ -109,15 +131,7 @@ export default function FooterSection() {
   );
 
   return (
-    <footer
-      ref={root}
-      className="relative w-full pt-24 pb-10"
-      style={{
-        maskImage:
-          "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 12%, rgb(0, 0, 0) 88%, rgba(0, 0, 0, 0) 100%)",
-        maskComposite: "intersect",
-      }}
-    >
+    <footer ref={root} className="relative w-full pt-24 pb-10">
       <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />
 
       <div className="layout flex flex-col gap-10">
@@ -127,7 +141,7 @@ export default function FooterSection() {
           </span>
           <h2
             ref={title}
-            className="text-4xl md:text-6xl font-bold leading-tight max-w-3xl"
+            className="text-4xl md:text-6xl font-bold leading-tight max-w-3xl wrap-break-word"
           >
             {t.rich("headline", {
               emphasis: (chunks) => (

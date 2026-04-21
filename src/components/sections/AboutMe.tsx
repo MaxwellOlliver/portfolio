@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Gamepad2, Headphones, Heart, Sparkles } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { ComponentType, useRef } from "react";
 
 import { cn } from "@/utils/cn";
@@ -80,7 +81,9 @@ function Chip({ name, Logo }: TechItem) {
 
 function StackCategory({ title, items }: { title: string; items: TechItem[] }) {
   return (
-    <div className={cn(glassCard, "p-5 flex flex-col gap-4 min-w-85")}>
+    <div
+      className={cn(glassCard, "about-card p-5 flex flex-col gap-4 md:min-w-72")}
+    >
       <span
         className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/4 via-transparent to-transparent"
         aria-hidden="true"
@@ -103,7 +106,10 @@ function StackCategory({ title, items }: { title: string; items: TechItem[] }) {
 }
 
 export default function AboutMeSection() {
+  const t = useTranslations("about");
   const title = useRef<HTMLHeadingElement>(null);
+  const grid = useRef<HTMLDivElement>(null);
+  const titleText = t("title");
 
   useGSAP(() => {
     const chars =
@@ -114,39 +120,65 @@ export default function AboutMeSection() {
 
     gsap.to(title.current, {
       duration: 1,
-      scrambleText: { chars, text: "About Me" },
+      scrambleText: { chars, text: titleText },
       scrollTrigger: {
         trigger: title.current,
         start: "top 90%",
         markers: false,
       },
     });
+
+    const cards = gsap.utils.toArray<HTMLElement>(".about-card");
+    gsap.set(cards, { opacity: 0, y: 24, scale: 0.96 });
+    gsap.to(cards, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.6,
+      ease: "power2.out",
+      stagger: 0.12,
+      scrollTrigger: {
+        trigger: grid.current,
+        start: "top 85%",
+        once: true,
+      },
+    });
   });
 
   return (
-    <div className="flex shrink-0 w-max pl-[10vw]" id="about-me">
+    <div
+      className={cn(
+        "flex shrink-0",
+        "max-md:w-full",
+        "md:w-max md:lg:pl-[10vw] md:mr-16",
+      )}
+      id="about-me"
+    >
       <section
         className={cn(
           "panel flex flex-col z-10 pt-16 pb-20 gap-6",
-          "px-[5vw] w-max",
+          "max-md:w-full max-md:px-4",
+          "md:px-[5vw] md:w-max",
           "tall:w-[90%] tall:max-w-[68rem] tall:mx-auto tall:px-0",
         )}
       >
         <h2 ref={title} className="font-bold text-txt text-4xl scramble-text">
-          About Me
+          {titleText}
         </h2>
 
         <div
+          ref={grid}
           className={cn(
             "grid gap-4 items-stretch",
-            "grid-cols-[30rem_22rem_22rem_22rem_22rem_22rem]",
+            "max-md:grid-cols-1",
+            "md:grid-cols-[30rem_22rem_22rem_22rem_22rem_22rem]",
             "tall:grid-cols-3 tall:w-full",
           )}
         >
           <div
             className={cn(
               glassCard,
-              "p-6 flex flex-col gap-4 justify-center min-w-85",
+              "about-card p-6 flex flex-col gap-4 justify-center md:min-w-72",
               "taller:col-span-2 taller:p-8",
             )}
           >
@@ -156,23 +188,27 @@ export default function AboutMeSection() {
             />
             <div className="relative flex flex-col gap-3 taller:gap-4">
               <span className="text-xs uppercase tracking-[0.2em] text-foreground-muted">
-                Hi, I&apos;m Maxwell
+                {t("intro.eyebrow")}
               </span>
               <h3 className="text-2xl font-medium leading-snug taller:text-3xl">
-                A full-stack developer who cares about{" "}
-                <span className="text-primary">
-                  craft, motion, and the little details
-                </span>{" "}
-                that make software feel alive.
+                {t.rich("intro.headline", {
+                  emphasis: (chunks) => (
+                    <span className="text-primary">{chunks}</span>
+                  ),
+                })}
               </h3>
               <p className="text-sm text-foreground-muted max-w-[42rem] taller:text-base">
-                I move between front-end and back-end — building interfaces that
-                feel good to use and APIs that stay out of the way.
+                {t("intro.description")}
               </p>
             </div>
           </div>
 
-          <div className={cn(primaryCard, "p-6 flex flex-col gap-4 min-w-85")}>
+          <div
+            className={cn(
+              primaryCard,
+              "about-card p-6 flex flex-col gap-4 md:min-w-72",
+            )}
+          >
             <span
               className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/8 via-transparent to-transparent"
               aria-hidden="true"
@@ -182,28 +218,26 @@ export default function AboutMeSection() {
                 <span className="absolute inset-0 rounded-full bg-background/60 animate-ping" />
                 <span className="relative rounded-full w-2 h-2 bg-background" />
               </span>
-              Currently
+              {t("current.label")}
             </div>
             <div className="relative flex flex-col gap-2">
               <h3 className="text-lg font-medium leading-snug taller:text-xl">
-                Building motion-driven web experiences with React, Next, and
-                GSAP.
+                {t("current.headline")}
               </h3>
               <p className="text-sm text-background/70">
-                Exploring AI-assisted tooling and the boundary between design
-                and engineering.
+                {t("current.description")}
               </p>
             </div>
           </div>
 
-          <StackCategory title="Frontend" items={frontend} />
-          <StackCategory title="Backend" items={backend} />
-          <StackCategory title="Tooling & AI" items={tooling} />
+          <StackCategory title={t("stack.frontend")} items={frontend} />
+          <StackCategory title={t("stack.backend")} items={backend} />
+          <StackCategory title={t("stack.tooling")} items={tooling} />
 
           <div
             className={cn(
               primaryCard,
-              "p-6 flex flex-col gap-3 justify-center min-w-85",
+              "about-card p-6 flex flex-col gap-3 justify-center md:min-w-72",
               "taller:col-span-3 taller:px-6 taller:py-4 taller:flex-row taller:items-center taller:justify-between taller:gap-4",
             )}
           >
@@ -214,21 +248,21 @@ export default function AboutMeSection() {
             <div className="relative flex items-center gap-3">
               <Sparkles className="w-4 h-4 text-background/70" />
               <span className="text-xs uppercase tracking-[0.2em] text-background/60">
-                Off the clock
+                {t("offTheClock.label")}
               </span>
             </div>
             <div className="relative flex flex-col gap-2 text-sm taller:flex-row taller:items-center taller:gap-6">
               <span className="flex items-center gap-2">
                 <Gamepad2 className="w-4 h-4" />
-                <span>Video games</span>
+                <span>{t("offTheClock.games")}</span>
               </span>
               <span className="flex items-center gap-2">
                 <Headphones className="w-4 h-4" />
-                <span>Music</span>
+                <span>{t("offTheClock.music")}</span>
               </span>
               <span className="flex items-center gap-2">
                 <Heart className="w-4 h-4" />
-                <span>Good coffee</span>
+                <span>{t("offTheClock.coffee")}</span>
               </span>
             </div>
           </div>

@@ -1,78 +1,273 @@
-import gsap from "gsap";
-import Image from "next/image";
-import { useEffect, useRef } from "react";
+"use client";
+
+import Image, { StaticImageData } from "next/image";
+import { ComponentType } from "react";
 
 import { cn } from "@/utils/cn";
 
-interface Experience {
-  logo: string;
+import Glassify from "./Glassify";
+
+export interface ExperienceData {
+  logo: string | StaticImageData;
   role: string;
   company: string;
-  date: string;
+  location?: string;
+  startDate: string;
+  endDate: string | "present";
   description: string;
   points: string[];
+  tech: ComponentType<{ className?: string }>[];
+  current?: boolean;
 }
 
-export default function ExperienceCard({ data }: { data: Experience }) {
-  const card = useRef<HTMLDivElement>(null);
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
-  useEffect(() => {
-    if (!card.current) return;
+function formatMonthYear(iso: string) {
+  const [y, m] = iso.split("-").map(Number);
+  return `${MONTHS[m - 1]} ${y}`;
+}
 
-    gsap.set(card.current, { scale: 0.8, x: 100, opacity: 0 });
+function fullYear(iso: string) {
+  return iso.split("-")[0];
+}
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          gsap.to(card.current, { scale: 1, x: 0, opacity: 1 });
-        }
-      });
-    });
+function computeDuration(startISO: string, endISO: string | "present") {
+  const [sy, sm] = startISO.split("-").map(Number);
+  const end =
+    endISO === "present"
+      ? new Date()
+      : (() => {
+          const [y, m] = endISO.split("-").map(Number);
+          return new Date(y, m - 1, 1);
+        })();
+  const totalMonths =
+    (end.getFullYear() - sy) * 12 + (end.getMonth() - (sm - 1));
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+  if (years === 0) return `${months}mo`;
+  if (months === 0) return `${years}y`;
+  return `${years}y ${months}m`;
+}
 
-    observer.observe(card.current);
+const glassCard = cn(
+  "relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 backdrop-blur-md",
+  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
+);
 
-    return () => observer.disconnect();
-  }, []);
+const primaryCard = cn(
+  "relative overflow-hidden rounded-2xl bg-primary text-background",
+  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.4)]",
+);
+
+export default function ExperienceCard({ data }: { data: ExperienceData }) {
+  const {
+    logo,
+    role,
+    company,
+    location,
+    startDate,
+    endDate,
+    description,
+    points,
+    tech,
+    current,
+  } = data;
+
+  const year = fullYear(startDate);
+  const range = `${formatMonthYear(startDate)} — ${
+    endDate === "present" ? "Present" : formatMonthYear(endDate)
+  }`;
+  const duration = computeDuration(startDate, endDate);
 
   return (
-    <div
-      ref={card}
-      className="exp-card max-w-[32rem] min-w-[32rem] grid grid-cols-[1fr_auto] gap-8 animate"
+    <article
+      className={cn(
+        "exp-card relative",
+        "max-md:w-full",
+        "md:flex md:flex-col md:w-104 md:min-w-104 md:shrink-0",
+      )}
     >
-      <div>
-        <div
+      <header
+        className={cn(
+          "relative flex items-center",
+          "max-md:mb-3 max-md:gap-3 max-md:h-12",
+          "md:mb-5 md:gap-4",
+        )}
+      >
+        <span
           className={cn(
-            "flex items-center gap-2 p-4 rounded-xl border-1 border-txt-secondary/20 w-fit",
-            "bg-gradient-to-bl from-transparent via-white/5 to-transparent aspect-square w-[4rem] h-[4rem]"
+            "exp-node z-10 shrink-0 block",
+            "max-md:absolute max-md:-left-6 max-md:top-1/2 max-md:-translate-y-1/2",
+            "md:relative",
           )}
-          style={{
-            maskImage:
-              "linear-gradient(225deg, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 120%), linear-gradient(45deg, rgb(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%)",
-            maskComposite: "intersect",
-          }}
         >
-          <Image
-            src={data.logo}
-            alt={data.company}
-            className="size-8 object-contain"
+          <span
+            className={cn(
+              "block size-2.5 rounded-full ring-[3px] ring-background",
+              current ? "bg-primary" : "bg-foreground-muted/50",
+            )}
           />
+          {current && (
+            <span className="absolute inset-0 size-2.5 rounded-full bg-primary animate-ping opacity-60" />
+          )}
+        </span>
+        <span className="exp-year font-mono text-5xl md:text-6xl text-foreground-muted/70 leading-none select-none tracking-tight tabular-nums">
+          {year}
+        </span>
+        {current && (
+          <span className="max-md:hidden md:ml-auto text-[10px] uppercase tracking-[0.2em] text-foreground-muted flex items-center gap-1.5">
+            <span className="relative flex w-1.5 h-1.5">
+              <span className="absolute inset-0 rounded-full bg-primary/60 animate-ping" />
+              <span className="relative rounded-full w-1.5 h-1.5 bg-primary" />
+            </span>
+            Current
+          </span>
+        )}
+      </header>
+
+      <div
+        className={cn(
+          current ? primaryCard : glassCard,
+          "p-5 flex flex-col gap-4 md:flex-1",
+        )}
+      >
+        <span
+          className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/4 via-transparent to-transparent"
+          aria-hidden="true"
+        />
+
+        <div className="relative flex items-center gap-3">
+          <Glassify
+            className={cn(
+              "size-12 p-2 shrink-0",
+              current && "border-white/20 bg-background/5",
+            )}
+          >
+            <Image
+              src={logo}
+              alt={company}
+              className="size-full object-contain"
+            />
+          </Glassify>
+          <div className="flex flex-col gap-0.5 min-w-0">
+            <span
+              className={cn(
+                "text-[10px] uppercase tracking-[0.2em]",
+                current ? "text-background/60" : "text-foreground-muted",
+              )}
+            >
+              {range}
+            </span>
+            <span
+              className={cn(
+                "font-mono text-xs",
+                current ? "text-background/50" : "text-foreground-muted/60",
+              )}
+            >
+              {duration}
+            </span>
+          </div>
         </div>
-        <div className="w-px h-[calc(100%-4rem)] bg-txt-secondary/10 mx-auto"></div>
-      </div>
-      <div className="flex flex-col">
-        <h3 className="text-2xl">{data.role}</h3>
-        <p className="text-primary">{data.company}</p>
-        <p className="text-txt-secondary mb-4">{data.date}</p>
-        <p className=" mb-4">{data.description}</p>
-        <div className="flex flex-col gap-2">
-          {data.points.map((point, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-primary [clip-path:polygon(100%_50%,0_0,0_100%)]"></div>
-              <span className="text-txt-secondary">{point}</span>
-            </div>
+
+        <div className="relative flex flex-col gap-0.5">
+          <h3
+            className={cn(
+              "text-xl font-medium leading-snug",
+              current ? "text-background" : "text-foreground",
+            )}
+          >
+            {role}
+          </h3>
+          <p
+            className={cn(
+              "text-sm",
+              current ? "text-background/70" : "text-primary",
+            )}
+          >
+            {company}
+            {location && (
+              <span
+                className={cn(
+                  current ? "text-background/50" : "text-foreground-muted",
+                )}
+              >
+                {" · "}
+                {location}
+              </span>
+            )}
+          </p>
+        </div>
+
+        <span
+          className={cn(
+            "relative h-px",
+            current ? "bg-background/15" : "bg-foreground-muted/15",
+          )}
+        />
+
+        <p
+          className={cn(
+            "relative text-sm leading-relaxed",
+            current ? "text-background/80" : "text-foreground-muted",
+          )}
+        >
+          {description}
+        </p>
+
+        <ul className="relative flex flex-col gap-2">
+          {points.map((point, i) => (
+            <li key={i} className="flex gap-3 items-start">
+              <span
+                className={cn(
+                  "font-mono text-[10px] pt-0.75 shrink-0 tracking-wider",
+                  current ? "text-background/40" : "text-foreground-muted/50",
+                )}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span
+                className={cn(
+                  "text-sm leading-relaxed",
+                  current ? "text-background/80" : "text-foreground-muted",
+                )}
+              >
+                {point}
+              </span>
+            </li>
           ))}
-        </div>
+        </ul>
+
+        {tech.length > 0 && (
+          <div className="relative flex items-center justify-between pt-2 mt-auto">
+            <span
+              className={cn(
+                "text-[10px] uppercase tracking-[0.2em]",
+                current ? "text-background/50" : "text-foreground-muted/70",
+              )}
+            >
+              Stack
+            </span>
+            <div className="flex items-center gap-2.5">
+              {tech.map((Tool, i) => (
+                <Tool key={i} className="w-4 h-4" />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+    </article>
   );
 }

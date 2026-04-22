@@ -103,7 +103,7 @@ export default function ProjectsSection() {
 
   return (
     <section
-      className="relative w-full min-h-dvh overflow-x-clip pt-8 pb-36"
+      className="relative w-full min-h-dvh overflow-x-clip pt-8 pb-16"
       id="projects"
     >
       <div

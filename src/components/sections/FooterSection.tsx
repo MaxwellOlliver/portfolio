@@ -129,7 +129,7 @@ export default function FooterSection() {
   );
 
   return (
-    <footer ref={root} className="relative w-full pt-24 pb-10">
+    <footer ref={root} className="relative w-full pt-16 pb-10">
       <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />
 
       <div className="layout flex flex-col gap-10">

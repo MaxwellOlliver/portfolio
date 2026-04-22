@@ -1,11 +1,16 @@
-import "./globals.css";
+import "../globals.css";
 
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 
 import { routing } from "@/i18n/routing";
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 const inter = Inter({
   variable: "--font-inter",
@@ -34,6 +39,8 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  setRequestLocale(locale);
 
   return (
     <html lang={locale}>

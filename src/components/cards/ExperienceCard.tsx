@@ -111,38 +111,36 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
       <header
         className={cn(
           "relative flex items-center shrink-0",
-          "max-md:mb-3 max-md:gap-3 max-md:h-12",
-          "md:mb-5 md:gap-4",
+          "md:mb-5 md:gap-4 md:h-15",
+          showYear && "max-md:mb-3 max-md:gap-3 max-md:h-12",
         )}
       >
-        <span
-          className={cn(
-            "exp-node z-10 shrink-0 block",
-            "max-md:absolute max-md:-left-6 max-md:top-1/2 max-md:-translate-y-1/2",
-            "md:relative",
-            !showYear && "opacity-0",
-          )}
-          aria-hidden={!showYear}
-        >
-          <span
-            className={cn(
-              "block size-2.5 rounded-full ring-[3px] ring-background",
-              current ? "bg-primary" : "bg-foreground-muted/50",
-            )}
-          />
-          {current && (
-            <span className="absolute inset-0 size-2.5 rounded-full bg-primary animate-ping opacity-60" />
-          )}
-        </span>
-        <span
-          className={cn(
-            "exp-year font-mono text-5xl md:text-6xl text-foreground-muted/70 leading-none select-none tracking-tight tabular-nums",
-            !showYear && "opacity-0",
-          )}
-          aria-hidden={!showYear}
-        >
-          {year}
-        </span>
+        {showYear && (
+          <>
+            <span
+              className={cn(
+                "exp-node z-10 shrink-0 block",
+                "max-md:absolute max-md:-left-6 max-md:top-1/2 max-md:-translate-y-1/2",
+                "md:relative",
+              )}
+            >
+              <span
+                className={cn(
+                  "block size-2.5 rounded-full ring-[3px] ring-background",
+                  current ? "bg-primary" : "bg-foreground-muted/50",
+                )}
+              />
+              {current && (
+                <span className="absolute inset-0 size-2.5 rounded-full bg-primary animate-ping opacity-60" />
+              )}
+            </span>
+            <span
+              className="exp-year font-mono text-5xl md:text-6xl text-foreground-muted/70 leading-none select-none tracking-tight tabular-nums"
+            >
+              {year}
+            </span>
+          </>
+        )}
         {current && (
           <span className="max-md:hidden md:ml-auto text-[10px] uppercase tracking-[0.2em] text-foreground-muted flex items-center gap-1.5">
             <span className="relative flex w-1.5 h-1.5">

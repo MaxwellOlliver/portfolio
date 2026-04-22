@@ -15,13 +15,19 @@ export default function Home() {
   const blobityInstance = useBlobity(initialBlobityOptions);
 
   useEffect(() => {
-    if (blobityInstance.current && typeof window !== "undefined") {
+    if (typeof window === "undefined") return;
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) {
+      blobityInstance.current?.destroy();
+      return;
+    }
+    if (blobityInstance.current) {
       window.blobity = blobityInstance.current;
     }
   }, [blobityInstance]);
 
   return (
-    <div className="w-full min-h-dvh font-(family-name:--font-geist-sans) relative">
+    <div className="w-full min-h-dvh font-(family-name:--font-geist-sans) relative overflow-x-clip">
       <Navbar />
       <HomeSection />
       <HorizontalScroll>

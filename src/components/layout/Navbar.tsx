@@ -88,7 +88,9 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "navbar fixed top-4 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-xl",
+        "navbar fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-xl",
+        "max-w-[calc(100vw-1rem)]",
+        "px-2 py-1 md:px-3",
         "border border-white/10 bg-white/3 backdrop-blur-md",
         "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
       )}
@@ -97,12 +99,12 @@ export default function Navbar() {
         className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-br from-white/4 via-transparent to-transparent"
         aria-hidden="true"
       />
-      <div className="relative flex items-center gap-4">
+      <div className="relative flex items-center gap-1 md:gap-4 text-sm md:text-base">
         {items.map((item) => (
           <a
             href={item.href}
             key={item.label}
-            className="px-4 rounded-md text-nowrap"
+            className="px-2 py-1 md:px-4 rounded-md text-nowrap"
           >
             {item.label}
           </a>
@@ -116,7 +118,7 @@ export default function Navbar() {
                 onClick={toggle}
                 aria-haspopup="menu"
                 aria-expanded={isOpen}
-                className="p-2 flex items-center gap-2 rounded-md text-neutral-500 cursor-pointer"
+                className="px-2 py-1 md:p-2 flex items-center gap-1 md:gap-2 rounded-md text-neutral-500 cursor-pointer text-nowrap"
               >
                 {t("more")}
                 <ChevronDown

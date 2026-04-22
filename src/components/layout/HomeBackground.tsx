@@ -8,7 +8,6 @@ import ReactLogo from "../logos/ReactLogo";
 import TailwindCSSLogo from "../logos/TailwindCSSLogo";
 import TypescriptLogo from "../logos/TypescriptLogo";
 import VueLogo from "../logos/VueLogo";
-import GridSvg from "./GridSvg";
 
 export default function HomeBackground() {
   const data = [

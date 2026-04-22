@@ -12,7 +12,13 @@
     "status": "Disponível para projetos",
     "title": "Eu sou o Maxwell",
     "description": "Desenvolvedor Full-Stack Sênior com mais de 5 anos construindo aplicações web e mobile escaláveis em React, Next.js, React Native e Node.js. Conduzo decisões arquiteturais, melhoro performance de sistemas e entrego soluções de alto impacto.",
-    "moreAboutMe": "Mais sobre mim"
+    "moreAboutMe": "Mais sobre mim",
+    "resume": {
+      "label": "Currículo",
+      "hint": "Escolha um idioma",
+      "en": "English",
+      "pt": "Português (BR)"
+    }
   },
   "experience": {
     "title": "Experiência",

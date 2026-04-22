@@ -12,7 +12,13 @@
     "status": "Available for work",
     "title": "I'm Maxwell",
     "description": "Senior Full-Stack Engineer with 5+ years building scalable web and mobile applications in React, Next.js, React Native, and Node.js. I drive architectural decisions, improve system performance, and ship high-impact solutions.",
-    "moreAboutMe": "More about me"
+    "moreAboutMe": "More about me",
+    "resume": {
+      "label": "Resume",
+      "hint": "Pick a language",
+      "en": "English",
+      "pt": "Português (BR)"
+    }
   },
   "experience": {
     "title": "Experience",

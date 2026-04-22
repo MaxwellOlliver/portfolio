@@ -6,6 +6,13 @@ import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/utils/cn";
 
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "../ui/Dropdown";
+
 gsap.registerPlugin(useGSAP);
 
 export default function Navbar() {
@@ -81,7 +88,7 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "navbar fixed top-8 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-xl overflow-hidden",
+        "navbar fixed top-4 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-xl",
         "border border-white/10 bg-white/3 backdrop-blur-md",
         "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
       )}
@@ -101,12 +108,34 @@ export default function Navbar() {
           </a>
         ))}
         <div className="w-[1px] h-4 bg-neutral-600"></div>
-        <button
-          className="p-2 flex items-center gap-2 rounded-md text-neutral-500"
-          data-no-blobity
-        >
-          {t("more")} <ChevronDown className="w-4 h-4" />
-        </button>
+        <Dropdown>
+          <DropdownTrigger>
+            {({ isOpen, toggle }) => (
+              <button
+                type="button"
+                onClick={toggle}
+                aria-haspopup="menu"
+                aria-expanded={isOpen}
+                className="p-2 flex items-center gap-2 rounded-md text-neutral-500 cursor-pointer"
+              >
+                {t("more")}
+                <ChevronDown
+                  className={cn(
+                    "w-4 h-4 transition-transform",
+                    isOpen && "rotate-180",
+                  )}
+                />
+              </button>
+            )}
+          </DropdownTrigger>
+          <DropdownMenu align="end">
+            {moreOptions.map((option) => (
+              <DropdownItem key={option.href} href={option.href}>
+                {option.label}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
       </div>
     </nav>
   );

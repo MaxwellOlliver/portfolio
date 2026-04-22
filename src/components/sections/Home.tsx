@@ -1,22 +1,47 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrambleTextPlugin } from "gsap/all";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ScrambleTextPlugin, SplitText } from "gsap/all";
+import {
+  ArrowDown,
+  ChevronDown,
+  FileDown,
+  Github,
+  Linkedin,
+  Mail,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { cn } from "@/utils/cn";
 
-import HomeBackground from "../layout/HomeBackground";
 import OrbitingTech from "../layout/OrbitingTech";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "../ui/Dropdown";
 
-gsap.registerPlugin(useGSAP, ScrambleTextPlugin);
+const resumeFiles = [
+  {
+    locale: "en",
+    href: "/resume/maxwell-macedo-en.pdf",
+    fileName: "maxwell-macedo-en.pdf",
+  },
+  {
+    locale: "pt",
+    href: "/resume/maxwell-macedo-pt.pdf",
+    fileName: "maxwell-macedo-pt.pdf",
+  },
+] as const;
 
-const chars =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+gsap.registerPlugin(useGSAP, ScrambleTextPlugin, SplitText);
+
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 export default function HomeSection() {
   const t = useTranslations("home");
+
   const links = [
     {
       href: "https://github.com/MaxwellOlliver",
@@ -90,15 +115,20 @@ export default function HomeSection() {
       });
     }
 
-    tl.from(
-      "#description",
-      {
-        opacity: 0,
-        y: 20,
-        ease: "power2.inOut",
-      },
-      "<",
-    );
+    const descriptionEl = document.querySelector<HTMLElement>("#description");
+    if (descriptionEl) {
+      const descriptionSplit = new SplitText(descriptionEl, { type: "words" });
+      tl.from(
+        descriptionSplit.words,
+        {
+          opacity: 0,
+          y: 20,
+          ease: "power2.inOut",
+          stagger: 0.05,
+        },
+        "<",
+      );
+    }
 
     tl.from(
       "#eyebrow",
@@ -119,11 +149,12 @@ export default function HomeSection() {
     });
 
     tl.from(
-      "#more-about-me",
+      "#home-ctas > *",
       {
         opacity: 0,
         y: 20,
         ease: "power2.inOut",
+        stagger: 0.08,
       },
       "<",
     );
@@ -154,7 +185,7 @@ export default function HomeSection() {
           )}
         ></div>
       </div> */}
-      <div className="layout flex items-center justify-center min-h-[calc(100dvh-10rem)] relative w-full">
+      <div className="layout mt-16 flex items-center justify-center min-h-[calc(100dvh-10rem)] relative w-full">
         <OrbitingTech />
         <div className="flex flex-col items-center max-w-120 z-10">
           <div
@@ -207,27 +238,82 @@ export default function HomeSection() {
           >
             {t("description")}
           </p>
-          <a
-            id="more-about-me"
-            href="#about-me"
-            className={cn(
-              "relative flex items-center gap-2 mt-4 p-4 rounded-xl w-fit overflow-hidden",
-              "border border-white/10 bg-white/3 backdrop-blur-sm",
-              "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
-            )}
-            data-blobity="true"
-            data-blobity-magnetic="false"
-            data-blobity-offset-y="0"
-            data-blobity-offset-x="0"
-            data-blobity-radius="12"
+          <div
+            id="home-ctas"
+            className="flex items-center gap-3 mt-4 flex-wrap justify-center"
           >
-            <span
-              className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-br from-white/4 via-transparent to-transparent"
-              aria-hidden="true"
-            />
-            <ArrowDown className="w-5 h-5 relative" />
-            <span className="relative">{t("moreAboutMe")}</span>
-          </a>
+            <a
+              id="more-about-me"
+              href="#about-me"
+              className={cn(
+                "relative flex items-center gap-2 p-4 rounded-xl w-fit overflow-hidden",
+                "border border-white/10 bg-white/3 backdrop-blur-sm",
+                "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
+              )}
+              data-blobity="true"
+              data-blobity-magnetic="false"
+              data-blobity-offset-y="0"
+              data-blobity-offset-x="0"
+              data-blobity-radius="12"
+            >
+              <span
+                className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-br from-white/4 via-transparent to-transparent"
+                aria-hidden="true"
+              />
+              <ArrowDown className="w-5 h-5 relative" />
+              <span className="relative">{t("moreAboutMe")}</span>
+            </a>
+            <Dropdown>
+              <DropdownTrigger>
+                {({ isOpen, toggle }) => (
+                  <button
+                    type="button"
+                    onClick={toggle}
+                    aria-haspopup="menu"
+                    aria-expanded={isOpen}
+                    className={cn(
+                      "relative flex items-center gap-2 p-4 rounded-xl w-fit overflow-hidden cursor-pointer",
+                      "bg-primary text-background",
+                      "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_4px_20px_-8px_rgba(0,0,0,0.4)]",
+                    )}
+                    data-blobity="true"
+                    data-blobity-magnetic="false"
+                    data-blobity-radius="12"
+                    data-blobity-offset-y="0"
+                    data-blobity-offset-x="0"
+                  >
+                    <span
+                      className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-br from-white/15 via-transparent to-transparent"
+                      aria-hidden="true"
+                    />
+                    <FileDown className="w-5 h-5 relative" />
+                    <span className="relative">{t("resume.label")}</span>
+                    <ChevronDown
+                      className={cn(
+                        "w-4 h-4 relative transition-transform",
+                        isOpen && "rotate-180",
+                      )}
+                    />
+                  </button>
+                )}
+              </DropdownTrigger>
+              <DropdownMenu>
+                <span className="block px-3 pt-1 pb-2 text-[10px] uppercase tracking-[0.2em] text-foreground-muted">
+                  {t("resume.hint")}
+                </span>
+                {resumeFiles.map((file) => (
+                  <DropdownItem
+                    key={file.locale}
+                    href={file.href}
+                    download={file.fileName}
+                  >
+                    <FileDown className="w-4 h-4 text-foreground-muted" />
+                    <span>{t(`resume.${file.locale}`)}</span>
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+          </div>
         </div>
       </div>
       {/* <HomeBackground /> */}

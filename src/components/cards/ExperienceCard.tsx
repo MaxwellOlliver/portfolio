@@ -105,12 +105,12 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
       className={cn(
         "exp-card relative",
         "max-md:w-full",
-        "md:flex md:flex-col md:w-104 md:min-w-104 md:shrink-0",
+        "md:flex md:flex-col md:h-full md:min-h-0 md:w-104 md:min-w-104 md:shrink-0",
       )}
     >
       <header
         className={cn(
-          "relative flex items-center",
+          "relative flex items-center shrink-0",
           "max-md:mb-3 max-md:gap-3 max-md:h-12",
           "md:mb-5 md:gap-4",
         )}
@@ -157,7 +157,7 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
       <div
         className={cn(
           current ? primaryCard : glassCard,
-          "p-5 flex flex-col gap-4 md:flex-1",
+          "p-5 flex flex-col gap-4 md:flex-1 md:min-h-0 md:overflow-y-auto",
         )}
       >
         <span

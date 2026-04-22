@@ -198,11 +198,11 @@ export default function ExperienceSection() {
       className={cn(
         "panel relative flex z-10 pt-16 pb-20",
         "max-md:w-full max-md:px-4",
-        "md:w-fit md:h-screen md:pr-[10vw]",
+        "md:w-fit md:h-full md:min-h-0 md:pr-[10vw]",
       )}
     >
-      <div className="flex flex-col max-md:w-full md:w-fit">
-        <div className="flex items-baseline gap-4 mb-10">
+      <div className="flex flex-col max-md:w-full md:w-fit md:h-full md:min-h-0">
+        <div className="flex items-baseline gap-4 mb-10 shrink-0">
           <h2
             ref={title}
             className="font-bold text-txt text-4xl scramble-text w-fit"
@@ -216,7 +216,7 @@ export default function ExperienceSection() {
           </span>
         </div>
 
-        <div className={cn("relative", "max-md:pl-10", "md:flex-1")}>
+        <div className={cn("relative", "max-md:pl-10", "md:flex-1 md:min-h-0")}>
           <div
             className={cn(
               "exp-spine hidden md:block absolute pointer-events-none",
@@ -240,7 +240,7 @@ export default function ExperienceSection() {
             className={cn(
               "flex",
               "max-md:flex-col max-md:w-full max-md:gap-10",
-              "md:gap-12",
+              "md:gap-12 md:h-full md:min-h-0",
             )}
           >
             {experiences.map((exp, i) => (

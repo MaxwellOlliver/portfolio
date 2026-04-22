@@ -53,14 +53,14 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
     <section
       className={cn(
         "relative w-full",
-        "md:min-h-[max(100dvh,700px)] md:overflow-hidden",
+        "md:min-h-dvh md:overflow-hidden",
         "md:mask-[linear-gradient(to_right,rgb(0,0,0)_90%,rgba(0,0,0,0)_100%)]",
         "md:mask-intersect",
       )}
       id="horizontal-scroll"
     >
       <div
-        className="flex max-md:flex-col relative md:h-[max(100dvh,700px)] md:will-change-transform"
+        className="flex max-md:flex-col relative md:h-dvh md:will-change-transform"
         ref={container}
       >
         <div className="content flex max-md:flex-col md:w-fit">{children}</div>

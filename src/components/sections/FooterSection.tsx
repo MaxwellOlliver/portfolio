@@ -71,29 +71,37 @@ export default function FooterSection() {
 
       const titleEl = title.current;
       const lockedHeight = titleEl.offsetHeight;
+      const lockedWidth = titleEl.offsetWidth;
 
-      const parts: HTMLElement[] = [];
-      Array.from(titleEl.childNodes).forEach((node) => {
-        if (node.nodeType === Node.TEXT_NODE && node.textContent) {
+      const wordEntries: { span: HTMLSpanElement; text: string }[] = [];
+
+      const appendWords = (text: string, container: Node) => {
+        text.split(/(\s+)/).forEach((token) => {
+          if (!token) return;
+          if (/^\s+$/.test(token)) {
+            container.appendChild(document.createTextNode(token));
+            return;
+          }
           const span = document.createElement("span");
-          span.textContent = node.textContent;
-          node.replaceWith(span);
-          parts.push(span);
+          span.textContent = Array.from(token)
+            .map(() => chars[Math.floor(Math.random() * chars.length)])
+            .join("");
+          container.appendChild(span);
+          wordEntries.push({ span, text: token });
+        });
+      };
+
+      const originalChildren = Array.from(titleEl.childNodes);
+      titleEl.textContent = "";
+      originalChildren.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent) {
+          appendWords(node.textContent, titleEl);
         } else if (node instanceof HTMLElement) {
-          parts.push(node);
+          const text = node.textContent ?? "";
+          node.textContent = "";
+          appendWords(text, node);
+          titleEl.appendChild(node);
         }
-      });
-
-      const originals = parts.map((p) => p.textContent ?? "");
-      const scrambleWithSpaces = (text: string) =>
-        Array.from(text)
-          .map((c) =>
-            c === " " ? " " : chars[Math.floor(Math.random() * chars.length)],
-          )
-          .join("");
-
-      parts.forEach((p, i) => {
-        p.textContent = scrambleWithSpaces(originals[i]);
       });
 
       const tl = gsap.timeline({
@@ -102,28 +110,30 @@ export default function FooterSection() {
           start: "top 85%",
           onEnter: () => {
             titleEl.style.height = `${lockedHeight}px`;
+            titleEl.style.width = `${lockedWidth}px`;
             titleEl.style.overflow = "hidden";
           },
         },
-        onComplete: () => {
-          titleEl.style.height = "";
-          titleEl.style.overflow = "";
-        },
       });
 
-      parts.forEach((p, i) => {
+      wordEntries.forEach(({ span, text }, i) => {
         tl.to(
-          p,
+          span,
           {
-            duration: 0.9,
+            duration: 0.8,
             ease: "power2.out",
-            scrambleText: {
-              chars,
-              text: originals[i],
-              delimiter: " ",
-            },
+            scrambleText: { chars, text },
+            ...(i === wordEntries.length - 1
+              ? {
+                  onComplete: () => {
+                    titleEl.style.height = "";
+                    titleEl.style.width = "";
+                    titleEl.style.overflow = "";
+                  },
+                }
+              : {}),
           },
-          i * 0.15,
+          "<",
         );
       });
     },

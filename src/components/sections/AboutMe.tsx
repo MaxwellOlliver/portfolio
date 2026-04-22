@@ -153,7 +153,7 @@ export default function AboutMeSection() {
       className={cn(
         "flex shrink-0",
         "max-md:w-full",
-        "md:w-max md:lg:pl-[10vw] md:mr-16",
+        "md:w-max md:lg:pl-[10vw] md:mr-16 md:h-full md:min-h-0",
       )}
       id="about-me"
     >
@@ -161,21 +161,25 @@ export default function AboutMeSection() {
         className={cn(
           "panel flex flex-col z-10 pt-16 pb-20 gap-6",
           "max-md:w-full max-md:px-4",
-          "md:px-[5vw] md:w-max",
-          "tall:w-[90%] tall:max-w-[68rem] tall:mx-auto tall:px-0",
+          "md:w-max md:h-full md:min-h-0",
+          "tall:w-[90%] tall:max-w-272 tall:mx-auto tall:px-0",
         )}
       >
-        <h2 ref={title} className="font-bold text-txt text-4xl scramble-text">
+        <h2
+          ref={title}
+          className="font-bold text-txt text-4xl scramble-text shrink-0 ml-4"
+        >
           {titleText}
         </h2>
 
         <div
           ref={grid}
           className={cn(
-            "grid gap-4 items-stretch",
+            "grid gap-4 items-stretch px-4",
             "max-md:grid-cols-1",
-            "md:grid-cols-[30rem_22rem_22rem_22rem_22rem_22rem]",
-            "tall:grid-cols-3 tall:w-full",
+            "md:grid-cols-[30rem_22rem_22rem_22rem_22rem_22rem] md:grid-rows-1 md:auto-rows-fr md:flex-1 md:min-h-0 md:overflow-hidden",
+            "tall:grid-cols-3 tall:grid-rows-2",
+            "taller:grid-rows-[minmax(0,1fr)_auto_auto] tall:w-full",
           )}
         >
           <div

@@ -11,16 +11,18 @@ import {
   Mail,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useRef } from "react";
 
 import { cn } from "@/utils/cn";
+import { randomScramble, SCRAMBLE_CHARS } from "@/utils/scramble";
 
 import OrbitingTech from "../layout/OrbitingTech";
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from "../ui/Dropdown";
+import Dropdown from "../ui/dropdown/Dropdown";
+import DropdownItem from "../ui/dropdown/DropdownItem";
+import DropdownMenu from "../ui/dropdown/DropdownMenu";
+import DropdownTrigger from "../ui/dropdown/DropdownTrigger";
+
+gsap.registerPlugin(useGSAP, ScrambleTextPlugin, SplitText);
 
 const resumeFiles = [
   {
@@ -35,40 +37,31 @@ const resumeFiles = [
   },
 ] as const;
 
-gsap.registerPlugin(useGSAP, ScrambleTextPlugin, SplitText);
-
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const socialLinks = [
+  { href: "https://github.com/MaxwellOlliver", icon: Github },
+  { href: "https://linkedin.com/in/maxwell-macedo", icon: Linkedin },
+  { href: "mailto:maxwellmacedo2015@gmail.com", icon: Mail },
+] as const;
 
 export default function HomeSection() {
   const t = useTranslations("home");
-
-  const links = [
-    {
-      href: "https://github.com/MaxwellOlliver",
-      icon: Github,
-    },
-    {
-      href: "https://linkedin.com/in/maxwell-macedo",
-      icon: Linkedin,
-    },
-    {
-      href: "mailto:maxwellmacedo2015@gmail.com",
-      icon: Mail,
-    },
-  ];
+  const statusChipRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const eyebrowRef = useRef<HTMLSpanElement>(null);
+  const socialsRef = useRef<HTMLDivElement>(null);
+  const ctasRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const tl = gsap.timeline({
-      delay: 0,
-    });
+    const tl = gsap.timeline();
 
-    tl.from("#status-chip", {
+    tl.from(statusChipRef.current, {
       opacity: 0,
       y: 20,
       ease: "power2.inOut",
     });
 
-    const titleEl = document.querySelector<HTMLElement>("#title");
+    const titleEl = titleRef.current;
     if (titleEl) {
       const finalText = titleEl.textContent ?? "";
       const lockedHeight = titleEl.offsetHeight;
@@ -83,9 +76,7 @@ export default function HomeSection() {
       const wordSpans: HTMLSpanElement[] = [];
       words.forEach((word, i) => {
         const span = document.createElement("span");
-        span.textContent = Array.from(word)
-          .map(() => chars[Math.floor(Math.random() * chars.length)])
-          .join("");
+        span.textContent = randomScramble(word.length);
         titleEl.appendChild(span);
         wordSpans.push(span);
         if (i < words.length - 1) {
@@ -99,7 +90,7 @@ export default function HomeSection() {
           {
             duration: 0.8,
             ease: "power2.out",
-            scrambleText: { chars, text: words[i] },
+            scrambleText: { chars: SCRAMBLE_CHARS, text: words[i] },
             ...(i === wordSpans.length - 1
               ? {
                   onComplete: () => {
@@ -115,9 +106,10 @@ export default function HomeSection() {
       });
     }
 
-    const descriptionEl = document.querySelector<HTMLElement>("#description");
-    if (descriptionEl) {
-      const descriptionSplit = new SplitText(descriptionEl, { type: "words" });
+    if (descriptionRef.current) {
+      const descriptionSplit = new SplitText(descriptionRef.current, {
+        type: "words",
+      });
       tl.from(
         descriptionSplit.words,
         {
@@ -131,7 +123,7 @@ export default function HomeSection() {
     }
 
     tl.from(
-      "#eyebrow",
+      eyebrowRef.current,
       {
         opacity: 0,
         y: -20,
@@ -140,24 +132,27 @@ export default function HomeSection() {
       ">",
     );
 
-    const socialLinks = gsap.utils.toArray(".social-link");
-    tl.from(socialLinks, {
-      opacity: 0,
-      y: 20,
-      ease: "power2.inOut",
-      stagger: 0.1,
-    });
-
-    tl.from(
-      "#home-ctas > *",
-      {
+    if (socialsRef.current) {
+      tl.from(socialsRef.current.children, {
         opacity: 0,
         y: 20,
         ease: "power2.inOut",
-        stagger: 0.08,
-      },
-      "<",
-    );
+        stagger: 0.1,
+      });
+    }
+
+    if (ctasRef.current) {
+      tl.from(
+        ctasRef.current.children,
+        {
+          opacity: 0,
+          y: 20,
+          ease: "power2.inOut",
+          stagger: 0.08,
+        },
+        "<",
+      );
+    }
   });
 
   return (
@@ -166,7 +161,7 @@ export default function HomeSection() {
         <OrbitingTech />
         <div className="flex flex-col items-center max-w-120 z-10">
           <div
-            id="status-chip"
+            ref={statusChipRef}
             className={cn(
               "relative flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full overflow-hidden",
               "border border-white/10 bg-white/3 backdrop-blur-sm",
@@ -185,12 +180,12 @@ export default function HomeSection() {
               {t("status")}
             </span>
           </div>
-          <div className="flex items-center gap-4 mb-6">
-            {links.map((link) => (
+          <div ref={socialsRef} className="flex items-center gap-4 mb-6">
+            {socialLinks.map((link) => (
               <a
                 href={link.href}
                 target="_blank"
-                className="social-link size-8 flex items-center justify-center rounded-full"
+                className="size-8 flex items-center justify-center rounded-full"
                 rel="noopener noreferrer"
                 key={link.href}
                 data-blobity="true"
@@ -201,26 +196,28 @@ export default function HomeSection() {
             ))}
           </div>
           <span
-            id="eyebrow"
+            ref={eyebrowRef}
             className="text-xs uppercase tracking-[0.2em] text-foreground-muted mb-3"
           >
             {t("eyebrow")}
           </span>
-          <h1 className="font-bold text-center text-5xl md:text-7xl" id="title">
+          <h1
+            ref={titleRef}
+            className="font-bold text-center text-5xl md:text-7xl"
+          >
             {t("title")}
           </h1>
           <p
+            ref={descriptionRef}
             className="mt-4 text-lg text-center text-foreground-muted"
-            id="description"
           >
             {t("description")}
           </p>
           <div
-            id="home-ctas"
+            ref={ctasRef}
             className="flex items-center gap-3 mt-4 flex-wrap justify-center"
           >
             <a
-              id="more-about-me"
               href="#about-me"
               className={cn(
                 "relative flex items-center gap-2 p-4 rounded-xl w-fit overflow-hidden",
@@ -293,7 +290,6 @@ export default function HomeSection() {
           </div>
         </div>
       </div>
-      {/* <HomeBackground /> */}
     </section>
   );
 }

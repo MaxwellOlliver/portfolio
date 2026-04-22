@@ -4,6 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import { useTranslations } from "next-intl";
 import { ComponentType } from "react";
 
+import { glassCard, primaryCard } from "@/utils/cardStyles";
 import { cn } from "@/utils/cn";
 
 import Glassify from "./Glassify";
@@ -61,16 +62,6 @@ function computeDurationParts(startISO: string, endISO: string | "present") {
   const months = totalMonths % 12;
   return { years, months };
 }
-
-const glassCard = cn(
-  "relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 backdrop-blur-md",
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
-);
-
-const primaryCard = cn(
-  "relative overflow-hidden rounded-2xl bg-primary text-background",
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.4)]",
-);
 
 export default function ExperienceCard({ data }: { data: ExperienceData }) {
   const t = useTranslations("experience");

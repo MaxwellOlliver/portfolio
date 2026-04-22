@@ -5,9 +5,11 @@ import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Gamepad2, Headphones, Heart, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { ComponentType, useRef } from "react";
+import { useRef } from "react";
 
+import { primaryCard } from "@/utils/cardStyles";
 import { cn } from "@/utils/cn";
+import { SCRAMBLE_CHARS } from "@/utils/scramble";
 
 import ClaudeLogo from "../logos/ClaudeLogo";
 import DockerLogo from "../logos/DockerLogo";
@@ -23,13 +25,10 @@ import SpringBootLogo from "../logos/SpringBootLogo";
 import TailwindCSSLogo from "../logos/TailwindCSSLogo";
 import TypescriptLogo from "../logos/TypescriptLogo";
 import VueLogo from "../logos/VueLogo";
+import StackCategory from "./about/StackCategory";
+import type { TechItem } from "./about/TechChip";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
-
-type TechItem = {
-  name: string;
-  Logo: ComponentType<{ className?: string }>;
-};
 
 const frontend: TechItem[] = [
   { name: "React", Logo: ReactLogo },
@@ -54,60 +53,6 @@ const tooling: TechItem[] = [
   { name: "Claude", Logo: ClaudeLogo },
 ];
 
-const glassCard = cn(
-  "relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 backdrop-blur-md",
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
-);
-
-const primaryCard = cn(
-  "relative overflow-hidden rounded-2xl bg-primary text-background",
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.4)]",
-);
-
-function Chip({ name, Logo }: TechItem) {
-  return (
-    <span
-      className={cn(
-        "flex items-center gap-2 px-2.5 py-1 rounded-md",
-        "border border-foreground-muted/15 bg-white/3 backdrop-blur-sm",
-        "text-sm",
-      )}
-    >
-      <Logo className="w-4 h-4" />
-      <span>{name}</span>
-    </span>
-  );
-}
-
-function StackCategory({ title, items }: { title: string; items: TechItem[] }) {
-  return (
-    <div
-      className={cn(
-        glassCard,
-        "about-card p-5 flex flex-col gap-4 md:min-w-72",
-      )}
-    >
-      <span
-        className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/4 via-transparent to-transparent"
-        aria-hidden="true"
-      />
-      <div className="relative flex items-baseline justify-between">
-        <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-foreground-muted">
-          {title}
-        </h3>
-        <span className="font-mono text-xs text-foreground-muted/60">
-          {String(items.length).padStart(2, "0")}
-        </span>
-      </div>
-      <div className="relative flex flex-wrap gap-2">
-        {items.map((item) => (
-          <Chip key={item.name} name={item.name} Logo={item.Logo} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function AboutMeSection() {
   const t = useTranslations("about");
   const title = useRef<HTMLHeadingElement>(null);
@@ -115,15 +60,13 @@ export default function AboutMeSection() {
   const titleText = t("title");
 
   useGSAP(() => {
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     gsap.set(title.current, {
-      scrambleText: { chars, text: "A9x0sAKsdl0" },
+      scrambleText: { chars: SCRAMBLE_CHARS, text: "A9x0sAKsdl0" },
     });
 
     gsap.to(title.current, {
       duration: 1,
-      scrambleText: { chars, text: titleText },
+      scrambleText: { chars: SCRAMBLE_CHARS, text: titleText },
       scrollTrigger: {
         trigger: title.current,
         start: "top 90%",

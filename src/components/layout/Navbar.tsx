@@ -6,89 +6,69 @@ import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/utils/cn";
 
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from "../ui/Dropdown";
+import Dropdown from "../ui/dropdown/Dropdown";
+import DropdownItem from "../ui/dropdown/DropdownItem";
+import DropdownMenu from "../ui/dropdown/DropdownMenu";
+import DropdownTrigger from "../ui/dropdown/DropdownTrigger";
 
 gsap.registerPlugin(useGSAP);
 
+const navItems = [
+  { key: "home", href: "#home" },
+  { key: "about", href: "#about-me" },
+  { key: "projects", href: "#projects" },
+] as const;
+
+const moreItems = [
+  { key: "contact", href: "#contact" },
+  { key: "resume", href: "/resume" },
+] as const;
+
 export default function Navbar() {
   const t = useTranslations("navbar");
+  const navRef = useRef<HTMLElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const lastScrollY = useRef(0);
-  const items = [
-    {
-      label: t("home"),
-      href: "#home",
-    },
-    {
-      label: t("about"),
-      href: "#about-me",
-    },
-    {
-      label: t("projects"),
-      href: "#projects",
-    },
-  ];
 
-  const moreOptions = [
-    {
-      label: t("contact"),
-      href: "#contact",
+  useGSAP(
+    () => {
+      gsap.from(navRef.current, {
+        opacity: 0,
+        scale: 0.9,
+        y: -100,
+        delay: 0.5,
+      });
     },
-    {
-      label: t("resume"),
-      href: "/resume",
-    },
-  ];
-
-  useGSAP(() => {
-    gsap.from(".navbar", {
-      opacity: 0,
-      scale: 0.9,
-      y: -100,
-      delay: 0.5,
-    });
-  });
+    { scope: navRef },
+  );
 
   useEffect(() => {
+    let lastY = window.scrollY;
     function handleScroll() {
-      const navbar = document.querySelector(".navbar");
-      if (navbar) {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY > lastScrollY.current) {
-          setIsScrolled(true);
-        } else {
-          setIsScrolled(false);
-        }
-
-        lastScrollY.current = currentScrollY;
-      }
+      const currentY = window.scrollY;
+      setIsScrolled(currentY > lastY);
+      lastY = currentY;
     }
-
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useGSAP(
     () => {
-      gsap.to(".navbar", {
+      gsap.to(navRef.current, {
         y: isScrolled ? -100 : 0,
         scale: isScrolled ? 0.9 : 1,
         duration: 0.3,
         ease: "power2.inOut",
       });
     },
-    { dependencies: [isScrolled] },
+    { dependencies: [isScrolled], scope: navRef },
   );
 
   return (
     <nav
+      ref={navRef}
       className={cn(
-        "navbar fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-xl",
+        "fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-xl",
         "max-w-[calc(100vw-1rem)]",
         "px-2 py-1 md:px-3",
         "border border-white/10 bg-white/3 backdrop-blur-md",
@@ -100,16 +80,16 @@ export default function Navbar() {
         aria-hidden="true"
       />
       <div className="relative flex items-center gap-1 md:gap-4 text-sm md:text-base">
-        {items.map((item) => (
+        {navItems.map((item) => (
           <a
             href={item.href}
-            key={item.label}
+            key={item.key}
             className="px-2 py-1 md:px-4 rounded-md text-nowrap"
           >
-            {item.label}
+            {t(item.key)}
           </a>
         ))}
-        <div className="w-[1px] h-4 bg-neutral-600"></div>
+        <div className="w-px h-4 bg-neutral-600" />
         <Dropdown>
           <DropdownTrigger>
             {({ isOpen, toggle }) => (
@@ -131,9 +111,9 @@ export default function Navbar() {
             )}
           </DropdownTrigger>
           <DropdownMenu align="end">
-            {moreOptions.map((option) => (
+            {moreItems.map((option) => (
               <DropdownItem key={option.href} href={option.href}>
-                {option.label}
+                {t(option.key)}
               </DropdownItem>
             ))}
           </DropdownMenu>

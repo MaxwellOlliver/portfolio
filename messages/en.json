@@ -99,6 +99,27 @@
     "copyright": "© {year} Maxwell Macedo",
     "craftedWith": "Crafted with Next.js, Tailwind, and a lot of GSAP."
   },
+  "projects": {
+    "title": "Projects",
+    "count": "{count} projects",
+    "caseStudy": "Case study",
+    "stack": "Stack",
+    "description": "A mix of personal experiments and production work — case studies span motion-driven interfaces, full-stack platforms, and smaller one-offs I ship between bigger things.",
+    "items": {
+      "moonly": {
+        "title": "Moonly",
+        "description": "Moonly is a web app that shows a song's lyrics synchronized with the music."
+      },
+      "inpro": {
+        "title": "InPro",
+        "description": "A platform where you can expose your gaming skills to get higher chances on getting noticed by professional teams."
+      },
+      "others": {
+        "title": "Small Projects",
+        "description": "A collection of small projects I've worked on."
+      }
+    }
+  },
   "about": {
     "title": "About Me",
     "intro": {

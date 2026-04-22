@@ -2,22 +2,16 @@ import * as React from "react";
 
 import { cn } from "@/utils/cn";
 
-interface ReactLogoProps {
-  className?: string;
-  defaultMode?: boolean;
-}
-
 const ReactLogo = ({
   className,
-  defaultMode = false,
   ...props
-}: ReactLogoProps) => (
+}: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={2194}
     height={2500}
     viewBox="175.7 78 490.6 436.9"
-    className={cn(className, !defaultMode && "fill-neutral-800")}
+    className={cn("fill-neutral-800", className)}
     {...props}
   >
     <g fill="#61dafb">

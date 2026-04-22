@@ -4,12 +4,13 @@ import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
-import { ComponentType, useRef } from "react";
+import { type ComponentType, useRef } from "react";
 
 import { cn } from "@/utils/cn";
+import { SCRAMBLE_CHARS } from "@/utils/scramble";
 
 import VivinhoLogo from "../../../public/assets/vivinho.svg";
-import ExperienceCard, { ExperienceData } from "../cards/ExperienceCard";
+import ExperienceCard, { type ExperienceData } from "../cards/ExperienceCard";
 import DockerLogo from "../logos/DockerLogo";
 import NestLogo from "../logos/NestLogo";
 import NextLogo from "../logos/NextLogo";
@@ -18,8 +19,6 @@ import ReactLogo from "../logos/ReactLogo";
 import TypescriptLogo from "../logos/TypescriptLogo";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
-
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 type ExperienceConfig = {
   key: string;
@@ -69,6 +68,8 @@ const experienceConfig: ExperienceConfig[] = [
   },
 ];
 
+const DESKTOP_QUERY = "(min-width: 768px)";
+
 export default function ExperienceSection() {
   const t = useTranslations("experience");
   const section = useRef<HTMLElement>(null);
@@ -96,28 +97,28 @@ export default function ExperienceSection() {
       if (!section.current || !title.current) return;
 
       gsap.set(title.current, {
-        scrambleText: { chars, text: "Tir0w9ksdlfm" },
+        scrambleText: { chars: SCRAMBLE_CHARS, text: "Tir0w9ksdlfm" },
       });
 
       const cards = section.current.querySelectorAll(".exp-card");
       const years = section.current.querySelectorAll(".exp-year");
       const spines = section.current.querySelectorAll(".exp-spine");
-      const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+      const mm = gsap.matchMedia();
 
       gsap.set(cards, { opacity: 0, y: 24 });
       gsap.set(years, { clipPath: "inset(0 100% 0 0)" });
-      gsap.set(spines, isDesktop ? { scaleX: 0 } : { scaleY: 0 });
 
       const sectionIo = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
+            const isDesktop = window.matchMedia(DESKTOP_QUERY).matches;
 
             const tl = gsap.timeline();
 
             tl.to(title.current, {
               duration: 0.9,
-              scrambleText: { chars, text: titleText },
+              scrambleText: { chars: SCRAMBLE_CHARS, text: titleText },
             });
 
             tl.to(
@@ -149,44 +150,49 @@ export default function ExperienceSection() {
 
       sectionIo.observe(section.current);
 
-      const cardTriggers: ScrollTrigger[] = [];
+      mm.add(
+        {
+          isDesktop: DESKTOP_QUERY,
+          isMobile: "(max-width: 767px)",
+        },
+        (context) => {
+          const isDesktop = context.conditions?.isDesktop ?? false;
+          gsap.set(spines, isDesktop ? { scaleX: 0 } : { scaleY: 0 });
 
-      const frame = requestAnimationFrame(() => {
-        const horizontalTween = isDesktop
-          ? (gsap.getById("horizontalScroll") as gsap.core.Tween | undefined)
-          : undefined;
+          const horizontalTween = isDesktop
+            ? (gsap.getById("horizontalScroll") as gsap.core.Tween | undefined)
+            : undefined;
 
-        cards.forEach((card) => {
-          const tween = gsap.fromTo(
-            card,
-            { opacity: 0, y: 24 },
-            {
-              opacity: 1,
-              y: 0,
-              ease: "none",
-              scrollTrigger: {
-                trigger: card,
-                containerAnimation: horizontalTween,
-                start: isDesktop ? "left 95%" : "top 95%",
-                end: isDesktop ? "left 85%" : "top 85%",
-                scrub: 0.2,
-                snap: {
-                  snapTo: [0, 1],
-                  duration: { min: 0.12, max: 0.28 },
-                  ease: "power1.out",
+          cards.forEach((card) => {
+            gsap.fromTo(
+              card,
+              { opacity: 0, y: 24 },
+              {
+                opacity: 1,
+                y: 0,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: card,
+                  containerAnimation: horizontalTween,
+                  start: isDesktop ? "left 95%" : "top 95%",
+                  end: isDesktop ? "left 85%" : "top 85%",
+                  scrub: 0.2,
+                  snap: {
+                    snapTo: [0, 1],
+                    duration: { min: 0.12, max: 0.28 },
+                    ease: "power1.out",
+                  },
+                  invalidateOnRefresh: true,
                 },
-                invalidateOnRefresh: true,
               },
-            },
-          );
-          if (tween.scrollTrigger) cardTriggers.push(tween.scrollTrigger);
-        });
-      });
+            );
+          });
+        },
+      );
 
       return () => {
-        cancelAnimationFrame(frame);
         sectionIo.disconnect();
-        cardTriggers.forEach((t) => t.kill());
+        mm.revert();
       };
     },
     { scope: section },
@@ -243,8 +249,11 @@ export default function ExperienceSection() {
               "md:gap-12 md:h-full md:min-h-0",
             )}
           >
-            {experiences.map((exp, i) => (
-              <ExperienceCard key={i} data={exp} />
+            {experiences.map((exp) => (
+              <ExperienceCard
+                key={`${exp.company}-${exp.startDate}`}
+                data={exp}
+              />
             ))}
           </div>
         </div>

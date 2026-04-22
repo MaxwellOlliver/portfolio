@@ -1,22 +1,17 @@
 import * as React from "react";
 
 import { cn } from "@/utils/cn";
-interface NodeLogoProps {
-  className?: string;
-  defaultMode?: boolean;
-}
 
 const NodeLogo = ({
   className,
-  defaultMode = false,
   ...props
-}: NodeLogoProps) => (
+}: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={2029}
     height={2500}
     viewBox="3.583 1.909 24.832 28.092"
-    className={cn(className, !defaultMode && "fill-neutral-800")}
+    className={cn("fill-neutral-800", className)}
     {...props}
   >
     <g fill="#00d486">

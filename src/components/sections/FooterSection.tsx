@@ -7,21 +7,11 @@ import { ArrowUpRight, Github, Linkedin, Mail, MoveUp } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 
+import { glassCard, primaryCard } from "@/utils/cardStyles";
 import { cn } from "@/utils/cn";
+import { randomScramble, SCRAMBLE_CHARS } from "@/utils/scramble";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
-
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-const glassCard = cn(
-  "relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 backdrop-blur-md",
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
-);
-
-const primaryCard = cn(
-  "relative overflow-hidden rounded-2xl bg-primary text-background",
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.4)]",
-);
 
 const socials = [
   {
@@ -83,9 +73,7 @@ export default function FooterSection() {
             return;
           }
           const span = document.createElement("span");
-          span.textContent = Array.from(token)
-            .map(() => chars[Math.floor(Math.random() * chars.length)])
-            .join("");
+          span.textContent = randomScramble(token.length);
           container.appendChild(span);
           wordEntries.push({ span, text: token });
         });
@@ -122,7 +110,7 @@ export default function FooterSection() {
           {
             duration: 0.8,
             ease: "power2.out",
-            scrambleText: { chars, text },
+            scrambleText: { chars: SCRAMBLE_CHARS, text },
             ...(i === wordEntries.length - 1
               ? {
                   onComplete: () => {

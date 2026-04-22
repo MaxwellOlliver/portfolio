@@ -162,29 +162,6 @@ export default function HomeSection() {
 
   return (
     <section className="relative w-full min-h-dvh overflow-visible" id="home">
-      {/* <div className="absolute inset-0 select-none h-full">
-        <div
-          className={cn(
-            "h-[75px] w-[850px] rounded-full",
-            "bg-gradient-to-r from-off-primary/40 via-primary/40 to-off-primary/40",
-            "supports-firefox:from-off-primary/[0.07] supports-firefox:to-off-primary/[0.07] supports-firefox:h-[200px]",
-            "absolute top-[20%] left-[95%] blur-[130px] -translate-y-1/2  rotate-180 origin-left",
-            "z-[1] pointer-events-none",
-            "max-md:top-[5%]",
-          )}
-        ></div>
-
-        <div
-          className={cn(
-            "h-[160px] w-[850px] rounded-full",
-            "bg-gradient-to-r from-off-primary/20 via-primary/20 to-off-primary/20",
-            "supports-firefox:from-off-primary/[0.07] supports-firefox:to-off-primary/[0.07] supports-firefox:h-[200px]",
-            "absolute top-[80%] left-[65%] blur-[130px] -translate-y-1/2 -translate-x-1/2 rotate-180 origin-left",
-            "z-[1] pointer-events-none",
-            "max-md:top-[5%]",
-          )}
-        ></div>
-      </div> */}
       <div className="layout mt-16 flex items-center justify-center min-h-[calc(100dvh-10rem)] relative w-full">
         <OrbitingTech />
         <div className="flex flex-col items-center max-w-120 z-10">
@@ -229,7 +206,7 @@ export default function HomeSection() {
           >
             {t("eyebrow")}
           </span>
-          <h1 className="font-bold text-center text-7xl" id="title">
+          <h1 className="font-bold text-center text-5xl md:text-7xl" id="title">
             {t("title")}
           </h1>
           <p

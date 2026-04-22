@@ -201,10 +201,7 @@ export default function HomeSection() {
           >
             {t("eyebrow")}
           </span>
-          <h1
-            ref={titleRef}
-            className="font-bold text-center text-5xl md:text-7xl"
-          >
+          <h1 ref={titleRef} className="font-bold text-center text-7xl">
             {t("title")}
           </h1>
           <p

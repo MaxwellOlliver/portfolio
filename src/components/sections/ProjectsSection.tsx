@@ -86,8 +86,8 @@ export default function ProjectsSection() {
           ease: "none",
           scrollTrigger: {
             trigger: el,
-            start: "center 95%",
-            end: "center 80%",
+            start: "top 90%",
+            end: "top 78%",
             scrub: 0.8,
             snap: {
               snapTo: [0, 1],

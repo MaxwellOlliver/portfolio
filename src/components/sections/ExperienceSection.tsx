@@ -105,51 +105,62 @@ export default function ExperienceSection() {
       const spines = section.current.querySelectorAll(".exp-spine");
       const mm = gsap.matchMedia();
 
-      gsap.set(cards, { opacity: 0, y: 24 });
       gsap.set(years, { clipPath: "inset(0 100% 0 0)" });
 
-      const sectionIo = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            const isDesktop = window.matchMedia(DESKTOP_QUERY).matches;
+      const runIntroTimeline = (isDesktop: boolean) => {
+        const tl = gsap.timeline();
+        tl.to(title.current, {
+          duration: 0.9,
+          scrambleText: { chars: SCRAMBLE_CHARS, text: titleText },
+        });
+        tl.to(
+          spines,
+          {
+            ...(isDesktop ? { scaleX: 1 } : { scaleY: 1 }),
+            duration: 0.9,
+            ease: "power2.out",
+          },
+          "-=0.6",
+        );
+        tl.to(
+          years,
+          {
+            clipPath: "inset(0 0% 0 0)",
+            stagger: 0.1,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+          "-=0.6",
+        );
+        return tl;
+      };
 
-            const tl = gsap.timeline();
+      const isDesktopAtMount = window.matchMedia(DESKTOP_QUERY).matches;
+      const sectionIo = isDesktopAtMount
+        ? new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                runIntroTimeline(true);
+                sectionIo?.disconnect();
+              });
+            },
+            { threshold: 0.15 },
+          )
+        : null;
 
-            tl.to(title.current, {
-              duration: 0.9,
-              scrambleText: { chars: SCRAMBLE_CHARS, text: titleText },
-            });
+      if (sectionIo) sectionIo.observe(section.current);
 
-            tl.to(
-              spines,
-              {
-                ...(isDesktop ? { scaleX: 1 } : { scaleY: 1 }),
-                duration: 0.9,
-                ease: "power2.out",
-              },
-              "-=0.6",
-            );
+      const titleIntroTrigger = !isDesktopAtMount
+        ? ScrollTrigger.create({
+            trigger: title.current,
+            start: "top 90%",
+            once: true,
+            onEnter: () => runIntroTimeline(false),
+          })
+        : null;
 
-            tl.to(
-              years,
-              {
-                clipPath: "inset(0 0% 0 0)",
-                stagger: 0.1,
-                duration: 0.5,
-                ease: "power2.out",
-              },
-              "-=0.6",
-            );
-
-            sectionIo.disconnect();
-          });
-        },
-        { threshold: 0.15 },
-      );
-
-      sectionIo.observe(section.current);
-
+      let frame = 0;
       mm.add(
         {
           isDesktop: DESKTOP_QUERY,
@@ -158,40 +169,52 @@ export default function ExperienceSection() {
         (context) => {
           const isDesktop = context.conditions?.isDesktop ?? false;
           gsap.set(spines, isDesktop ? { scaleX: 0 } : { scaleY: 0 });
+          gsap.set(
+            cards,
+            isDesktop ? { opacity: 0, y: 24 } : { opacity: 0, x: 40 },
+          );
 
-          const horizontalTween = isDesktop
-            ? (gsap.getById("horizontalScroll") as gsap.core.Tween | undefined)
-            : undefined;
+          frame = requestAnimationFrame(() => {
+            const horizontalTween = isDesktop
+              ? (gsap.getById("horizontalScroll") as
+                  | gsap.core.Tween
+                  | undefined)
+              : undefined;
 
-          cards.forEach((card) => {
-            gsap.fromTo(
-              card,
-              { opacity: 0, y: 24 },
-              {
-                opacity: 1,
-                y: 0,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: card,
-                  containerAnimation: horizontalTween,
-                  start: isDesktop ? "left 95%" : "top 95%",
-                  end: isDesktop ? "left 85%" : "top 85%",
-                  scrub: 0.2,
-                  snap: {
-                    snapTo: [0, 1],
-                    duration: { min: 0.12, max: 0.28 },
-                    ease: "power1.out",
+            cards.forEach((card) => {
+              gsap.fromTo(
+                card,
+                isDesktop ? { opacity: 0, y: 24 } : { opacity: 0, x: 40 },
+                {
+                  opacity: 1,
+                  ...(isDesktop ? { y: 0 } : { x: 0 }),
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    containerAnimation: horizontalTween,
+                    start: isDesktop ? "left 95%" : "top 90%",
+                    end: isDesktop ? "left 75%" : "top 60%",
+                    scrub: 0.2,
+                    snap: {
+                      snapTo: [0, 1],
+                      duration: { min: 0.12, max: 0.28 },
+                      ease: "power1.out",
+                    },
+                    invalidateOnRefresh: true,
                   },
-                  invalidateOnRefresh: true,
                 },
-              },
-            );
+              );
+            });
           });
+
+          return () => cancelAnimationFrame(frame);
         },
       );
 
       return () => {
-        sectionIo.disconnect();
+        sectionIo?.disconnect();
+        titleIntroTrigger?.kill();
+        cancelAnimationFrame(frame);
         mm.revert();
       };
     },

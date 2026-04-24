@@ -226,7 +226,7 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
 
         <ul className="relative flex flex-col gap-2">
           {points.map((point, i) => (
-            <li key={i} className="flex gap-3 items-start">
+            <li key={i} className="flex gap-3 items-start" data-no-blobity>
               <span
                 className={cn(
                   "font-mono text-[10px] pt-0.75 shrink-0 tracking-wider",

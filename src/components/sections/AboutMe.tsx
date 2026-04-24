@@ -85,7 +85,7 @@ export default function AboutMeSection() {
       className={cn(
         "flex shrink-0",
         "max-md:w-full",
-        "md:w-max md:lg:pl-[10vw] md:mr-16 md:h-full md:min-h-0",
+        "md:w-max tall:pl-[10vw] md:mr-16 md:h-full md:min-h-0",
       )}
       id="about-me"
     >
@@ -107,17 +107,17 @@ export default function AboutMeSection() {
         <div
           ref={grid}
           className={cn(
-            "grid gap-4 items-stretch px-4",
+            "grid gap-4 items-stretch p-4",
             "max-md:grid-cols-1",
             "md:grid-cols-[30rem_22rem_22rem_22rem_22rem_22rem] md:grid-rows-1 md:auto-rows-fr md:flex-1 md:min-h-0 md:overflow-hidden",
-            "tall:grid-cols-3 tall:grid-rows-2",
-            "taller:grid-rows-[minmax(0,1fr)_auto_auto] tall:w-full",
+            "tall:grid-cols-6 tall:grid-rows-[minmax(0,1fr)_auto]",
+            "taller:grid-cols-3 taller:grid-rows-[minmax(0,1fr)_auto_auto] tall:w-full",
           )}
         >
           <div
             className={cn(
               "about-card  flex flex-col gap-4 justify-center md:min-w-72",
-              "taller:col-span-2 ",
+              "tall:col-span-3 taller:col-span-2",
             )}
           >
             <span
@@ -145,6 +145,7 @@ export default function AboutMeSection() {
             className={cn(
               primaryCard,
               "about-card p-6 flex flex-col gap-4 md:min-w-72",
+              "tall:col-span-3 taller:col-span-1",
             )}
           >
             <span
@@ -168,14 +169,27 @@ export default function AboutMeSection() {
             </div>
           </div>
 
-          <StackCategory title={t("stack.frontend")} items={frontend} />
-          <StackCategory title={t("stack.backend")} items={backend} />
-          <StackCategory title={t("stack.tooling")} items={tooling} />
+          <StackCategory
+            title={t("stack.frontend")}
+            items={frontend}
+            className="tall:col-span-2 taller:col-span-1"
+          />
+          <StackCategory
+            title={t("stack.backend")}
+            items={backend}
+            className="tall:col-span-2 taller:col-span-1"
+          />
+          <StackCategory
+            title={t("stack.tooling")}
+            items={tooling}
+            className="tall:col-span-2 taller:col-span-1"
+          />
 
           <div
             className={cn(
               primaryCard,
               "about-card p-6 flex flex-col gap-3 justify-center md:min-w-72",
+              "tall:hidden taller:flex",
               "taller:col-span-3 taller:px-6 taller:py-4 taller:flex-row taller:items-center taller:justify-between taller:gap-4",
             )}
           >

@@ -7,14 +7,20 @@ import TechChip from "./TechChip";
 interface StackCategoryProps {
   title: string;
   items: StackItem[];
+  className?: string;
 }
 
-export default function StackCategory({ title, items }: StackCategoryProps) {
+export default function StackCategory({
+  title,
+  items,
+  className,
+}: StackCategoryProps) {
   return (
     <div
       className={cn(
         glassCard,
         "about-card p-5 flex flex-col gap-4 md:min-w-72",
+        className,
       )}
     >
       <span

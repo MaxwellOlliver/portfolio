@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Maxwell Macedo | Desenvolvedor Full-Stack Sênior",
-    "description": "Desenvolvedor full-stack sênior com mais de 5 anos em produtos web e mobile com React, Next.js, Node e React Native. Focado em arquitetura e performance.",
+    "description": "Desenvolvedor full-stack sênior com mais de 5 anos em produtos web e mobile com React, Next.js, Node e React Native.",
     "ogTitle": "Maxwell Macedo",
     "ogSubtitle": "Desenvolvedor Full-Stack Sênior",
     "keywords": "Maxwell Macedo, desenvolvedor full-stack, engenheiro sênior, React, Next.js, Node.js, React Native, TypeScript, frontend, backend, desenvolvimento web, desenvolvimento mobile"
@@ -16,7 +16,7 @@
   },
   "home": {
     "eyebrow": "Desenvolvedor Full-Stack Sênior",
-    "status": "Disponível para projetos",
+    "status": "Aberto a oportunidades",
     "title": "Eu sou o Maxwell",
     "description": "Construo apps web e mobile com React, Next.js, React Native e Node. O que mais gosto é decidir arquitetura e mexer com performance: descobrir por que algo está lento e deixar rápido.",
     "moreAboutMe": "Mais sobre mim",
@@ -93,7 +93,7 @@
     "eyebrow": "Vamos conversar",
     "headline": "Vamos construir algo <emphasis>que valha a pena entregar.</emphasis>",
     "description": "Aberto a posições sênior full-stack, consultoria em arquitetura e projetos que mereçam atenção a performance e aos detalhes.",
-    "status": "Disponível para projetos",
+    "status": "Aberto a oportunidades",
     "dropALine": "Mande um oi",
     "sitemap": "Mapa do site",
     "elsewhere": "Em outros lugares",

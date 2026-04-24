@@ -107,8 +107,8 @@ export default function HomeSection() {
               aria-hidden="true"
             />
             <span className="relative flex w-2 h-2">
-              <span className="absolute inset-0 rounded-full bg-primary/60 animate-ping" />
-              <span className="relative rounded-full w-2 h-2 bg-primary" />
+              <span className="absolute inset-0 rounded-full bg-green-500/60 animate-ping" />
+              <span className="relative rounded-full w-2 h-2 bg-green-500" />
             </span>
             <span className="relative text-xs uppercase tracking-[0.2em] text-foreground-muted">
               {t("status")}

@@ -1,15 +1,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/utils/cn";
-
-import Dropdown from "../ui/dropdown/Dropdown";
-import DropdownItem from "../ui/dropdown/DropdownItem";
-import DropdownMenu from "../ui/dropdown/DropdownMenu";
-import DropdownTrigger from "../ui/dropdown/DropdownTrigger";
 
 gsap.registerPlugin(useGSAP);
 
@@ -17,11 +11,6 @@ const navItems = [
   { key: "home", href: "#home" },
   { key: "about", href: "#about-me" },
   { key: "projects", href: "#projects" },
-] as const;
-
-const moreItems = [
-  { key: "contact", href: "#contact" },
-  { key: "resume", href: "/resume" },
 ] as const;
 
 export default function Navbar() {
@@ -89,35 +78,6 @@ export default function Navbar() {
             {t(item.key)}
           </a>
         ))}
-        <div className="w-px h-4 bg-border" />
-        <Dropdown>
-          <DropdownTrigger>
-            {({ isOpen, toggle }) => (
-              <button
-                type="button"
-                onClick={toggle}
-                aria-haspopup="menu"
-                aria-expanded={isOpen}
-                className="px-2 py-1 md:p-2 flex items-center gap-1 md:gap-2 rounded-md text-neutral-500 cursor-pointer text-nowrap"
-              >
-                {t("more")}
-                <ChevronDown
-                  className={cn(
-                    "w-4 h-4 transition-transform",
-                    isOpen && "rotate-180",
-                  )}
-                />
-              </button>
-            )}
-          </DropdownTrigger>
-          <DropdownMenu align="end">
-            {moreItems.map((option) => (
-              <DropdownItem key={option.href} href={option.href}>
-                {t(option.key)}
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        </Dropdown>
       </div>
     </nav>
   );

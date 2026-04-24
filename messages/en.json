@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Maxwell Macedo | Senior Full-Stack Engineer",
-    "description": "Senior full-stack engineer with 5+ years building web and mobile products in React, Next.js, Node, and React Native. Focused on architecture and performance.",
+    "description": "Senior full-stack engineer with 5+ years building web and mobile products in React, Next.js, Node, and React Native.",
     "ogTitle": "Maxwell Macedo",
     "ogSubtitle": "Senior Full-Stack Engineer",
     "keywords": "Maxwell Macedo, full-stack developer, senior engineer, React, Next.js, Node.js, React Native, TypeScript, frontend, backend, web development, mobile development"
@@ -9,14 +9,11 @@
   "navbar": {
     "home": "Home",
     "about": "About me",
-    "projects": "Projects",
-    "contact": "Contact",
-    "resume": "Resume",
-    "more": "More"
+    "projects": "Projects"
   },
   "home": {
     "eyebrow": "Senior Full-Stack Engineer",
-    "status": "Available for work",
+    "status": "Open to opportunities",
     "title": "I'm Maxwell",
     "description": "I build web and mobile apps with React, Next.js, React Native, and Node. The parts I enjoy most are the architecture calls and the performance work: figuring out why something's slow, then making it fast.",
     "moreAboutMe": "More about me",
@@ -93,7 +90,7 @@
     "eyebrow": "Get in touch",
     "headline": "Let's build something <emphasis>worth shipping.</emphasis>",
     "description": "Open to senior full-stack roles, architecture consulting, and projects that deserve real attention to performance and detail.",
-    "status": "Available for work",
+    "status": "Open to opportunities",
     "dropALine": "Drop a line",
     "sitemap": "Sitemap",
     "elsewhere": "Elsewhere",

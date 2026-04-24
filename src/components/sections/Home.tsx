@@ -23,16 +23,18 @@ import DropdownTrigger from "../ui/dropdown/DropdownTrigger";
 
 gsap.registerPlugin(useGSAP, SplitText);
 
+const RESUME_BASE = "https://files.maxwellmacedo.com";
+
 const resumeFiles = [
   {
     locale: "en",
-    href: "/resume/maxwell-macedo-en.pdf",
-    fileName: "maxwell-macedo-en.pdf",
+    href: `${RESUME_BASE}/maxwell_macedo_cv_en.pdf`,
+    fileName: "maxwell_macedo_cv_en.pdf",
   },
   {
     locale: "pt",
-    href: "/resume/maxwell-macedo-pt.pdf",
-    fileName: "maxwell-macedo-pt.pdf",
+    href: `${RESUME_BASE}/maxwell_macedo_cv_pt.pdf`,
+    fileName: "maxwell_macedo_cv_pt.pdf",
   },
 ] as const;
 
@@ -107,8 +109,8 @@ export default function HomeSection() {
               aria-hidden="true"
             />
             <span className="relative flex w-2 h-2">
-              <span className="absolute inset-0 rounded-full bg-primary/60 animate-ping" />
-              <span className="relative rounded-full w-2 h-2 bg-primary" />
+              <span className="absolute inset-0 rounded-full bg-green-500/60 animate-ping" />
+              <span className="relative rounded-full w-2 h-2 bg-green-500" />
             </span>
             <span className="relative text-xs uppercase tracking-[0.2em] text-foreground-muted">
               {t("status")}

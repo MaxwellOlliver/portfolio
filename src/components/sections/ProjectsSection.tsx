@@ -11,6 +11,7 @@ import { projectsConfig } from "@/data/projects";
 import { cn } from "@/utils/cn";
 import { SCRAMBLE_CHARS } from "@/utils/scramble";
 
+import GithubCtaCard from "../cards/GithubCtaCard";
 import ProjectCard from "../cards/ProjectCard";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
@@ -110,6 +111,7 @@ export default function ProjectsSection() {
               total={projectsConfig.length}
             />
           ))}
+          <GithubCtaCard />
         </div>
       </div>
     </section>

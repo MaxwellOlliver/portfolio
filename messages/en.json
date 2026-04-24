@@ -118,6 +118,13 @@
         "title": "React Query Select",
         "description": "A React select component that uses React Query to fetch options asynchronously. Supports server-side search, infinite scrolling, multi-select, and initial value resolution by ID."
       }
+    },
+    "githubCta": {
+      "eyebrow": "more",
+      "graphLabel": "Archive",
+      "headline": "There's more on my GitHub",
+      "description": "Experiments, drafts, and smaller things I work on between the bigger projects.",
+      "action": "Visit GitHub"
     }
   },
   "about": {

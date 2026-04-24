@@ -118,6 +118,13 @@
         "title": "React Query Select",
         "description": "Um componente select para React que usa React Query para buscar opções de forma assíncrona. Suporta busca no servidor, rolagem infinita, seleção múltipla e resolução de valor inicial por ID."
       }
+    },
+    "githubCta": {
+      "eyebrow": "mais",
+      "graphLabel": "Arquivo",
+      "headline": "Tem mais no meu GitHub",
+      "description": "Experimentos, rascunhos e projetos menores que faço entre os maiores.",
+      "action": "Ir para o GitHub"
     }
   },
   "about": {

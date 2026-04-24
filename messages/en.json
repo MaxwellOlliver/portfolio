@@ -104,7 +104,7 @@
     "count": "{count} projects",
     "caseStudy": "Case study",
     "stack": "Stack",
-    "description": "A mix of personal experiments and production work — case studies span motion-driven interfaces, full-stack platforms, and smaller one-offs I ship between bigger things.",
+    "description": "A few personal projects I've built on the side, in different stacks and at different scales.",
     "items": {
       "moonly": {
         "title": "Moonly",

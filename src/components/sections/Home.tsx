@@ -23,16 +23,18 @@ import DropdownTrigger from "../ui/dropdown/DropdownTrigger";
 
 gsap.registerPlugin(useGSAP, SplitText);
 
+const RESUME_BASE = "https://files.maxwellmacedo.com";
+
 const resumeFiles = [
   {
     locale: "en",
-    href: "/resume/maxwell-macedo-en.pdf",
-    fileName: "maxwell-macedo-en.pdf",
+    href: `${RESUME_BASE}/maxwell_macedo_cv_en.pdf`,
+    fileName: "maxwell_macedo_cv_en.pdf",
   },
   {
     locale: "pt",
-    href: "/resume/maxwell-macedo-pt.pdf",
-    fileName: "maxwell-macedo-pt.pdf",
+    href: `${RESUME_BASE}/maxwell_macedo_cv_pt.pdf`,
+    fileName: "maxwell_macedo_cv_pt.pdf",
   },
 ] as const;
 

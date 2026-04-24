@@ -1,13 +1,7 @@
-import { type ComponentType } from "react";
-
+import type { StackItem } from "@/data/stack";
 import { cn } from "@/utils/cn";
 
-export type TechItem = {
-  name: string;
-  Logo: ComponentType<{ className?: string }>;
-};
-
-export default function TechChip({ name, Logo }: TechItem) {
+export default function TechChip({ name, logo: Logo }: StackItem) {
   return (
     <span
       className={cn(

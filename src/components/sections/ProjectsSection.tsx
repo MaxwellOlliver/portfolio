@@ -5,54 +5,15 @@ import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
-import { type ComponentType, useRef } from "react";
+import { useRef } from "react";
 
+import { projectsConfig } from "@/data/projects";
 import { cn } from "@/utils/cn";
 import { SCRAMBLE_CHARS } from "@/utils/scramble";
 
 import ProjectCard from "../cards/ProjectCard";
-import NestLogo from "../logos/NestLogo";
-import PrismaLogo from "../logos/PrismaLogo";
-import ReactLogo from "../logos/ReactLogo";
-import TypescriptLogo from "../logos/TypescriptLogo";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
-
-type ProjectConfig = {
-  key: "moonly" | "inpro" | "others";
-  image: string;
-  githubLink?: string;
-  websiteLink?: string;
-  backgroundColor: string;
-  tools: ComponentType<{ className?: string }>[];
-};
-
-const projectsConfig: ProjectConfig[] = [
-  {
-    key: "moonly",
-    image: "/assets/moonly.jpg",
-    githubLink: "https://github.com/MaxwellOlliver/moonly",
-    websiteLink: "https://maxwellolliver.github.io/moonly/",
-    backgroundColor: "#da7727",
-    tools: [ReactLogo, TypescriptLogo],
-  },
-  {
-    key: "inpro",
-    image: "/assets/inpro.jpg",
-    githubLink: "https://www.google.com",
-    websiteLink: "https://www.google.com",
-    backgroundColor: "#781188",
-    tools: [ReactLogo, TypescriptLogo, NestLogo, PrismaLogo],
-  },
-  {
-    key: "others",
-    image: "/assets/others.jpg",
-    githubLink: "https://www.google.com",
-    websiteLink: "https://www.google.com",
-    backgroundColor: "#4300A1",
-    tools: [ReactLogo, TypescriptLogo, NestLogo, PrismaLogo],
-  },
-];
 
 export default function ProjectsSection() {
   const t = useTranslations("projects");

@@ -1,11 +1,12 @@
+import type { StackItem } from "@/data/stack";
 import { glassCard } from "@/utils/cardStyles";
 import { cn } from "@/utils/cn";
 
-import TechChip, { type TechItem } from "./TechChip";
+import TechChip from "./TechChip";
 
 interface StackCategoryProps {
   title: string;
-  items: TechItem[];
+  items: StackItem[];
 }
 
 export default function StackCategory({ title, items }: StackCategoryProps) {
@@ -30,7 +31,7 @@ export default function StackCategory({ title, items }: StackCategoryProps) {
       </div>
       <div className="relative flex flex-wrap gap-2">
         {items.map((item) => (
-          <TechChip key={item.name} name={item.name} Logo={item.Logo} />
+          <TechChip key={item.id} {...item} />
         ))}
       </div>
     </div>

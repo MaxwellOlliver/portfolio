@@ -1,7 +1,7 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrambleTextPlugin, SplitText } from "gsap/all";
+import { SplitText } from "gsap/all";
 import {
   ArrowDown,
   ChevronDown,
@@ -14,7 +14,6 @@ import { useTranslations } from "next-intl";
 import { useRef } from "react";
 
 import { cn } from "@/utils/cn";
-import { randomScramble, SCRAMBLE_CHARS } from "@/utils/scramble";
 
 import OrbitingTech from "../layout/OrbitingTech";
 import Dropdown from "../ui/dropdown/Dropdown";
@@ -22,7 +21,7 @@ import DropdownItem from "../ui/dropdown/DropdownItem";
 import DropdownMenu from "../ui/dropdown/DropdownMenu";
 import DropdownTrigger from "../ui/dropdown/DropdownTrigger";
 
-gsap.registerPlugin(useGSAP, ScrambleTextPlugin, SplitText);
+gsap.registerPlugin(useGSAP, SplitText);
 
 const resumeFiles = [
   {
@@ -53,56 +52,18 @@ export default function HomeSection() {
   const ctasRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const tl = gsap.timeline();
-
-    tl.from(statusChipRef.current, {
-      opacity: 0,
-      y: 20,
-      ease: "power2.inOut",
+    const tl = gsap.timeline({
+      defaults: { ease: "power2.out", duration: 0.45 },
     });
 
-    const titleEl = titleRef.current;
-    if (titleEl) {
-      const finalText = titleEl.textContent ?? "";
-      const lockedHeight = titleEl.offsetHeight;
-      const lockedWidth = titleEl.offsetWidth;
-
-      titleEl.style.height = `${lockedHeight}px`;
-      titleEl.style.width = `${lockedWidth}px`;
-      titleEl.style.overflow = "hidden";
-
-      const words = finalText.split(" ");
-      titleEl.textContent = "";
-      const wordSpans: HTMLSpanElement[] = [];
-      words.forEach((word, i) => {
-        const span = document.createElement("span");
-        span.textContent = randomScramble(word.length);
-        titleEl.appendChild(span);
-        wordSpans.push(span);
-        if (i < words.length - 1) {
-          titleEl.appendChild(document.createTextNode(" "));
-        }
+    if (titleRef.current) {
+      const titleSplit = new SplitText(titleRef.current, {
+        type: "words,chars",
       });
-
-      wordSpans.forEach((span, i) => {
-        tl.to(
-          span,
-          {
-            duration: 0.8,
-            ease: "power2.out",
-            scrambleText: { chars: SCRAMBLE_CHARS, text: words[i] },
-            ...(i === wordSpans.length - 1
-              ? {
-                  onComplete: () => {
-                    titleEl.style.height = "";
-                    titleEl.style.width = "";
-                    titleEl.style.overflow = "";
-                  },
-                }
-              : {}),
-          },
-          "<",
-        );
+      tl.from(titleSplit.chars, {
+        opacity: 0,
+        y: 20,
+        stagger: 0.025,
       });
     }
 
@@ -112,46 +73,19 @@ export default function HomeSection() {
       });
       tl.from(
         descriptionSplit.words,
-        {
-          opacity: 0,
-          y: 20,
-          ease: "power2.inOut",
-          stagger: 0.05,
-        },
-        "<",
+        { opacity: 0, y: 16, stagger: 0.02 },
+        "-=0.15",
       );
     }
+    tl.from(eyebrowRef.current, { opacity: 0, y: -12 }, "<");
 
-    tl.from(
-      eyebrowRef.current,
-      {
-        opacity: 0,
-        y: -20,
-        ease: "power2.inOut",
-      },
-      ">",
-    );
-
-    if (socialsRef.current) {
-      tl.from(socialsRef.current.children, {
-        opacity: 0,
-        y: 20,
-        ease: "power2.inOut",
-        stagger: 0.1,
-      });
-    }
-
-    if (ctasRef.current) {
-      tl.from(
-        ctasRef.current.children,
-        {
-          opacity: 0,
-          y: 20,
-          ease: "power2.inOut",
-          stagger: 0.08,
-        },
-        "<",
-      );
+    const lastGroup: Element[] = [
+      statusChipRef.current,
+      ...(socialsRef.current ? Array.from(socialsRef.current.children) : []),
+      ...(ctasRef.current ? Array.from(ctasRef.current.children) : []),
+    ].filter((el): el is Element => el !== null);
+    if (lastGroup.length) {
+      tl.from(lastGroup, { opacity: 0, y: 12, stagger: 0.04 }, "-=0.15");
     }
   });
 

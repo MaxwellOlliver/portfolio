@@ -6,8 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight, Github, Globe } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { ComponentType } from "react";
 
+import type { StackItem } from "@/data/stack";
 import { cn } from "@/utils/cn";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -20,7 +20,7 @@ interface ProjectCardProps {
   websiteLink?: string;
   id: string;
   backgroundColor?: string;
-  tools: ComponentType<{ className?: string }>[];
+  tools: StackItem[];
   index?: number;
   total?: number;
 }
@@ -76,7 +76,7 @@ export default function ProjectCard({
         style={{ backgroundColor }}
       >
         <span
-          className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/12 via-transparent to-black/10"
+          className="pointer-events-none absolute inset-0 z-50 bg-linear-to-br from-white/12 via-transparent to-black/10"
           aria-hidden="true"
         />
         <Image
@@ -84,7 +84,7 @@ export default function ProjectCard({
           alt={title}
           width={1200}
           height={1200}
-          className="relative w-full h-full max-w-44 max-h-44 object-contain pointer-events-none select-none"
+          className="relative w-full h-full md:max-h-44 aspect-square object-contain pointer-events-none select-none"
         />
       </div>
 
@@ -121,7 +121,10 @@ export default function ProjectCard({
                 data-blobity="true"
                 data-blobity-magnetic="false"
               >
-                <Github className="w-4 h-4" style={{ color: backgroundColor }} />
+                <Github
+                  className="w-4 h-4"
+                  style={{ color: backgroundColor }}
+                />
                 <span className="text-sm">GitHub</span>
               </a>
             )}
@@ -144,8 +147,13 @@ export default function ProjectCard({
             <span className="text-[10px] uppercase tracking-[0.2em] text-foreground-muted/70">
               {t("stack")}
             </span>
-            {tools.map((Tool, i) => (
-              <Tool key={i} className="w-4 h-4" />
+            {tools.map((tool) => (
+              <tool.logo
+                key={tool.id}
+                className="w-4 h-4"
+                data-blobity-tooltip={tool.name}
+                data-blobity-magnetic="false"
+              />
             ))}
           </div>
         </footer>

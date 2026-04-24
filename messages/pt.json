@@ -11,7 +11,7 @@
     "eyebrow": "Desenvolvedor Full-Stack Sênior",
     "status": "Disponível para projetos",
     "title": "Eu sou o Maxwell",
-    "description": "Desenvolvedor Full-Stack Sênior com mais de 5 anos construindo aplicações web e mobile escaláveis em React, Next.js, React Native e Node.js. Conduzo decisões arquiteturais, melhoro performance de sistemas e entrego soluções de alto impacto.",
+    "description": "Construo apps web e mobile com React, Next.js, React Native e Node. O que mais gosto é decidir arquitetura e mexer com performance: descobrir por que algo está lento e deixar rápido.",
     "moreAboutMe": "Mais sobre mim",
     "resume": {
       "label": "Currículo",
@@ -110,13 +110,13 @@
         "title": "Moonly",
         "description": "Moonly é um aplicativo web que mostra a letra de uma música sincronizada com a música."
       },
-      "inpro": {
-        "title": "InPro",
-        "description": "Uma plataforma onde você pode expor suas habilidades em jogos para aumentar as chances de ser notado por times profissionais."
+      "animora": {
+        "title": "Animora",
+        "description": "Animora é uma plataforma de streaming de animes em monorepo, com upload de vídeos, processamento HLS em múltiplas qualidades e controle de conteúdo por papéis."
       },
-      "others": {
-        "title": "Pequenos Projetos",
-        "description": "Uma coleção de pequenos projetos em que trabalhei."
+      "rqselect": {
+        "title": "React Query Select",
+        "description": "Um componente select para React que usa React Query para buscar opções de forma assíncrona. Suporta busca no servidor, rolagem infinita, seleção múltipla e resolução de valor inicial por ID."
       }
     }
   },
@@ -124,13 +124,13 @@
     "title": "Sobre Mim",
     "intro": {
       "eyebrow": "Olá, sou o Maxwell",
-      "headline": "Desenvolvedor full-stack sênior com <emphasis>mais de 5 anos conduzindo arquitetura, performance e entregas de alto impacto</emphasis> em produtos web e mobile.",
-      "description": "Transito do front ao back — React, Next.js, React Native e Node.js — construindo interfaces que fluem e APIs que escalam."
+      "headline": "Desenvolvedor full-stack sênior com mais de 5 anos em produtos web e mobile, focado principalmente em <emphasis>arquitetura e performance</emphasis>.",
+      "description": "Trabalho tanto no frontend quanto no backend, dependendo do projeto. Também sou entusiasta de IA, atualmente obcecado por system design e desenvolvendo integrações com LLMs."
     },
     "current": {
-      "label": "No momento",
-      "headline": "Atuando como referência técnica de frontend na dotcode, orientando arquitetura e boas práticas.",
-      "description": "Construindo uma biblioteca de componentes e templates em React com CI/CD que reduziu o setup de novos projetos de ~8h para 30min."
+      "label": "Em busca de",
+      "headline": "Posição sênior como desenvolvedor full-stack ou frontend.",
+      "description": "Confortável como referência técnica e tomando decisões de arquitetura. Interessado em desafios e novas perspectivas que me ajudem a crescer, tanto técnica quanto profissionalmente. Aberto a posições full-stack, frontend ou backend."
     },
     "stack": {
       "frontend": "Frontend",

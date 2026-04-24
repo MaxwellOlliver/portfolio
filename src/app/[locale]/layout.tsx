@@ -3,6 +3,7 @@ import "../globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import Head from "next/head";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -45,6 +46,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <Head>
+        <link rel="icon" href="/favicon.svg" sizes="any" />
+      </Head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >

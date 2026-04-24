@@ -89,7 +89,7 @@ export default function Navbar() {
             {t(item.key)}
           </a>
         ))}
-        <div className="w-px h-4 bg-neutral-600" />
+        <div className="w-px h-4 bg-border" />
         <Dropdown>
           <DropdownTrigger>
             {({ isOpen, toggle }) => (

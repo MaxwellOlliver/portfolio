@@ -7,50 +7,39 @@ import { Gamepad2, Headphones, Heart, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 
+import { STACK } from "@/data/stack";
 import { primaryCard } from "@/utils/cardStyles";
 import { cn } from "@/utils/cn";
 import { SCRAMBLE_CHARS } from "@/utils/scramble";
 
-import ClaudeLogo from "../logos/ClaudeLogo";
-import DockerLogo from "../logos/DockerLogo";
-import FigmaLogo from "../logos/FigmaLogo";
-import FlutterLogo from "../logos/FlutterLogo";
-import JavaLogo from "../logos/JavaLogo";
-import NestLogo from "../logos/NestLogo";
-import NextLogo from "../logos/NextLogo";
-import NodeLogo from "../logos/NodeLogo";
-import PrismaLogo from "../logos/PrismaLogo";
-import ReactLogo from "../logos/ReactLogo";
-import SpringBootLogo from "../logos/SpringBootLogo";
-import TailwindCSSLogo from "../logos/TailwindCSSLogo";
-import TypescriptLogo from "../logos/TypescriptLogo";
-import VueLogo from "../logos/VueLogo";
 import StackCategory from "./about/StackCategory";
-import type { TechItem } from "./about/TechChip";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
 
-const frontend: TechItem[] = [
-  { name: "React", Logo: ReactLogo },
-  { name: "Next.js", Logo: NextLogo },
-  { name: "Vue", Logo: VueLogo },
-  { name: "TypeScript", Logo: TypescriptLogo },
-  { name: "Tailwind", Logo: TailwindCSSLogo },
-  { name: "Flutter", Logo: FlutterLogo },
+const frontend = [
+  STACK.react,
+  STACK.reactNative,
+  STACK.next,
+  STACK.vue,
+  STACK.typescript,
+  STACK.flutter,
 ];
 
-const backend: TechItem[] = [
-  { name: "Node.js", Logo: NodeLogo },
-  { name: "NestJS", Logo: NestLogo },
-  { name: "Java", Logo: JavaLogo },
-  { name: "Spring Boot", Logo: SpringBootLogo },
-  { name: "Prisma", Logo: PrismaLogo },
+const backend = [
+  STACK.node,
+  STACK.express,
+  STACK.nest,
+  STACK.postgres,
+  STACK.mongo,
+  STACK.redis,
 ];
 
-const tooling: TechItem[] = [
-  { name: "Docker", Logo: DockerLogo },
-  { name: "Figma", Logo: FigmaLogo },
-  { name: "Claude", Logo: ClaudeLogo },
+const tooling = [
+  STACK.docker,
+  STACK.aws,
+  STACK.azureDevops,
+  STACK.figma,
+  STACK.claude,
 ];
 
 export default function AboutMeSection() {
@@ -127,7 +116,7 @@ export default function AboutMeSection() {
         >
           <div
             className={cn(
-              "about-card p-6 flex flex-col gap-4 justify-center md:min-w-72",
+              "about-card  flex flex-col gap-4 justify-center md:min-w-72",
               "taller:col-span-2 ",
             )}
           >

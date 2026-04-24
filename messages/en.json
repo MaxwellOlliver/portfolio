@@ -11,7 +11,7 @@
     "eyebrow": "Senior Full-Stack Engineer",
     "status": "Available for work",
     "title": "I'm Maxwell",
-    "description": "Senior Full-Stack Engineer with 5+ years building scalable web and mobile applications in React, Next.js, React Native, and Node.js. I drive architectural decisions, improve system performance, and ship high-impact solutions.",
+    "description": "I build web and mobile apps with React, Next.js, React Native, and Node. The parts I enjoy most are the architecture calls and the performance work: figuring out why something's slow, then making it fast.",
     "moreAboutMe": "More about me",
     "resume": {
       "label": "Resume",
@@ -110,13 +110,13 @@
         "title": "Moonly",
         "description": "Moonly is a web app that shows a song's lyrics synchronized with the music."
       },
-      "inpro": {
-        "title": "InPro",
-        "description": "A platform where you can expose your gaming skills to get higher chances on getting noticed by professional teams."
+      "animora": {
+        "title": "Animora",
+        "description": "Animora is an anime streaming platform monorepo featuring video upload, multi-quality HLS processing, and role-based content management."
       },
-      "others": {
-        "title": "Small Projects",
-        "description": "A collection of small projects I've worked on."
+      "rqselect": {
+        "title": "React Query Select",
+        "description": "A React select component that uses React Query to fetch options asynchronously. Supports server-side search, infinite scrolling, multi-select, and initial value resolution by ID."
       }
     }
   },
@@ -124,13 +124,13 @@
     "title": "About Me",
     "intro": {
       "eyebrow": "Hi, I'm Maxwell",
-      "headline": "Senior full-stack developer with <emphasis>5+ years driving architecture, performance, and high-impact delivery</emphasis> across web and mobile products.",
-      "description": "I move from front-end to back-end — React, Next.js, React Native, and Node.js — building interfaces that flow and APIs that scale."
+      "headline": "Senior full-stack developer with 5+ years on web and mobile products, mostly focused on <emphasis>architecture and performance</emphasis>.",
+      "description": "I work across the full stack, moving between frontend and backend depending on the project. I'm also an AI enthusiast, currently obsessed with system design and building with LLM integrations."
     },
     "current": {
-      "label": "Currently",
-      "headline": "Acting as frontend tech lead at dotcode, guiding architecture and best practices.",
-      "description": "Building a React component and template library with CI/CD that cut new-project setup from ~8h to 30min."
+      "label": "Looking for",
+      "headline": "Senior full-stack or frontend engineering role.",
+      "description": "Comfortable as a technical reference and making architectural decisions. Interested in challenges and new perspectives that help me grow, both technically and professionally. Open to full-stack, frontend, or backend-focused positions."
     },
     "stack": {
       "frontend": "Frontend",

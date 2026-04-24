@@ -4,69 +4,15 @@ import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
-import { type ComponentType, useRef } from "react";
+import { useRef } from "react";
 
+import { experiencesConfig } from "@/data/experiences";
 import { cn } from "@/utils/cn";
 import { SCRAMBLE_CHARS } from "@/utils/scramble";
 
-import VivinhoLogo from "../../../public/assets/vivinho.svg";
 import ExperienceCard, { type ExperienceData } from "../cards/ExperienceCard";
-import DockerLogo from "../logos/DockerLogo";
-import NestLogo from "../logos/NestLogo";
-import NextLogo from "../logos/NextLogo";
-import NodeLogo from "../logos/NodeLogo";
-import ReactLogo from "../logos/ReactLogo";
-import TypescriptLogo from "../logos/TypescriptLogo";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
-
-type ExperienceConfig = {
-  key: string;
-  logo: ExperienceData["logo"];
-  startDate: string;
-  endDate: string | "present";
-  tech: ComponentType<{ className?: string }>[];
-  current?: boolean;
-};
-
-const experienceConfig: ExperienceConfig[] = [
-  {
-    key: "dotcodeSenior",
-    logo: VivinhoLogo,
-    startDate: "2025-10",
-    endDate: "present",
-    tech: [ReactLogo, NextLogo, TypescriptLogo, DockerLogo],
-    current: true,
-  },
-  {
-    key: "vivo",
-    logo: VivinhoLogo,
-    startDate: "2025-02",
-    endDate: "2025-09",
-    tech: [ReactLogo, NextLogo, TypescriptLogo, NodeLogo, NestLogo, DockerLogo],
-  },
-  {
-    key: "dotcodeFrontend",
-    logo: VivinhoLogo,
-    startDate: "2023-06",
-    endDate: "2025-01",
-    tech: [ReactLogo, TypescriptLogo, DockerLogo],
-  },
-  {
-    key: "gbAgritech",
-    logo: VivinhoLogo,
-    startDate: "2022-06",
-    endDate: "2023-05",
-    tech: [NextLogo, ReactLogo, TypescriptLogo],
-  },
-  {
-    key: "vyaDigital",
-    logo: VivinhoLogo,
-    startDate: "2021-01",
-    endDate: "2022-10",
-    tech: [ReactLogo, TypescriptLogo, NodeLogo],
-  },
-];
 
 const DESKTOP_QUERY = "(min-width: 768px)";
 
@@ -76,7 +22,7 @@ export default function ExperienceSection() {
   const title = useRef<HTMLHeadingElement>(null);
   const titleText = t("title");
 
-  const experiences: ExperienceData[] = experienceConfig.map((exp, i, arr) => ({
+  const experiences: ExperienceData[] = experiencesConfig.map((exp, i, arr) => ({
     logo: exp.logo,
     role: t(`items.${exp.key}.role`),
     company: t(`items.${exp.key}.company`),

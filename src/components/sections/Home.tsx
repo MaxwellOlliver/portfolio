@@ -1,7 +1,7 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrambleTextPlugin, SplitText } from "gsap/all";
+import { SplitText } from "gsap/all";
 import {
   ArrowDown,
   ChevronDown,
@@ -11,16 +11,17 @@ import {
   Mail,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useRef } from "react";
 
 import { cn } from "@/utils/cn";
 
 import OrbitingTech from "../layout/OrbitingTech";
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from "../ui/Dropdown";
+import Dropdown from "../ui/dropdown/Dropdown";
+import DropdownItem from "../ui/dropdown/DropdownItem";
+import DropdownMenu from "../ui/dropdown/DropdownMenu";
+import DropdownTrigger from "../ui/dropdown/DropdownTrigger";
+
+gsap.registerPlugin(useGSAP, SplitText);
 
 const resumeFiles = [
   {
@@ -35,129 +36,57 @@ const resumeFiles = [
   },
 ] as const;
 
-gsap.registerPlugin(useGSAP, ScrambleTextPlugin, SplitText);
-
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const socialLinks = [
+  { href: "https://github.com/MaxwellOlliver", icon: Github },
+  { href: "https://linkedin.com/in/maxwell-macedo", icon: Linkedin },
+  { href: "mailto:maxwellmacedo2015@gmail.com", icon: Mail },
+] as const;
 
 export default function HomeSection() {
   const t = useTranslations("home");
-
-  const links = [
-    {
-      href: "https://github.com/MaxwellOlliver",
-      icon: Github,
-    },
-    {
-      href: "https://linkedin.com/in/maxwell-macedo",
-      icon: Linkedin,
-    },
-    {
-      href: "mailto:maxwellmacedo2015@gmail.com",
-      icon: Mail,
-    },
-  ];
+  const statusChipRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const eyebrowRef = useRef<HTMLSpanElement>(null);
+  const socialsRef = useRef<HTMLDivElement>(null);
+  const ctasRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     const tl = gsap.timeline({
-      delay: 0,
+      defaults: { ease: "power2.out", duration: 0.45 },
     });
 
-    tl.from("#status-chip", {
-      opacity: 0,
-      y: 20,
-      ease: "power2.inOut",
-    });
-
-    const titleEl = document.querySelector<HTMLElement>("#title");
-    if (titleEl) {
-      const finalText = titleEl.textContent ?? "";
-      const lockedHeight = titleEl.offsetHeight;
-      const lockedWidth = titleEl.offsetWidth;
-
-      titleEl.style.height = `${lockedHeight}px`;
-      titleEl.style.width = `${lockedWidth}px`;
-      titleEl.style.overflow = "hidden";
-
-      const words = finalText.split(" ");
-      titleEl.textContent = "";
-      const wordSpans: HTMLSpanElement[] = [];
-      words.forEach((word, i) => {
-        const span = document.createElement("span");
-        span.textContent = Array.from(word)
-          .map(() => chars[Math.floor(Math.random() * chars.length)])
-          .join("");
-        titleEl.appendChild(span);
-        wordSpans.push(span);
-        if (i < words.length - 1) {
-          titleEl.appendChild(document.createTextNode(" "));
-        }
+    if (titleRef.current) {
+      const titleSplit = new SplitText(titleRef.current, {
+        type: "words,chars",
       });
-
-      wordSpans.forEach((span, i) => {
-        tl.to(
-          span,
-          {
-            duration: 0.8,
-            ease: "power2.out",
-            scrambleText: { chars, text: words[i] },
-            ...(i === wordSpans.length - 1
-              ? {
-                  onComplete: () => {
-                    titleEl.style.height = "";
-                    titleEl.style.width = "";
-                    titleEl.style.overflow = "";
-                  },
-                }
-              : {}),
-          },
-          "<",
-        );
-      });
-    }
-
-    const descriptionEl = document.querySelector<HTMLElement>("#description");
-    if (descriptionEl) {
-      const descriptionSplit = new SplitText(descriptionEl, { type: "words" });
-      tl.from(
-        descriptionSplit.words,
-        {
-          opacity: 0,
-          y: 20,
-          ease: "power2.inOut",
-          stagger: 0.05,
-        },
-        "<",
-      );
-    }
-
-    tl.from(
-      "#eyebrow",
-      {
-        opacity: 0,
-        y: -20,
-        ease: "power2.inOut",
-      },
-      ">",
-    );
-
-    const socialLinks = gsap.utils.toArray(".social-link");
-    tl.from(socialLinks, {
-      opacity: 0,
-      y: 20,
-      ease: "power2.inOut",
-      stagger: 0.1,
-    });
-
-    tl.from(
-      "#home-ctas > *",
-      {
+      tl.from(titleSplit.chars, {
         opacity: 0,
         y: 20,
-        ease: "power2.inOut",
-        stagger: 0.08,
-      },
-      "<",
-    );
+        stagger: 0.025,
+      });
+    }
+
+    if (descriptionRef.current) {
+      const descriptionSplit = new SplitText(descriptionRef.current, {
+        type: "words",
+      });
+      tl.from(
+        descriptionSplit.words,
+        { opacity: 0, y: 16, stagger: 0.02 },
+        "-=0.15",
+      );
+    }
+    tl.from(eyebrowRef.current, { opacity: 0, y: -12 }, "<");
+
+    const lastGroup: Element[] = [
+      statusChipRef.current,
+      ...(socialsRef.current ? Array.from(socialsRef.current.children) : []),
+      ...(ctasRef.current ? Array.from(ctasRef.current.children) : []),
+    ].filter((el): el is Element => el !== null);
+    if (lastGroup.length) {
+      tl.from(lastGroup, { opacity: 0, y: 12, stagger: 0.04 }, "-=0.15");
+    }
   });
 
   return (
@@ -166,7 +95,7 @@ export default function HomeSection() {
         <OrbitingTech />
         <div className="flex flex-col items-center max-w-120 z-10">
           <div
-            id="status-chip"
+            ref={statusChipRef}
             className={cn(
               "relative flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full overflow-hidden",
               "border border-white/10 bg-white/3 backdrop-blur-sm",
@@ -185,12 +114,12 @@ export default function HomeSection() {
               {t("status")}
             </span>
           </div>
-          <div className="flex items-center gap-4 mb-6">
-            {links.map((link) => (
+          <div ref={socialsRef} className="flex items-center gap-4 mb-6">
+            {socialLinks.map((link) => (
               <a
                 href={link.href}
                 target="_blank"
-                className="social-link size-8 flex items-center justify-center rounded-full"
+                className="size-8 flex items-center justify-center rounded-full"
                 rel="noopener noreferrer"
                 key={link.href}
                 data-blobity="true"
@@ -201,26 +130,25 @@ export default function HomeSection() {
             ))}
           </div>
           <span
-            id="eyebrow"
+            ref={eyebrowRef}
             className="text-xs uppercase tracking-[0.2em] text-foreground-muted mb-3"
           >
             {t("eyebrow")}
           </span>
-          <h1 className="font-bold text-center text-5xl md:text-7xl" id="title">
+          <h1 ref={titleRef} className="font-bold text-center text-7xl">
             {t("title")}
           </h1>
           <p
+            ref={descriptionRef}
             className="mt-4 text-lg text-center text-foreground-muted"
-            id="description"
           >
             {t("description")}
           </p>
           <div
-            id="home-ctas"
+            ref={ctasRef}
             className="flex items-center gap-3 mt-4 flex-wrap justify-center"
           >
             <a
-              id="more-about-me"
               href="#about-me"
               className={cn(
                 "relative flex items-center gap-2 p-4 rounded-xl w-fit overflow-hidden",
@@ -293,7 +221,6 @@ export default function HomeSection() {
           </div>
         </div>
       </div>
-      {/* <HomeBackground /> */}
     </section>
   );
 }

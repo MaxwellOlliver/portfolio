@@ -1,20 +1,20 @@
 import type { ComponentType, CSSProperties } from "react";
 
-import ClaudeLogo from "../logos/ClaudeLogo";
-import DockerLogo from "../logos/DockerLogo";
-import FigmaLogo from "../logos/FigmaLogo";
-import FlutterLogo from "../logos/FlutterLogo";
-import JavaLogo from "../logos/JavaLogo";
-import KafkaLogo from "../logos/KafkaLogo";
-import NestLogo from "../logos/NestLogo";
-import NextLogo from "../logos/NextLogo";
-import NodeLogo from "../logos/NodeLogo";
-import PrismaLogo from "../logos/PrismaLogo";
-import ReactLogo from "../logos/ReactLogo";
-import SpringBootLogo from "../logos/SpringBootLogo";
-import TailwindCSSLogo from "../logos/TailwindCSSLogo";
-import TypescriptLogo from "../logos/TypescriptLogo";
-import VueLogo from "../logos/VueLogo";
+import ClaudeLogo from "@/components/stack/ClaudeLogo";
+import DockerLogo from "@/components/stack/DockerLogo";
+import FigmaLogo from "@/components/stack/FigmaLogo";
+import FlutterLogo from "@/components/stack/FlutterLogo";
+import JavaLogo from "@/components/stack/JavaLogo";
+import KafkaLogo from "@/components/stack/KafkaLogo";
+import NestLogo from "@/components/stack/NestLogo";
+import NextLogo from "@/components/stack/NextLogo";
+import NodeLogo from "@/components/stack/NodeLogo";
+import PrismaLogo from "@/components/stack/PrismaLogo";
+import ReactLogo from "@/components/stack/ReactLogo";
+import SpringBootLogo from "@/components/stack/SpringBootLogo";
+import TailwindCSSLogo from "@/components/stack/TailwindCSSLogo";
+import TypescriptLogo from "@/components/stack/TypescriptLogo";
+import VueLogo from "@/components/stack/VueLogo";
 
 type LogoComponent = ComponentType<{ className?: string }>;
 

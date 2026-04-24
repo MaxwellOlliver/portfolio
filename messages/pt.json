@@ -1,4 +1,11 @@
 {
+  "meta": {
+    "title": "Maxwell Macedo | Desenvolvedor Full-Stack Sênior",
+    "description": "Desenvolvedor full-stack sênior com mais de 5 anos em produtos web e mobile com React, Next.js, Node e React Native. Focado em arquitetura e performance.",
+    "ogTitle": "Maxwell Macedo",
+    "ogSubtitle": "Desenvolvedor Full-Stack Sênior",
+    "keywords": "Maxwell Macedo, desenvolvedor full-stack, engenheiro sênior, React, Next.js, Node.js, React Native, TypeScript, frontend, backend, desenvolvimento web, desenvolvimento mobile"
+  },
   "navbar": {
     "home": "Início",
     "about": "Sobre mim",
@@ -11,7 +18,7 @@
     "eyebrow": "Desenvolvedor Full-Stack Sênior",
     "status": "Disponível para projetos",
     "title": "Eu sou o Maxwell",
-    "description": "Desenvolvedor Full-Stack Sênior com mais de 5 anos construindo aplicações web e mobile escaláveis em React, Next.js, React Native e Node.js. Conduzo decisões arquiteturais, melhoro performance de sistemas e entrego soluções de alto impacto.",
+    "description": "Construo apps web e mobile com React, Next.js, React Native e Node. O que mais gosto é decidir arquitetura e mexer com performance: descobrir por que algo está lento e deixar rápido.",
     "moreAboutMe": "Mais sobre mim",
     "resume": {
       "label": "Currículo",
@@ -85,7 +92,7 @@
   "footer": {
     "eyebrow": "Vamos conversar",
     "headline": "Vamos construir algo <emphasis>que valha a pena entregar.</emphasis>",
-    "description": "Aberto a desafios sênior de full-stack, consultoria em arquitetura e projetos que mereçam atenção a performance e aos detalhes.",
+    "description": "Aberto a posições sênior full-stack, consultoria em arquitetura e projetos que mereçam atenção a performance e aos detalhes.",
     "status": "Disponível para projetos",
     "dropALine": "Mande um oi",
     "sitemap": "Mapa do site",
@@ -99,17 +106,45 @@
     "copyright": "© {year} Maxwell Macedo",
     "craftedWith": "Feito com Next.js, Tailwind e muito GSAP."
   },
+  "projects": {
+    "title": "Projetos",
+    "count": "{count} projetos",
+    "caseStudy": "Estudo de caso",
+    "stack": "Stack",
+    "description": "Alguns projetos pessoais que construí no tempo livre, em stacks diferentes e em escalas diferentes.",
+    "items": {
+      "moonly": {
+        "title": "Moonly",
+        "description": "Moonly é um aplicativo web que mostra a letra de uma música sincronizada com a música."
+      },
+      "animora": {
+        "title": "Animora",
+        "description": "Animora é uma plataforma de streaming de animes em monorepo, com upload de vídeos, processamento HLS em múltiplas qualidades e controle de conteúdo por papéis."
+      },
+      "rqselect": {
+        "title": "React Query Select",
+        "description": "Um componente select para React que usa React Query para buscar opções de forma assíncrona. Suporta busca no servidor, rolagem infinita, seleção múltipla e resolução de valor inicial por ID."
+      }
+    },
+    "githubCta": {
+      "eyebrow": "mais",
+      "graphLabel": "Arquivo",
+      "headline": "Tem mais no meu GitHub",
+      "description": "Experimentos, rascunhos e projetos menores que faço entre os maiores.",
+      "action": "Ir para o GitHub"
+    }
+  },
   "about": {
     "title": "Sobre Mim",
     "intro": {
       "eyebrow": "Olá, sou o Maxwell",
-      "headline": "Desenvolvedor full-stack sênior com <emphasis>mais de 5 anos conduzindo arquitetura, performance e entregas de alto impacto</emphasis> em produtos web e mobile.",
-      "description": "Transito do front ao back — React, Next.js, React Native e Node.js — construindo interfaces que fluem e APIs que escalam."
+      "headline": "Desenvolvedor full-stack sênior com mais de 5 anos em produtos web e mobile, focado principalmente em <emphasis>arquitetura e performance</emphasis>.",
+      "description": "Trabalho tanto no frontend quanto no backend, dependendo do projeto. Também sou entusiasta de IA, atualmente obcecado por system design e desenvolvendo integrações com LLMs."
     },
     "current": {
-      "label": "No momento",
-      "headline": "Atuando como referência técnica de frontend na dotcode, orientando arquitetura e boas práticas.",
-      "description": "Construindo uma biblioteca de componentes e templates em React com CI/CD que reduziu o setup de novos projetos de ~8h para 30min."
+      "label": "Em busca de",
+      "headline": "Posição sênior como desenvolvedor full-stack ou frontend.",
+      "description": "Confortável como referência técnica e tomando decisões de arquitetura. Interessado em desafios e novas perspectivas que me ajudem a crescer, tanto técnica quanto profissionalmente. Aberto a posições full-stack, frontend ou backend."
     },
     "stack": {
       "frontend": "Frontend",

@@ -5,108 +5,42 @@ import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Gamepad2, Headphones, Heart, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { ComponentType, useRef } from "react";
+import { useRef } from "react";
 
+import { STACK } from "@/data/stack";
+import { primaryCard } from "@/utils/cardStyles";
 import { cn } from "@/utils/cn";
+import { SCRAMBLE_CHARS } from "@/utils/scramble";
 
-import ClaudeLogo from "../logos/ClaudeLogo";
-import DockerLogo from "../logos/DockerLogo";
-import FigmaLogo from "../logos/FigmaLogo";
-import FlutterLogo from "../logos/FlutterLogo";
-import JavaLogo from "../logos/JavaLogo";
-import NestLogo from "../logos/NestLogo";
-import NextLogo from "../logos/NextLogo";
-import NodeLogo from "../logos/NodeLogo";
-import PrismaLogo from "../logos/PrismaLogo";
-import ReactLogo from "../logos/ReactLogo";
-import SpringBootLogo from "../logos/SpringBootLogo";
-import TailwindCSSLogo from "../logos/TailwindCSSLogo";
-import TypescriptLogo from "../logos/TypescriptLogo";
-import VueLogo from "../logos/VueLogo";
+import StackCategory from "./about/StackCategory";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
 
-type TechItem = {
-  name: string;
-  Logo: ComponentType<{ className?: string }>;
-};
-
-const frontend: TechItem[] = [
-  { name: "React", Logo: ReactLogo },
-  { name: "Next.js", Logo: NextLogo },
-  { name: "Vue", Logo: VueLogo },
-  { name: "TypeScript", Logo: TypescriptLogo },
-  { name: "Tailwind", Logo: TailwindCSSLogo },
-  { name: "Flutter", Logo: FlutterLogo },
+const frontend = [
+  STACK.react,
+  STACK.reactNative,
+  STACK.next,
+  STACK.vue,
+  STACK.typescript,
+  STACK.flutter,
 ];
 
-const backend: TechItem[] = [
-  { name: "Node.js", Logo: NodeLogo },
-  { name: "NestJS", Logo: NestLogo },
-  { name: "Java", Logo: JavaLogo },
-  { name: "Spring Boot", Logo: SpringBootLogo },
-  { name: "Prisma", Logo: PrismaLogo },
+const backend = [
+  STACK.node,
+  STACK.express,
+  STACK.nest,
+  STACK.postgres,
+  STACK.mongo,
+  STACK.redis,
 ];
 
-const tooling: TechItem[] = [
-  { name: "Docker", Logo: DockerLogo },
-  { name: "Figma", Logo: FigmaLogo },
-  { name: "Claude", Logo: ClaudeLogo },
+const tooling = [
+  STACK.docker,
+  STACK.aws,
+  STACK.azureDevops,
+  STACK.figma,
+  STACK.claude,
 ];
-
-const glassCard = cn(
-  "relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 backdrop-blur-md",
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
-);
-
-const primaryCard = cn(
-  "relative overflow-hidden rounded-2xl bg-primary text-background",
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.4)]",
-);
-
-function Chip({ name, Logo }: TechItem) {
-  return (
-    <span
-      className={cn(
-        "flex items-center gap-2 px-2.5 py-1 rounded-md",
-        "border border-foreground-muted/15 bg-white/3 backdrop-blur-sm",
-        "text-sm",
-      )}
-    >
-      <Logo className="w-4 h-4" />
-      <span>{name}</span>
-    </span>
-  );
-}
-
-function StackCategory({ title, items }: { title: string; items: TechItem[] }) {
-  return (
-    <div
-      className={cn(
-        glassCard,
-        "about-card p-5 flex flex-col gap-4 md:min-w-72",
-      )}
-    >
-      <span
-        className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/4 via-transparent to-transparent"
-        aria-hidden="true"
-      />
-      <div className="relative flex items-baseline justify-between">
-        <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-foreground-muted">
-          {title}
-        </h3>
-        <span className="font-mono text-xs text-foreground-muted/60">
-          {String(items.length).padStart(2, "0")}
-        </span>
-      </div>
-      <div className="relative flex flex-wrap gap-2">
-        {items.map((item) => (
-          <Chip key={item.name} name={item.name} Logo={item.Logo} />
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function AboutMeSection() {
   const t = useTranslations("about");
@@ -115,15 +49,13 @@ export default function AboutMeSection() {
   const titleText = t("title");
 
   useGSAP(() => {
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     gsap.set(title.current, {
-      scrambleText: { chars, text: "A9x0sAKsdl0" },
+      scrambleText: { chars: SCRAMBLE_CHARS, text: "A9x0sAKsdl0" },
     });
 
     gsap.to(title.current, {
       duration: 1,
-      scrambleText: { chars, text: titleText },
+      scrambleText: { chars: SCRAMBLE_CHARS, text: titleText },
       scrollTrigger: {
         trigger: title.current,
         start: "top 90%",
@@ -153,7 +85,7 @@ export default function AboutMeSection() {
       className={cn(
         "flex shrink-0",
         "max-md:w-full",
-        "md:w-max md:lg:pl-[10vw] md:mr-16 md:h-full md:min-h-0",
+        "md:w-max tall:pl-[10vw] md:mr-16 md:h-full md:min-h-0",
       )}
       id="about-me"
     >
@@ -175,17 +107,17 @@ export default function AboutMeSection() {
         <div
           ref={grid}
           className={cn(
-            "grid gap-4 items-stretch px-4",
+            "grid gap-4 items-stretch p-4",
             "max-md:grid-cols-1",
             "md:grid-cols-[30rem_22rem_22rem_22rem_22rem_22rem] md:grid-rows-1 md:auto-rows-fr md:flex-1 md:min-h-0 md:overflow-hidden",
-            "tall:grid-cols-3 tall:grid-rows-2",
-            "taller:grid-rows-[minmax(0,1fr)_auto_auto] tall:w-full",
+            "tall:grid-cols-6 tall:grid-rows-[minmax(0,1fr)_auto]",
+            "taller:grid-cols-3 taller:grid-rows-[minmax(0,1fr)_auto_auto] tall:w-full",
           )}
         >
           <div
             className={cn(
-              "about-card p-6 flex flex-col gap-4 justify-center md:min-w-72",
-              "taller:col-span-2 ",
+              "about-card  flex flex-col gap-4 justify-center md:min-w-72",
+              "tall:col-span-3 taller:col-span-2",
             )}
           >
             <span
@@ -213,6 +145,7 @@ export default function AboutMeSection() {
             className={cn(
               primaryCard,
               "about-card p-6 flex flex-col gap-4 md:min-w-72",
+              "tall:col-span-3 taller:col-span-1",
             )}
           >
             <span
@@ -236,14 +169,27 @@ export default function AboutMeSection() {
             </div>
           </div>
 
-          <StackCategory title={t("stack.frontend")} items={frontend} />
-          <StackCategory title={t("stack.backend")} items={backend} />
-          <StackCategory title={t("stack.tooling")} items={tooling} />
+          <StackCategory
+            title={t("stack.frontend")}
+            items={frontend}
+            className="tall:col-span-2 taller:col-span-1"
+          />
+          <StackCategory
+            title={t("stack.backend")}
+            items={backend}
+            className="tall:col-span-2 taller:col-span-1"
+          />
+          <StackCategory
+            title={t("stack.tooling")}
+            items={tooling}
+            className="tall:col-span-2 taller:col-span-1"
+          />
 
           <div
             className={cn(
               primaryCard,
               "about-card p-6 flex flex-col gap-3 justify-center md:min-w-72",
+              "tall:hidden taller:flex",
               "taller:col-span-3 taller:px-6 taller:py-4 taller:flex-row taller:items-center taller:justify-between taller:gap-4",
             )}
           >

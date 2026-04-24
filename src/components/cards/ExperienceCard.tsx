@@ -2,11 +2,10 @@
 
 import Image, { StaticImageData } from "next/image";
 import { useTranslations } from "next-intl";
-import { ComponentType } from "react";
 
+import type { StackItem } from "@/data/stack";
+import { glassCard, primaryCard } from "@/utils/cardStyles";
 import { cn } from "@/utils/cn";
-
-import Glassify from "./Glassify";
 
 export interface ExperienceData {
   logo: string | StaticImageData;
@@ -17,7 +16,7 @@ export interface ExperienceData {
   endDate: string | "present";
   description: string;
   points: string[];
-  tech: ComponentType<{ className?: string }>[];
+  tech: StackItem[];
   current?: boolean;
   showYear?: boolean;
 }
@@ -61,16 +60,6 @@ function computeDurationParts(startISO: string, endISO: string | "present") {
   const months = totalMonths % 12;
   return { years, months };
 }
-
-const glassCard = cn(
-  "relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 backdrop-blur-md",
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.3)]",
-);
-
-const primaryCard = cn(
-  "relative overflow-hidden rounded-2xl bg-primary text-background",
-  "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_4px_20px_-8px_rgba(0,0,0,0.4)]",
-);
 
 export default function ExperienceCard({ data }: { data: ExperienceData }) {
   const t = useTranslations("experience");
@@ -134,9 +123,7 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
                 <span className="absolute inset-0 size-2.5 rounded-full bg-primary animate-ping opacity-60" />
               )}
             </span>
-            <span
-              className="exp-year font-mono text-5xl md:text-6xl text-foreground-muted/70 leading-none select-none tracking-tight tabular-nums"
-            >
+            <span className="exp-year font-mono text-5xl md:text-6xl text-foreground-muted/70 leading-none select-none tracking-tight tabular-nums">
               {year}
             </span>
           </>
@@ -164,18 +151,14 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
         />
 
         <div className="relative flex items-center gap-3">
-          <Glassify
-            className={cn(
-              "size-12 p-2 shrink-0",
-              current && "border-white/20 bg-background/5",
-            )}
-          >
+          <div className="size-10 rounded-md overflow-hidden">
             <Image
               src={logo}
               alt={company}
-              className="size-full object-contain"
+              className="object-contain size-full"
             />
-          </Glassify>
+          </div>
+
           <div className="flex flex-col gap-0.5 min-w-0">
             <span
               className={cn(
@@ -243,7 +226,7 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
 
         <ul className="relative flex flex-col gap-2">
           {points.map((point, i) => (
-            <li key={i} className="flex gap-3 items-start">
+            <li key={i} className="flex gap-3 items-start" data-no-blobity>
               <span
                 className={cn(
                   "font-mono text-[10px] pt-0.75 shrink-0 tracking-wider",
@@ -275,8 +258,13 @@ export default function ExperienceCard({ data }: { data: ExperienceData }) {
               {t("stack")}
             </span>
             <div className="flex items-center gap-2.5">
-              {tech.map((Tool, i) => (
-                <Tool key={i} className="w-4 h-4" />
+              {tech.map((item) => (
+                <item.logo
+                  key={item.id}
+                  className="w-4 h-4"
+                  data-blobity-tooltip={item.name}
+                  data-blobity-magnetic="false"
+                />
               ))}
             </div>
           </div>

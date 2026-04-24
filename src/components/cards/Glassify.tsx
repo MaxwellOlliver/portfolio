@@ -5,16 +5,13 @@ interface GlassifyProps {
   className?: string;
 }
 
-export default function Glassify({
-  children,
-  className = "p-4 rounded-lg",
-}: GlassifyProps) {
+export default function Glassify({ children, className }: GlassifyProps) {
   return (
     <div
       className={cn(
         "flex items-center gap-2 p-4 rounded-xl border-1 border-foreground-muted/20 w-fit",
         "bg-gradient-to-bl from-transparent via-white/5 to-transparent aspect-square",
-        className
+        className,
       )}
       style={{
         maskImage:

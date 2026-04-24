@@ -54,7 +54,7 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
       className={cn(
         "relative w-full",
         "md:min-h-dvh md:overflow-hidden",
-        "md:mask-[linear-gradient(to_right,rgb(0,0,0)_90%,rgba(0,0,0,0)_100%)]",
+        "md:mask-[linear-gradient(to_right,rgb(0,0,0)_92%,rgba(0,0,0,0)_100%)]",
         "md:mask-intersect",
       )}
       id="horizontal-scroll"

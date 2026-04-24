@@ -4,70 +4,17 @@ import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
-import { ComponentType, useRef } from "react";
+import { useRef } from "react";
 
+import { experiencesConfig } from "@/data/experiences";
 import { cn } from "@/utils/cn";
+import { SCRAMBLE_CHARS } from "@/utils/scramble";
 
-import VivinhoLogo from "../../../public/assets/vivinho.svg";
-import ExperienceCard, { ExperienceData } from "../cards/ExperienceCard";
-import DockerLogo from "../logos/DockerLogo";
-import NestLogo from "../logos/NestLogo";
-import NextLogo from "../logos/NextLogo";
-import NodeLogo from "../logos/NodeLogo";
-import ReactLogo from "../logos/ReactLogo";
-import TypescriptLogo from "../logos/TypescriptLogo";
+import ExperienceCard, { type ExperienceData } from "../cards/ExperienceCard";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
 
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-type ExperienceConfig = {
-  key: string;
-  logo: ExperienceData["logo"];
-  startDate: string;
-  endDate: string | "present";
-  tech: ComponentType<{ className?: string }>[];
-  current?: boolean;
-};
-
-const experienceConfig: ExperienceConfig[] = [
-  {
-    key: "dotcodeSenior",
-    logo: VivinhoLogo,
-    startDate: "2025-10",
-    endDate: "present",
-    tech: [ReactLogo, NextLogo, TypescriptLogo, DockerLogo],
-    current: true,
-  },
-  {
-    key: "vivo",
-    logo: VivinhoLogo,
-    startDate: "2025-02",
-    endDate: "2025-09",
-    tech: [ReactLogo, NextLogo, TypescriptLogo, NodeLogo, NestLogo, DockerLogo],
-  },
-  {
-    key: "dotcodeFrontend",
-    logo: VivinhoLogo,
-    startDate: "2023-06",
-    endDate: "2025-01",
-    tech: [ReactLogo, TypescriptLogo, DockerLogo],
-  },
-  {
-    key: "gbAgritech",
-    logo: VivinhoLogo,
-    startDate: "2022-06",
-    endDate: "2023-05",
-    tech: [NextLogo, ReactLogo, TypescriptLogo],
-  },
-  {
-    key: "vyaDigital",
-    logo: VivinhoLogo,
-    startDate: "2021-01",
-    endDate: "2022-10",
-    tech: [ReactLogo, TypescriptLogo, NodeLogo],
-  },
-];
+const DESKTOP_QUERY = "(min-width: 768px)";
 
 export default function ExperienceSection() {
   const t = useTranslations("experience");
@@ -75,7 +22,7 @@ export default function ExperienceSection() {
   const title = useRef<HTMLHeadingElement>(null);
   const titleText = t("title");
 
-  const experiences: ExperienceData[] = experienceConfig.map((exp, i, arr) => ({
+  const experiences: ExperienceData[] = experiencesConfig.map((exp, i, arr) => ({
     logo: exp.logo,
     role: t(`items.${exp.key}.role`),
     company: t(`items.${exp.key}.company`),
@@ -96,97 +43,125 @@ export default function ExperienceSection() {
       if (!section.current || !title.current) return;
 
       gsap.set(title.current, {
-        scrambleText: { chars, text: "Tir0w9ksdlfm" },
+        scrambleText: { chars: SCRAMBLE_CHARS, text: "Tir0w9ksdlfm" },
       });
 
       const cards = section.current.querySelectorAll(".exp-card");
       const years = section.current.querySelectorAll(".exp-year");
       const spines = section.current.querySelectorAll(".exp-spine");
-      const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+      const mm = gsap.matchMedia();
 
-      gsap.set(cards, { opacity: 0, y: 24 });
       gsap.set(years, { clipPath: "inset(0 100% 0 0)" });
-      gsap.set(spines, isDesktop ? { scaleX: 0 } : { scaleY: 0 });
 
-      const sectionIo = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
+      const runIntroTimeline = (isDesktop: boolean) => {
+        const tl = gsap.timeline();
+        tl.to(title.current, {
+          duration: 0.9,
+          scrambleText: { chars: SCRAMBLE_CHARS, text: titleText },
+        });
+        tl.to(
+          spines,
+          {
+            ...(isDesktop ? { scaleX: 1 } : { scaleY: 1 }),
+            duration: 0.9,
+            ease: "power2.out",
+          },
+          "-=0.6",
+        );
+        tl.to(
+          years,
+          {
+            clipPath: "inset(0 0% 0 0)",
+            stagger: 0.1,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+          "-=0.6",
+        );
+        return tl;
+      };
 
-            const tl = gsap.timeline();
+      const isDesktopAtMount = window.matchMedia(DESKTOP_QUERY).matches;
+      const sectionIo = isDesktopAtMount
+        ? new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                runIntroTimeline(true);
+                sectionIo?.disconnect();
+              });
+            },
+            { threshold: 0.15 },
+          )
+        : null;
 
-            tl.to(title.current, {
-              duration: 0.9,
-              scrambleText: { chars, text: titleText },
-            });
+      if (sectionIo) sectionIo.observe(section.current);
 
-            tl.to(
-              spines,
-              {
-                ...(isDesktop ? { scaleX: 1 } : { scaleY: 1 }),
-                duration: 0.9,
-                ease: "power2.out",
-              },
-              "-=0.6",
-            );
+      const titleIntroTrigger = !isDesktopAtMount
+        ? ScrollTrigger.create({
+            trigger: title.current,
+            start: "top 90%",
+            once: true,
+            onEnter: () => runIntroTimeline(false),
+          })
+        : null;
 
-            tl.to(
-              years,
-              {
-                clipPath: "inset(0 0% 0 0)",
-                stagger: 0.1,
-                duration: 0.5,
-                ease: "power2.out",
-              },
-              "-=0.6",
-            );
-
-            sectionIo.disconnect();
-          });
+      let frame = 0;
+      mm.add(
+        {
+          isDesktop: DESKTOP_QUERY,
+          isMobile: "(max-width: 767px)",
         },
-        { threshold: 0.15 },
+        (context) => {
+          const isDesktop = context.conditions?.isDesktop ?? false;
+          gsap.set(spines, isDesktop ? { scaleX: 0 } : { scaleY: 0 });
+          gsap.set(
+            cards,
+            isDesktop ? { opacity: 0, y: 24 } : { opacity: 0, x: 40 },
+          );
+
+          frame = requestAnimationFrame(() => {
+            const horizontalTween = isDesktop
+              ? (gsap.getById("horizontalScroll") as
+                  | gsap.core.Tween
+                  | undefined)
+              : undefined;
+
+            cards.forEach((card) => {
+              gsap.fromTo(
+                card,
+                isDesktop ? { opacity: 0, y: 24 } : { opacity: 0, x: 40 },
+                {
+                  opacity: 1,
+                  ...(isDesktop ? { y: 0 } : { x: 0 }),
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    containerAnimation: horizontalTween,
+                    start: isDesktop ? "left 95%" : "top 90%",
+                    end: isDesktop ? "left 75%" : "top 60%",
+                    scrub: 0.2,
+                    snap: {
+                      snapTo: [0, 1],
+                      duration: { min: 0.12, max: 0.28 },
+                      ease: "power1.out",
+                    },
+                    invalidateOnRefresh: true,
+                  },
+                },
+              );
+            });
+          });
+
+          return () => cancelAnimationFrame(frame);
+        },
       );
 
-      sectionIo.observe(section.current);
-
-      const cardTriggers: ScrollTrigger[] = [];
-
-      const frame = requestAnimationFrame(() => {
-        const horizontalTween = isDesktop
-          ? (gsap.getById("horizontalScroll") as gsap.core.Tween | undefined)
-          : undefined;
-
-        cards.forEach((card) => {
-          const tween = gsap.fromTo(
-            card,
-            { opacity: 0, y: 24 },
-            {
-              opacity: 1,
-              y: 0,
-              ease: "none",
-              scrollTrigger: {
-                trigger: card,
-                containerAnimation: horizontalTween,
-                start: isDesktop ? "left 95%" : "top 95%",
-                end: isDesktop ? "left 85%" : "top 85%",
-                scrub: 0.2,
-                snap: {
-                  snapTo: [0, 1],
-                  duration: { min: 0.12, max: 0.28 },
-                  ease: "power1.out",
-                },
-                invalidateOnRefresh: true,
-              },
-            },
-          );
-          if (tween.scrollTrigger) cardTriggers.push(tween.scrollTrigger);
-        });
-      });
-
       return () => {
+        sectionIo?.disconnect();
+        titleIntroTrigger?.kill();
         cancelAnimationFrame(frame);
-        sectionIo.disconnect();
-        cardTriggers.forEach((t) => t.kill());
+        mm.revert();
       };
     },
     { scope: section },
@@ -243,8 +218,11 @@ export default function ExperienceSection() {
               "md:gap-12 md:h-full md:min-h-0",
             )}
           >
-            {experiences.map((exp, i) => (
-              <ExperienceCard key={i} data={exp} />
+            {experiences.map((exp) => (
+              <ExperienceCard
+                key={`${exp.company}-${exp.startDate}`}
+                data={exp}
+              />
             ))}
           </div>
         </div>

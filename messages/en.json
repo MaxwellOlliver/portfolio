@@ -1,4 +1,11 @@
 {
+  "meta": {
+    "title": "Maxwell Macedo | Senior Full-Stack Engineer",
+    "description": "Senior full-stack engineer with 5+ years building web and mobile products in React, Next.js, Node, and React Native. Focused on architecture and performance.",
+    "ogTitle": "Maxwell Macedo",
+    "ogSubtitle": "Senior Full-Stack Engineer",
+    "keywords": "Maxwell Macedo, full-stack developer, senior engineer, React, Next.js, Node.js, React Native, TypeScript, frontend, backend, web development, mobile development"
+  },
   "navbar": {
     "home": "Home",
     "about": "About me",

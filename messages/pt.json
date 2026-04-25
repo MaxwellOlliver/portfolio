@@ -9,7 +9,8 @@
   "navbar": {
     "home": "Início",
     "about": "Sobre mim",
-    "projects": "Projetos"
+    "projects": "Projetos",
+    "more": "Mais"
   },
   "home": {
     "eyebrow": "Desenvolvedor Full-Stack Sênior",

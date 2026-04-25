@@ -9,7 +9,8 @@
   "navbar": {
     "home": "Home",
     "about": "About me",
-    "projects": "Projects"
+    "projects": "Projects",
+    "more": "More"
   },
   "home": {
     "eyebrow": "Senior Full-Stack Engineer",

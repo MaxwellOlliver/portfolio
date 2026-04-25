@@ -1,9 +1,15 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ChevronDown, Github, Linkedin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/utils/cn";
+
+import Dropdown from "../ui/dropdown/Dropdown";
+import DropdownItem from "../ui/dropdown/DropdownItem";
+import DropdownMenu from "../ui/dropdown/DropdownMenu";
+import DropdownTrigger from "../ui/dropdown/DropdownTrigger";
 
 gsap.registerPlugin(useGSAP);
 
@@ -11,6 +17,19 @@ const navItems = [
   { key: "home", href: "#home" },
   { key: "about", href: "#about-me" },
   { key: "projects", href: "#projects" },
+] as const;
+
+const moreItems = [
+  {
+    label: "GitHub",
+    href: "https://github.com/MaxwellOlliver",
+    icon: Github,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://linkedin.com/in/maxwell-macedo",
+    icon: Linkedin,
+  },
 ] as const;
 
 export default function Navbar() {
@@ -26,6 +45,7 @@ export default function Navbar() {
         y: -100,
         delay: 0.5,
       });
+      gsap.set(navRef.current, { visibility: "visible" });
     },
     { scope: navRef },
   );
@@ -57,7 +77,7 @@ export default function Navbar() {
     <nav
       ref={navRef}
       className={cn(
-        "fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-xl",
+        "fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-xl invisible",
         "max-w-[calc(100vw-1rem)]",
         "px-2 py-1 md:px-3",
         "border border-white/10 bg-white/3 backdrop-blur-md",
@@ -78,6 +98,41 @@ export default function Navbar() {
             {t(item.key)}
           </a>
         ))}
+        <div className="w-px h-4 bg-border" />
+        <Dropdown>
+          <DropdownTrigger>
+            {({ isOpen, toggle }) => (
+              <button
+                type="button"
+                onClick={toggle}
+                aria-haspopup="menu"
+                aria-expanded={isOpen}
+                className="px-2 py-1 md:px-4 flex items-center gap-1 md:gap-2 rounded-md cursor-pointer text-nowrap"
+              >
+                {t("more")}
+                <ChevronDown
+                  className={cn(
+                    "w-4 h-4 transition-transform",
+                    isOpen && "rotate-180",
+                  )}
+                />
+              </button>
+            )}
+          </DropdownTrigger>
+          <DropdownMenu align="end">
+            {moreItems.map((option) => (
+              <DropdownItem
+                key={option.href}
+                href={option.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <option.icon className="w-4 h-4 text-foreground-muted" />
+                <span>{option.label}</span>
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
       </div>
     </nav>
   );

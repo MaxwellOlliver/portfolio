@@ -26,6 +26,7 @@ export default function Navbar() {
         y: -100,
         delay: 0.5,
       });
+      gsap.set(navRef.current, { visibility: "visible" });
     },
     { scope: navRef },
   );
@@ -57,7 +58,7 @@ export default function Navbar() {
     <nav
       ref={navRef}
       className={cn(
-        "fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-xl",
+        "fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-xl invisible",
         "max-w-[calc(100vw-1rem)]",
         "px-2 py-1 md:px-3",
         "border border-white/10 bg-white/3 backdrop-blur-md",

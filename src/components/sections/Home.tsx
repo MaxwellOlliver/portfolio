@@ -46,6 +46,7 @@ const socialLinks = [
 
 export default function HomeSection() {
   const t = useTranslations("home");
+  const contentRef = useRef<HTMLDivElement>(null);
   const statusChipRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
@@ -89,13 +90,18 @@ export default function HomeSection() {
     if (lastGroup.length) {
       tl.from(lastGroup, { opacity: 0, y: 12, stagger: 0.04 }, "-=0.15");
     }
+
+    gsap.set(contentRef.current, { autoAlpha: 1 });
   });
 
   return (
     <section className="relative w-full min-h-dvh overflow-visible" id="home">
       <div className="layout mt-16 flex items-center justify-center min-h-[calc(100dvh-10rem)] relative w-full">
         <OrbitingTech />
-        <div className="flex flex-col items-center max-w-120 z-10">
+        <div
+          ref={contentRef}
+          className="flex flex-col items-center max-w-120 z-10 invisible"
+        >
           <div
             ref={statusChipRef}
             className={cn(
